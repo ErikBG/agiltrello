@@ -12,80 +12,177 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Erik Blanco</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right actionButton">
-        <li class="active"><a href="#">Action</a></li>
-        <li><a href="#">Action</a></li>
-        <li><a href="#">Action</a></li>
-        <li><a href="#">Action</a></li>
-      </ul>
-      
-    </div>
-  </div>
-</nav>
-  
-<div class="container-fluid text-center">
-  <div class="row content">
-       <div class="col-sm-2 iColumn">
-      </div>
-    <div class="col-sm-2 iColumn2">
-      <h3>Backlog</h3>
-        <div class="well iCard">
-        <p>Editing Cards</p>
-      </div>
-        <div class="well iCard">
-        <p>Customization</p>
-      </div>
-    </div>
-      <div class="col-sm-2 iColumn">
-      <h3>Ready</h3>
-          <div class="well iCard">
-        <p>Login User</p>
-      </div>
-        <div class="well iCard">
-        <p>Fill Footer</p>
-      </div>
-    </div>
-      <div class="col-sm-2 iColumn2">
-      <h3>OnProgress</h3>
-          <div class="well iCard">
-        <p>Editing Cards</p>
-      </div>
-        <div class="well iCard">
-        <p>Customization</p>
-      </div>
-    </div>
-    <div class="col-sm-2 iColumn">
-      <h3>Finished</h3>
-        <div class="well iCard">
-        <p>Editing Cards</p>
-      </div>
-        <div class="well iCard">
-        <p>Customization</p>
-      </div>
-    </div>
-       <div class="col-sm-2 iColumn2">
-      </div>
-  </div>
-</div>
+	<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <a class="navbar-brand" href="#">Erik Blanco</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav navbar-right">
+			<li><a href="#" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		  </ul>
+		  <ul class="nav navbar-nav navbar-right actionButton">
+			<li class="active"><a href="#">Action</a></li>
+			<li><a href="#">Action</a></li>
+			<li><a href="#">Action</a></li>
+			<li><a href="#">Action</a></li>
+		  </ul>
+		  
+		</div>
+	  </div>
+	</nav>
+	  
+	<div class="container-fluid text-center">
+		<div class="row content">
+			<div class="col-sm-2 iColumn"></div>
+			<div class="col-sm-2 iColumn2">
+				<h3>Backlog</h3>
+				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Editing Cards</h3>
+					</div>
+					<div class="panel-body">
+						Add ability to edit already existing cards
+					 </div>
+					 <div class="panel-footer">Roger</div>
+				</div>
+				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Customization</h3>
+					</div>
+					<div class="panel-body">
+						Change card colors based on...
+					 </div>
+					 <div class="panel-footer">Erik</div>
+				</div>
+				
+			</div>
+			
+			<div class="col-sm-2 iColumn">
+				<h3>Ready</h3>
+			  
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Login User</h3>
+					</div>
+					<div class="panel-body">
+						Add ability to login into the server
+					 </div>
+					 <div class="panel-footer">Ricardo</div>
+				</div>
+				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Fill footer</h3>
+					</div>
+					<div class="panel-body">
+						Fill footer with useful information
+					 </div>
+					 <div class="panel-footer">Diego</div>
+				</div>
+				
+			</div>
+			
+			<div class="col-sm-2 iColumn2">
+				<h3>OnProgress</h3>
+				  
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">DB Connection</h3>
+					</div>
+					<div class="panel-body">
+						Connect webpage to DB
+					 </div>
+					 <div class="panel-footer">Sanabia</div>
+				</div>
+				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Project DB</h3>
+					</div>
+					<div class="panel-body">
+						Create DB and store procedures
+					 </div>
+					 <div class="panel-footer">Ricardo</div>
+				</div>
+				
+			</div>
+			
+			<div class="col-sm-2 iColumn">
+				<h3>Finished</h3>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Create Cards</h3>
+					</div>
+					<div class="panel-body">
+						Add ability to create new cards
+					 </div>
+					 <div class="panel-footer">Sanabia</div>
+				</div>
+				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Github repository</h3>
+					</div>
+					<div class="panel-body">
+						Create github repository to work on
+					 </div>
+					 <div class="panel-footer">Erik</div>
+				</div>
+			</div>
+			   <div class="col-sm-2 iColumn2">
+			  </div>
+		</div>
+	</div>
+	
+	<footer class="container-fluid text-center">
+	  <p>This website was created by Desarrollo Agil Team.</p>
+	</footer>
+		
+	<!--Modal-->
+	<div id="loginModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm">
 
-<footer class="container-fluid text-center">
-  <p>This website was created by Desarrollo Agil team.</p>
-</footer>
-    
+		<!-- Modal content-->
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Login</h4>
+		  </div>
+		  
+		  <form>
+			  <div class="modal-body">
+				  <div class="form-group">
+					<label for="email">Email address:</label>
+					<input type="email" class="form-control" id="email">
+				  </div>
+				  <div class="form-group">
+					<label for="pwd">Password:</label>
+					<input type="password" class="form-control" id="pwd">
+				  </div>
+				  <div class="checkbox">
+					<label><input type="checkbox"> Remember me</label>
+				  </div>
+			  </div>
+			  <div class="modal-footer">
+			  
+				<button type="submit" class="btn btn-default" data-dismiss="modal">Log in</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				
+			  </div>
+		  </form>
+
+		</div>
+
+		</div>
+	</div>
 
 </body>
 </html>
