@@ -24,10 +24,10 @@
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
-			<li><a href="#" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			<li><a href="#" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 		  </ul>
 		  <ul class="nav navbar-nav navbar-right actionButton">
-			<li class="active"><a href="#">Action</a></li>
+			<li><a href="#">Action</a></li>
 			<li><a href="#">Action</a></li>
 			<li><a href="#">Action</a></li>
 			<li><a href="#">Action</a></li>
@@ -39,83 +39,62 @@
 	  
 	<div class="container-fluid text-center">
 		<div class="row content">
-			<div class="col-sm-2 iColumn"></div>
-			<div class="col-sm-2 iColumn2">
-				<h3>Backlog</h3>
-				
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Editing Cards</h3>
-					</div>
-					<div class="panel-body">
-						Add ability to edit already existing cards
-					 </div>
-					 <div class="panel-footer">Roger</div>
+			
+			
+			<div class="col-sm-4 ">
+                <div class="iColumn">
+                    <h3>Ready</h3>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Login User</h3>
+                        </div>
+                        <div class="panel-body">
+                            Add ability to login into the server
+                         </div>
+                         <div class="panel-footer">Ricardo</div>
+                    </div>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Fill footer</h3>
+                        </div>
+                        <div class="panel-body">
+                            Fill footer with useful information
+                         </div>
+                         <div class="panel-footer">Diego</div>
+                    </div>
 				</div>
-				
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Customization</h3>
-					</div>
-					<div class="panel-body">
-						Change card colors based on...
-					 </div>
-					 <div class="panel-footer">Erik</div>
-				</div>
-				
 			</div>
 			
-			<div class="col-sm-2 iColumn">
-				<h3>Ready</h3>
-			  
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Login User</h3>
-					</div>
-					<div class="panel-body">
-						Add ability to login into the server
-					 </div>
-					 <div class="panel-footer">Ricardo</div>
+			<div class="col-sm-4">
+                <div class="iColumn">
+                    <h3>InProgress</h3>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">DB Connection</h3>
+                        </div>
+                        <div class="panel-body">
+                            Connect webpage to DB
+                         </div>
+                         <div class="panel-footer">Sanabia</div>
+                    </div>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Project DB</h3>
+                        </div>
+                        <div class="panel-body">
+                            Create DB and store procedures
+                         </div>
+                         <div class="panel-footer">Ricardo</div>
+                    </div>
 				</div>
-				
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Fill footer</h3>
-					</div>
-					<div class="panel-body">
-						Fill footer with useful information
-					 </div>
-					 <div class="panel-footer">Diego</div>
-				</div>
-				
 			</div>
 			
-			<div class="col-sm-2 iColumn2">
-				<h3>InProgress</h3>
-				  
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">DB Connection</h3>
-					</div>
-					<div class="panel-body">
-						Connect webpage to DB
-					 </div>
-					 <div class="panel-footer">Sanabia</div>
-				</div>
-				
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Project DB</h3>
-					</div>
-					<div class="panel-body">
-						Create DB and store procedures
-					 </div>
-					 <div class="panel-footer">Ricardo</div>
-				</div>
-				
-			</div>
-			
-			<div class="col-sm-2 iColumn">
+			<div class="col-sm-4">
+                <div class="iColumn">
 				<h3>Finished</h3>
 				<div class="panel panel-primary">
 					<div class="panel-heading">
@@ -136,16 +115,18 @@
 					 </div>
 					 <div class="panel-footer">Erik</div>
 				</div>
+                </div>
 			</div>
-			   <div class="col-sm-2 iColumn2">
-			  </div>
+			 
 		</div>
 	</div>
-	
-	<footer class="container-fluid text-center">
+
+
+    
+	<footer class="container-fluid text-center footer">
 	  <p>This website was created by Desarrollo Agil Team.</p>
 	</footer>
-		
+
 	<!--Modal-->
 	<div id="loginModal" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-sm">

@@ -1,35 +1,95 @@
-/* Remove the navbar's default margin-bottom and rounded borders */
+/* ------------TRELLO COLORS --------------*/
+/* 500 Primary #0079BF */
+/* 600 Footer  #026AA7 */
+/* 700 Navbar #055A8C  */
+/* Column #E8E3E7 */
+/* --------------------------------------- */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #0079BF;
+    background-size: cover;
+}
+
+
+
+
+/* NAVBAR */
     .navbar {
       margin-bottom: 0;
       border-radius: 0;
+        background-color: #055A8C;
+        border: none;
+        width: 100%;
+        
     }
-    
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
-    
-    /* Set gray background color and 100% height */
-    .iColumn, .iColumn2 {
-      padding-top: 20px;
-      background-color: #f1f1f1;
-      height: 100%;
-    }
-    
-.iColumn2 {
-    background-color: #e6e6e6;
-}
-.iCard{
-    background-color: #78c6ff;
+
+.navbar.navbar-inverse li a,
+.navbar.navbar-inverse a{
+    color: white;
 }
 .actionButton{
     padding-right: 10%;
+    background-color: #055A8C;
 }
 
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
+.navbar ul li:active {
+    background-color: #055A8C;
+}
+
+
+    
+.row.content {height: 450px}
+    
+    
+/* COLUMNAS */
+h3 {
+    text-align: left;
+    font-size: 16px;
+}
+    .iColumn {
+        margin: 10px 2px;
+        border-radius: 5px;
+        padding: 5px;
+      height: 100%;
+      background-color: #E8E3E7;
     }
+
+/* TARJETAS */
+.panel {
+    border:none;
+    margin: 5px;
+}
+
+.panel-heading {
+    
+}
+
+.panel-footer {
+    
+}
+
+.iCard{
+    background-color: #78c6ff;
+}
+
+/* FOOTER */
+.footer {
+    position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #026AA7;
+    padding: 20px;
+    color: white;
+}
+
+   
     
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
