@@ -15,7 +15,12 @@ body {
     background-color: #0079BF;
     background-size: cover;
 }
+  .error{
+    color: red;
+    display: none;
+    
 
+  }
 
 
 
