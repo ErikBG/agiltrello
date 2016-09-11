@@ -6,10 +6,10 @@ function newuser() {
   $payload = json_decode($request->getBody());
   $sql = "
   INSERT INTO user (
-  name,
-  last_name,
-  email,
-  password
+  user_name,
+  user_lastname,
+  user_email,
+  user_password
   ) VALUES (
   :name,
   :last_name,

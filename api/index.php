@@ -7,13 +7,13 @@ $app->contentType('application/json');
 
 
 $app->post('/newuser(/)', function() {
-    require 'projects/school/post_function.php';
+    require 'projects/agil/post_function.php';
     $result = newuser();
     echo $result;
 });
 
 $app->post('/getuser(/)', function() {
-    require 'projects/school/get_function.php';
+    require 'projects/agil/get_function.php';
     $result = getuser();
     echo $result;
 });
