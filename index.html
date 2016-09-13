@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Desarrollo Agil</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Desarrollo Agil</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
  
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css"/>
-  <!-- Simple Sidebar CSS -->
-  <link href="css/simple-sidebar.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<!-- Simple Sidebar CSS -->
+	<link href="css/simple-sidebar.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -31,30 +31,25 @@
 				<li><a href="home.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 			  </ul>
 			  <ul class="nav navbar-nav navbar-right actionButton">
-				<li><a href="#">New Sprint</a></li>
+				<li><a href="#" id="new-sprint">New Sprint</a></li>
 				<li><a href="#">Burndown</a></li>
 				<li><a href="#">Speed</a></li>
 			  </ul>
-			  
 			</div>
 		</div>
 	</nav>
 	
 	<div id="wrapper" class="toggled">
-		
 		<!-- Sidebar -->
 		<div id="sidebar-wrapper">
 			<ul class="sidebar-nav">
 				<li class="sidebar-brand">
 					<p>Backlog</p>
 				</li>
-				
 				<li>
 					<canvas id="myCanvas" width="200" height="400" style="border:1px solid #000000;"></canvas>
 				</li>
 				<li>
-					
-					
 					<div class="btn-group">
 						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 						<span class="glyphicon glyphicon-plus"></span> New <span class="caret"></span></button>
@@ -72,29 +67,30 @@
 		<div class="container-fluid text-center">
 			<div class="row content">
 				
-				
 				<div class="col-sm-4 ">
 					<div class="iColumn">
 						<h3>Ready</h3>
-
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h3 class="panel-title">Login User</h3>
+						
+						<div class="sprint-column">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Login User</h3>
+								</div>
+								<div class="panel-body">
+									Add ability to login into the server
+								 </div>
+								 <div class="panel-footer">Ricardo</div>
 							</div>
-							<div class="panel-body">
-								Add ability to login into the server
-							 </div>
-							 <div class="panel-footer">Ricardo</div>
-						</div>
-
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h3 class="panel-title">Fill footer</h3>
+							
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Fill footer</h3>
+								</div>
+								<div class="panel-body">
+									Fill footer with useful information
+								 </div>
+								 <div class="panel-footer">Diego</div>
 							</div>
-							<div class="panel-body">
-								Fill footer with useful information
-							 </div>
-							 <div class="panel-footer">Diego</div>
 						</div>
 					</div>
 				</div>
@@ -102,51 +98,56 @@
 				<div class="col-sm-4">
 					<div class="iColumn">
 						<h3>InProgress</h3>
-
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h3 class="panel-title">DB Connection</h3>
+						
+						<div class="sprint-column">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">DB Connection</h3>
+								</div>
+								<div class="panel-body">
+									Connect webpage to DB
+								 </div>
+								 <div class="panel-footer">Sanabia</div>
 							</div>
-							<div class="panel-body">
-								Connect webpage to DB
-							 </div>
-							 <div class="panel-footer">Sanabia</div>
-						</div>
 
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h3 class="panel-title">Project DB</h3>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Project DB</h3>
+								</div>
+								<div class="panel-body">
+									Create DB and store procedures
+								 </div>
+								 <div class="panel-footer">Ricardo</div>
 							</div>
-							<div class="panel-body">
-								Create DB and store procedures
-							 </div>
-							 <div class="panel-footer">Ricardo</div>
 						</div>
 					</div>
 				</div>
 				
 				<div class="col-sm-4">
 					<div class="iColumn">
-					<h3>Finished</h3>
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">Create Cards</h3>
+						<h3>Finished</h3>
+						
+						<div class="sprint-column">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Create Cards</h3>
+								</div>
+								<div class="panel-body">
+									Add ability to create new cards
+								 </div>
+								 <div class="panel-footer">Sanabia</div>
+							</div>
+							
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h3 class="panel-title">Github repository</h3>
+								</div>
+								<div class="panel-body">
+									Create github repository to work on
+								 </div>
+								 <div class="panel-footer">Erik</div>
+							</div>
 						</div>
-						<div class="panel-body">
-							Add ability to create new cards
-						 </div>
-						 <div class="panel-footer">Sanabia</div>
-					</div>
-					
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">Github repository</h3>
-						</div>
-						<div class="panel-body">
-							Create github repository to work on
-						 </div>
-						 <div class="panel-footer">Erik</div>
-					</div>
 					</div>
 				</div>
 				 
@@ -156,82 +157,76 @@
 	</div>
     
 	<footer class="container-fluid text-center footer">
-	  <p>This website was created by Desarrollo Agil Team.</p>
+		<p>This website was created by Desarrollo Agil Team.</p>
 	</footer>
 
 	<!--Modal-->
 	<div id="loginModal" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-sm">
 
-		<!-- Modal content-->
-		<div class="modal-content">
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 class="modal-title">Login</h4>
-		  </div>
-		  
-		  <form>
-			  <div class="modal-body">
-				  <div class="form-group">
-					<label for="email">Email address:</label>
-					<input type="email" class="form-control" id="email">
-				  </div>
-				  <div class="form-group">
-					<label for="pwd">Password:</label>
-					<input type="password" class="form-control" id="pwd">
-				  </div>
-				  <div class="checkbox">
-					<label><input type="checkbox"> Remember me</label>
-				  </div>
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				<button type="submit" class="btn btn-default" data-dismiss="modal">Log in</button>
-			  </div>
-		  </form>
-
-		</div>
-
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Login</h4>
+				</div>
+				<form>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="email">Email address:</label>
+							<input type="email" class="form-control" id="email">
+						</div>
+						<div class="form-group">
+							<label for="pwd">Password:</label>
+							<input type="password" class="form-control" id="pwd">
+						</div>
+						<div class="checkbox">
+							<label><input type="checkbox"> Remember me</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-default" data-dismiss="modal">Log in</button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 	
 	<div id="newSomethingModal" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-sm">
 
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">New Story</h4>
-			</div>
-		  
-			<form>
-				<div class="modal-body">
-				  <div class="form-group">
-					<label for="as">As:</label>
-					<input type="text" class="form-control" id="as">
-				  </div>
-				  <div class="form-group">
-					<label for="iwant">I want:</label>
-					  <textarea class="form-control" rows="2" id="iwant"></textarea>
-				  </div>
-				  <div class="form-group">
-					<label for="sothat">So that:</label>
-					  <textarea class="form-control" rows="2" id="sothat"></textarea>
-				  </div>
-				  <div class="form-group">
-					  <label for="criteria">Acceptance criteria:</label>
-					  <textarea class="form-control" rows="4" id="criteria"></textarea>
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">New Story</h4>
+				</div>
+				<form>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="as">As:</label>
+							<input type="text" class="form-control" id="as">
+						</div>
+						<div class="form-group">
+							<label for="iwant">I want:</label>
+							<textarea class="form-control" rows="2" id="iwant"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="sothat">So that:</label>
+							<textarea class="form-control" rows="2" id="sothat"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="criteria">Acceptance criteria:</label>
+							<textarea class="form-control" rows="4" id="criteria"></textarea>
+						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="submit" class="btn btn-default" data-dismiss="modal">Submit</button>
-				</div>
-			</form>
-
-		</div>
-
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-default" data-dismiss="modal">Submit</button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 	
@@ -241,6 +236,10 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+	
+	$("#new-sprint").click(function(e) {
+		$(".sprint-column").replaceWith( "<p>There are no tasks</p>" );
+	});
     </script>
 
 </body>
