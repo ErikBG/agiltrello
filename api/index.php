@@ -18,7 +18,7 @@ $app->post('/newStory(/)', function() {
 });
 
 $app->post('/getuser(/)', function() {
-    require 'projects/agil/get_function.php';
+    require 'projects/agil/post_function.php';
     $result = getuser();
     echo $result;
 });

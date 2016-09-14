@@ -161,7 +161,7 @@
           };
        
        $.ajax({
-            url: "agiltrello/api/newuser",
+            // url: "agiltrello/api/newuser",
             type: 'POST',
             data: JSON.stringify(formData),
             dataType: 'json',
@@ -181,27 +181,27 @@
 
     if(email_login_valid !=false && password_login_valid!=false){
     	console.log("Entro");
-    //  var formData = {
-    //       "password": $("#pwd").val(),
-    //       "email": $('#email').val()
+     var formData = {
+          "password": $("#pwd").val(),
+          "email": $('#email').val()
 
-    //     };
-    //   console.log(formData);
-    //  $.ajax({
-    //       url: "agiltrello/api/getuser",
-    //       type: 'POST',
-    //       data: JSON.stringify(formData),
-    //       dataType: 'json',
-    //       encode: true
-    //   }).done(function (data) {
-    //     console.log(data);
-    //   window.location.href="index.html";
-    //   }).fail(function (data) {
-    //       console.log(data);
-    //   });
-    // }else {
-    //    $("#error_required_login").show();
-    // console.log("Campos requeridos");
+        };
+      console.log(formData);
+     $.ajax({
+          // url: "agiltrello/api/getuser",
+          type: 'POST',
+          data: JSON.stringify(formData),
+          dataType: 'json',
+          encode: true
+      }).done(function (data) {
+        console.log(data);
+      window.location.href="index.html";
+      }).fail(function (data) {
+          console.log(data);
+      });
+    }else {
+       $("#error_required_login").show();
+    console.log("Campos requeridos");
     }
   }
 
