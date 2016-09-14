@@ -3,7 +3,8 @@ var lastname_signup_valid = false;
 var email_signup_valid = false;
 var password_signup_valid=false;
 var  password2_signup_valid=false;
- 
+var email_login_valid = false;
+var password_login = false;
 
 ////////////////////////Sign up
 $(document).ready(function () {
@@ -51,18 +52,11 @@ $(document).ready(function () {
     $(document).ready(function () {
           $("#email_signup").focusout(function () {
           var email = $("#email_signup").val();
-          var reg = /^([a-z0-9.@]{5,60})$/i;
-          var i=0;
-      //   for(i=0;i<email.length;i++){
-      //   if(email.charAt(i)=="@" ){
-      //   var  result=true;
-      //   }else{
-      //   var  result=false;
-      //
-      //   }
-      // }
-          if(reg.test(email) ) {
-
+          var reg = /^([a-z0-9.@_]{5,60})$/i;
+          var i=false;
+          var a=0;
+         if(reg.test(email)) {
+         
             $("#error_email").hide();
            $("#empty_email").hide();
            email_signup_valid=true;
@@ -114,5 +108,48 @@ $(document).ready(function () {
                 }
             });
           });
+
+
+//login
+
+$(document).ready(function () {
+      $("#email").focusout(function () {
+      var email = $("#email").val();
+      var reg = /^([a-z0-9.@_]{5,60})$/i;
+      var i=0;
+      if(reg.test(email) ) {
+
+        $("#error_email_login").hide();
+       $("#empty_email_login").hide();
+       email_login_valid=true;
+   }else if (email==""){
+     $("#error_email_login").hide();
+     $("#empty_email_login").show();
+     email_login_valid=false;
+   }else{
+          $("#empty_email_login").hide();
+          $("#error_email_login").show();
+          email_login_valid=false;
+        }
+    });
+  });
+  $(document).ready(function () {
+        $("#pwd").focusout(function () {
+        var password = $("#pwd").val();
+        if(password.length>7 ) {
+          $("#error_password_login").hide();
+         $("#empty_password_login").hide();
+         password_login_valid=true;
+     }else if (password==""){
+       $("#error_password_login").hide();
+       $("#empty_password_login").show();
+    password_login_valid=false;
+     }else{
+            $("#empty_password_login").hide();
+            $("#error_password_login").show();
+            password_login_valid=false;
+          }
+      });
+    });
 
 
