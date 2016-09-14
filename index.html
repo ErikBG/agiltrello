@@ -32,7 +32,7 @@
 			  </ul>
 			  <ul class="nav navbar-nav navbar-right actionButton">
 				<li><a href="#">New Sprint</a></li>
-				<li><a href="#">Burndown</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#BurndownModal">Burndown</a></li>
 				<li><a href="#">Speed</a></li>
 			  </ul>
 
@@ -203,6 +203,26 @@
 
 		</div>
 	</div>
+	    <!-- BURNDOWN Modal -->
+      <div class="modal fade" id="BurndownModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Burndown Chart</h4>
+            </div>
+            <div class="modal-body">
+              <img id="myImg" src="img/BURNDOWNSAMPLE.png" width="400" height="200">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
 	<!-- Menu Toggle Script -->
     <script>
