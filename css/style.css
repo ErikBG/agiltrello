@@ -83,6 +83,15 @@ border: 2px solid black;
 margin: 10px;
 }
 
+*[draggable=false]
+{
+float:left;
+min-width: 70px;
+min-height: 70px;
+border: 1px solid gray;
+margin: 10px;
+}
+
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
@@ -99,6 +108,7 @@ background-color: #3e79d8;
 border:2px solid white;
 color:white;
     font-size: 12px;
+    height: 30px;
 }
 
 .card-content{
@@ -124,4 +134,20 @@ border:2px solid white;
 
 .signup-box {
     width: 50vw;
+}
+
+.blockBtn {
+    border-radius: 50px;
+    color: #fff;
+    background-color: rgba(193, 65, 65, 0.54);
+    float: right;
+    margin-right: 2px;
+}
+
+.blocked {
+    background-color: #ad2a2a;
+}
+
+.unblocked {
+    background-color: #3e79d8;
 }
