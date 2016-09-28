@@ -161,14 +161,14 @@
           };
        
        $.ajax({
-            // url: "agiltrello/api/newuser",
+            url: "http://trelloagilprueba.esy.es/agiltrello/api/newuser",
             type: 'POST',
             data: JSON.stringify(formData),
             dataType: 'json',
             encode: true
         }).done(function (data) {
         	console.log(data);
-        window.location.href="index.html";
+			window.location.href="index.html";
         }).fail(function (data) {
             console.log(data);
         });
@@ -188,14 +188,14 @@
         };
       console.log(formData);
      $.ajax({
-          // url: "agiltrello/api/getuser",
+          url: "http://trelloagilprueba.esy.es/agiltrello/api/getuser",
           type: 'POST',
           data: JSON.stringify(formData),
           dataType: 'json',
           encode: true
       }).done(function (data) {
         console.log(data);
-      window.location.href="index.html";
+		window.location.href="index.html";
       }).fail(function (data) {
           console.log(data);
       });
