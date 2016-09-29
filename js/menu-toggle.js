@@ -5,11 +5,10 @@ $(document).ready(function () {
     });
     function addStory(){
       var formData = {
-           "title": $('#title').val(),
-           "as_i": $('#as').val(),
-           "want": $("#iwant").val(),
-           "so_that": $('#sothat').val(),
-           "acceptance_criteria": $('#criteria').val()
+           "id": $('#id_task').val(),
+           "deadline": $('#deadline_task').val(),
+           "description": $("#description_task").val(),
+           "duration": $('#duration_task').val()
 
          };
        console.log(formData);
