@@ -39,25 +39,26 @@ function newStory() {
   $payload = json_decode($request->getBody());
   $sql = "
   INSERT INTO user_story (
-  id,
-  deadline,
- description,
-  duration
- 
+  title,
+  as_i,
+  want,
+  so_that,
+  acceptance_criteria
   ) VALUES (
-  :id,
-  :deadline,
-  :description,
-  :duration
+  :title,
+  :as_i,
+  :want,
+  :so_that,
+  :acceptance_criteria
 );";
 try {
   $db = getConnection();
   $stmt = $db->prepare($sql);
-  $stmt->bindParam("id", $payload->id);
-  $stmt->bindParam("deadline", $payload->deadline);
-  $stmt->bindParam("duration", $payload->duration);
-  $stmt->bindParam("description", $payload->description);
-
+  $stmt->bindParam("title", $payload->title);
+  $stmt->bindParam("as_i", $payload->as_i);
+  $stmt->bindParam("want", $payload->want);
+  $stmt->bindParam("so_that", $payload->so_that);
+  $stmt->bindParam("acceptance_criteria", $payload->acceptance_criteria);
   $stmt->execute();
   $response = array(
     "success" => "ok");
