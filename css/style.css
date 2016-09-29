@@ -115,7 +115,10 @@ color:white;
   background-color: #f7f9fc;
 border:2px solid white;
     font-size: 12px;
+    text-align: left;
+
 }
+
 
 .card-footer{
   background-color: #e1e8f4;
