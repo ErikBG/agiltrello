@@ -31,6 +31,7 @@
 				<li><a href="home.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 			  </ul>
 			  <ul class="nav navbar-nav navbar-right actionButton">
+         <li> <select class="form-control" id="sprint_select" >  </select></li>
 				<li><a href="#">New Sprint</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#BurndownModal">Burndown</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#SpeedModal">Speed</a></li>
@@ -61,7 +62,7 @@
       </li>
 
 				<li>
-					<canvas id="myCanvas" width="200" height="400" style="border:1px solid #000000;"></canvas>
+					<div class="list-group" id="list_cards"></div>
 				</li>
 
 			</ul>
@@ -69,15 +70,16 @@
 		<!-- /#sidebar-wrapper -->
 
     <!--BOARD-->
+
 		<div class="container-fluid text-center">
       <div class="row content">
         <div class="col-sm-4">
           <div id="ready">
          <div class="title">Ready</div>
-       
+
         <div id="item1" draggable="true">
             <div class="cardTitle js--item1">
-               <label >ID: #1421</label> 
+               <label >ID: #1421</label>
                <button id="blockBtn1" class="blockBtn">B</button>
             </div>
     <div class="card horizontal">
@@ -87,7 +89,7 @@
            <p><strong>Duration:</strong> 4hrs</p>
         </div>
         <div class="card-footer">
-          <p >Ricardo</p> 
+          <p >Ricardo</p>
         </div>
       </div>
         </div>
@@ -95,7 +97,7 @@
 
         <div id="item2" draggable="true">
             <div class="cardTitle js--item2">
-                <label >ID: #1422</label> 
+                <label >ID: #1422</label>
                 <button id="blockBtn2"class="blockBtn">B</button>
             </div>
             <div class="card horizontal">
@@ -116,7 +118,7 @@
     <div class="title">InProgress</div>
     <div id="item3" draggable="true">
         <div class="cardTitle js--item3">
-            <label >ID: #1422</label> 
+            <label >ID: #1422</label>
             <button id="blockBtn3" class="blockBtn">B</button>
         </div>
         <div class="card horizontal">
@@ -132,7 +134,7 @@
     </div>
     <div id="item4" draggable="true">
         <div class="cardTitle js--item4">
-           <label >ID: #1422</label> 
+           <label >ID: #1422</label>
             <button id="blockBtn4" class="blockBtn">B</button>
         </div>
         <div class="card horizontal">
@@ -153,7 +155,7 @@
     <div class="title">Finished</div>
     <div id="item5" draggable="true">
         <div class="cardTitle js--item5">
-            <label >ID: #1422</label> 
+            <label >ID: #1422</label>
             <button id="blockBtn5" class="blockBtn">B</button>
         </div>
         <div class="card horizontal">
@@ -169,7 +171,7 @@
     </div>
     <div id="item6" draggable="true">
         <div class="cardTitle js--item6">
-          <label >ID: #1421</label> 
+          <label >ID: #1421</label>
             <button id="blockBtn6" class="blockBtn">B</button>
         </div>
         <div class="card horizontal">
@@ -301,7 +303,7 @@
                 event.preventDefault();
     });
             }
-    
+
 	$('.modal').on('shown.bs.modal', function () {
 		$(this).find('input:visible:first').focus();
 	})
