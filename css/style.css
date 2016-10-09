@@ -10,30 +10,29 @@ html {
     min-height: 100%;
 }
 
-body {
-    margin-bottom: 60px;
-    background-color: #0079BF;
-    background-size: cover;
+body
+{
+  margin-bottom: 60px;
+  background-color: #0079BF;
+  background-size: cover;
 }
-  .error{
-    color: red;
-    display: none;
-    
+.error{
+  color: red;
+  display: none;
 
-  }
 
+}
 
 
 /* NAVBAR */
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-        background-color: #055A8C;
-        border: none;
-        width: 100%;
-        
-    }
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+    background-color: #055A8C;
+    border: none;
+    width: 100%;
 
+}
 .navbar.navbar-inverse li a,
 .navbar.navbar-inverse a{
     color: white;
@@ -48,42 +47,84 @@ body {
 }
 
 
-    
-.row.content {height: 450px}
-    
-    
-/* COLUMNAS */
-h3 {
+/* COLUMNS AND CARDS */
+.title
+{
+  background-color:#c5d9f9;
+  text-align:center;
+  font-weight:bold;
+  color:black;
+  padding: 5px;
+}
+
+.row.content {height: 500px; }
+
+.col-sm-4 {
+    padding: 5px;
+  height: 100%;
+  background-color: #0079BF;
+}
+
+#ready, #inprogress, #finished
+{
+background-color: #dce5f4;
+position:absolute;
+width: 500px;
+height:500px;
+border: 1px solid black;
+}
+
+*[draggable=true]
+{
+float:left;
+min-width: 70px;
+min-height: 70px;
+border: 2px solid black;
+margin: 10px;
+}
+
+*[draggable=false]
+{
+float:left;
+min-width: 70px;
+min-height: 70px;
+border: 1px solid gray;
+margin: 10px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.cardTitle
+{
+background-color: #3e79d8;
+border:2px solid white;
+color:white;
+    font-size: 12px;
+    height: 30px;
+}
+
+.card-content{
+  background-color: #f7f9fc;
+border:2px solid white;
+    font-size: 12px;
     text-align: left;
-    font-size: 16px;
-}
-    .iColumn {
-        margin: 10px 2px;
-        border-radius: 5px;
-        padding: 5px;
-      height: 100%;
-      background-color: #E8E3E7;
-    }
 
-/* TARJETAS */
-.panel {
-    border:none;
-    margin: 5px;
 }
 
-.panel-heading {
-    
-}
 
-.panel-footer {
-    
+.card-footer{
+  background-color: #e1e8f4;
+border:2px solid white;
+    font-size: 12px;
 }
-
-.iCard{
-    background-color: #78c6ff;
-}
-
-/* FOOTER */
 .footer {
     position: absolute;
       bottom: 0;
@@ -94,13 +135,22 @@ h3 {
     color: white;
 }
 
-   
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .iColumn {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;}
-    }
+.signup-box {
+    width: 50vw;
+}
+
+.blockBtn {
+    border-radius: 50px;
+    color: #fff;
+    background-color: rgba(193, 65, 65, 0.54);
+    float: right;
+    margin-right: 2px;
+}
+
+.blocked {
+    background-color: #ad2a2a;
+}
+
+.unblocked {
+    background-color: #3e79d8;
+}

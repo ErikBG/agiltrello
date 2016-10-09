@@ -22,6 +22,16 @@ $app->post('/getuser(/)', function() {
     $result = getuser();
     echo $result;
 });
+$app->get('/getsprint(/)', function() {
+    require 'projects/agil/get_function.php';
+    $result = getsprint();
+    echo $result;
+});
+$app->get('/getcard(/)', function() {
+    require 'projects/agil/get_function.php';
+    $result = getcard();
+    echo $result;
+});
 
 $app->run();
 ?>
