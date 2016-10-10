@@ -7,7 +7,7 @@
 
 html {
     position: relative;
-    min-height: 100%;
+    height: 100%;
 }
 
 body
@@ -19,10 +19,7 @@ body
 .error{
   color: red;
   display: none;
-
-
 }
-
 
 /* NAVBAR */
 .navbar {
@@ -31,7 +28,6 @@ body
     background-color: #055A8C;
     border: none;
     width: 100%;
-
 }
 .navbar.navbar-inverse li a,
 .navbar.navbar-inverse a{
@@ -57,21 +53,27 @@ body
   padding: 5px;
 }
 
-.row.content {height: 500px; }
+.row.content {
+	height: 100%;
+	clear: height;
+}
 
-.col-sm-4 {
-    padding: 5px;
-  height: 100%;
+.iColumn {
+  padding: 5px;
+  min-width: 300px;
+  min-height: 500px;
+  height: 100%
   background-color: #0079BF;
+  clear: height;
 }
 
 #ready, #inprogress, #finished
 {
 background-color: #dce5f4;
-position:absolute;
-width: 500px;
-height:500px;
+position: absolute;
+min-height:100%;
 border: 1px solid black;
+clear: height;
 }
 
 *[draggable=true]
@@ -119,7 +121,6 @@ border:2px solid white;
 
 }
 
-
 .card-footer{
   background-color: #e1e8f4;
 border:2px solid white;
@@ -145,6 +146,14 @@ border:2px solid white;
     background-color: rgba(193, 65, 65, 0.54);
     float: right;
     margin-right: 2px;
+}
+
+.configBtn {
+    border-radius: 50px;
+    color: #fff;
+    background-color: rgba(193, 65, 65, 0.54);
+    float: left;
+    margin-left: 2px;
 }
 
 .blocked {

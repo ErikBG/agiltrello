@@ -49,196 +49,278 @@
 				<li class="sidebar-brand">
 					<p>Backlog</p>
 				</li>
-        <li>
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-          <span class="glyphicon glyphicon-plus"></span> New <span class="caret"></span></button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#" data-toggle="modal" data-target="#newSomethingModal">User Story</a></li>
-            <li><a href="#">Requirement</a></li>
-            <li><a href="#">Bug</a></li>
-          </ul>
-        </div>
-      </li>
-
 				<li>
-					<div class="list-group" id="list_cards"></div>
+					<div class="btn-group">
+					  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					  <span class="glyphicon glyphicon-plus"></span> New <span class="caret"></span></button>
+					  <ul class="dropdown-menu" role="menu">
+						<li><a href="#" data-toggle="modal" data-target="#newUserStoryModal">User Story</a></li>
+						<li><a href="#">Requirement</a></li>
+						<li><a href="#">Bug</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#newTaskModal">Task</a><li>
+					  </ul>
+					</div>
 				</li>
-
+				<li>
+					<div class="container-fluid text-center">
+						<div class="title backlogCol">Contents</div>
+					</div>
+				</li>
 			</ul>
 		</div>
 		<!-- /#sidebar-wrapper -->
 
     <!--BOARD-->
 
-		<div class="container-fluid text-center">
-      <div class="row content">
-        <div class="col-sm-4">
-          <div id="ready">
-         <div class="title">Ready</div>
+		<div class="container-fluid text-center row content">
+			<div class="col-sm-4 iColumn">
+				<div id="ready" class="readyCol">
+					<div class="title">Ready</div>
 
-        <div id="item1" draggable="true">
-            <div class="cardTitle js--item1">
-               <label >ID: #1421</label>
-               <button id="blockBtn1" class="blockBtn">B</button>
-            </div>
-    <div class="card horizontal">
-        <div class="card-content">
-        <p><strong>Deadline:</strong> 28-Septimbre-2016</p>
-          <p><strong>Description:</strong> Add ability to login into the server</p>
-           <p><strong>Duration:</strong> 4hrs</p>
-        </div>
-        <div class="card-footer">
-          <p >Ricardo</p>
-        </div>
-      </div>
-        </div>
+					<div id="item1" draggable="true">
+						<div class="cardTitle js--item1">
+						   <label>ID: #1421</label>
+						   <button id="blockBtn1" class="blockBtn">B</button>
+						</div>
+						<div class="card horizontal">
+							<div class="card-content">
+								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
+								<p><strong>Description:</strong> Add ability to login into the server</p>
+								<p><strong>Duration:</strong> 4hrs</p>
+							</div>
+							<div class="card-footer">
+								<p>Ricardo</p>
+							</div>
+						</div>
+					</div>
 
 
-        <div id="item2" draggable="true">
-            <div class="cardTitle js--item2">
-                <label >ID: #1422</label>
-                <button id="blockBtn2"class="blockBtn">B</button>
-            </div>
-            <div class="card horizontal">
-                <div class="card-content">
-                 <p><strong>Deadline:</strong> 28-Septimbre-2016</p>
-                   <p><strong>Description:</strong> Fill footer with useful information</p>
-                   <p><strong>Duration:</strong> 4hrs</p>
-                </div>
-                <div class="card-footer">
-                  <p>Diego</p>
-                </div>
-              </div>
-        </div>
-</div>
-        </div>
-        <div class="col-sm-4">
-          <div id="inprogress">
-    <div class="title">InProgress</div>
-    <div id="item3" draggable="true">
-        <div class="cardTitle js--item3">
-            <label >ID: #1422</label>
-            <button id="blockBtn3" class="blockBtn">B</button>
-        </div>
-        <div class="card horizontal">
-            <div class="card-content">
-             <p><strong>Deadline:</strong> 28-Septimbre-2016</p>
-             <p><strong>Description:</strong> Connect Website to DB</p>
-              <p><strong>Duration:</strong> 4hrs</p>
-            </div>
-            <div class="card-footer">
-              <p>Sanabia</p>
-            </div>
-          </div>
-    </div>
-    <div id="item4" draggable="true">
-        <div class="cardTitle js--item4">
-           <label >ID: #1422</label>
-            <button id="blockBtn4" class="blockBtn">B</button>
-        </div>
-        <div class="card horizontal">
-            <div class="card-content">
-             <p><strong>Deadline:</strong> 28-Septimbre-2016</p>
-              <p><strong>Description:</strong> Create DB and Stored Procedures</p>
-               <p><strong>Duration:</strong> 4hrs</p>
-            </div>
-            <div class="card-footer">
-              <p>Ricardo</p>
-            </div>
-          </div>
-    </div>
-    </div>
-</div>
-    <div class="col-sm-4">
-    <div id="finished">
-    <div class="title">Finished</div>
-    <div id="item5" draggable="true">
-        <div class="cardTitle js--item5">
-            <label >ID: #1422</label>
-            <button id="blockBtn5" class="blockBtn">B</button>
-        </div>
-        <div class="card horizontal">
-            <div class="card-content">
-             <p><strong>Deadline:</strong> 28-Septimbre-2016</p>
-             <p><strong>Description:</strong> Add ability to create new cards</p>
-              <p><strong>Duration:</strong> 4hrs</p>
-            </div>
-            <div class="card-footer">
-              <p>Sanabia</p>
-            </div>
-          </div>
-    </div>
-    <div id="item6" draggable="true">
-        <div class="cardTitle js--item6">
-          <label >ID: #1421</label>
-            <button id="blockBtn6" class="blockBtn">B</button>
-        </div>
-        <div class="card horizontal">
-            <div class="card-content">
-             <p><strong>Deadline:</strong> 28-Septimbre-2016</p>
-            <p><strong>Description:</strong> Create github repository to work on</p>
-             <p><strong>Duration:</strong> 4hrs</p>
-            </div>
-            <div class="card-footer">
-              <p>Erik</p>
-            </div>
-          </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-</div>
+					<div id="item2" draggable="true">
+						<div class="cardTitle js--item2">
+							<label>ID: #1422</label>
+							<button id="configBtn2" class="configBtn" data-toggle="modal" data-target="#cardModal" onclick='setSelectedID(1422)'>
+								<span class="glyphicon glyphicon-time"></span>
+							</button>
+							<button id="blockBtn2"class="blockBtn">B</button>
+							
+						</div>
+						<div class="card horizontal">
+							<div class="card-content">
+								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
+								<p><strong>Description:</strong> Fill footer with useful information</p>
+								<p><strong>Duration:</strong> 4hrs</p>
+							</div>
+							<div class="card-footer">
+								<p>Diego</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-4 iColumn">
+				<div id="inprogress" class="inProgressCol">
+					<div class="title">InProgress</div>
+					<div id="item3" draggable="true">
+						<div class="cardTitle js--item3">
+							<label >ID: #1422</label>
+							<button id="blockBtn3" class="blockBtn">B</button>
+						</div>
+						<div class="card horizontal">
+							<div class="card-content">
+								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
+								<p><strong>Description:</strong> Connect Website to DB</p>
+								<p><strong>Duration:</strong> 4hrs</p>
+							</div>
+							<div class="card-footer">
+								<p>Sanabia</p>
+							</div>
+						</div>
+					</div>
+					<div id="item4" draggable="true">
+						<div class="cardTitle js--item4">
+							<label >ID: #1422</label>
+							<button id="blockBtn4" class="blockBtn">B</button>
+						</div>
+						<div class="card horizontal">
+							<div class="card-content">
+								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
+								<p><strong>Description:</strong> Create DB and Stored Procedures</p>
+								<p><strong>Duration:</strong> 4hrs</p>
+							</div>
+							<div class="card-footer">
+								<p>Ricardo</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<div class="col-sm-4 iColumn">
+				<div id="finished" class="finishedCol">
+					<div class="title">Finished</div>
+					<div id="item5" draggable="true">
+						<div class="cardTitle js--item5">
+							<label >ID: #1422</label>
+							<button id="blockBtn5" class="blockBtn">B</button>
+						</div>
+						<div class="card horizontal">
+							<div class="card-content">
+								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
+								<p><strong>Description:</strong> Add ability to create new cards</p>
+								<p><strong>Duration:</strong> 4hrs</p>
+							</div>
+							<div class="card-footer">
+								<p>Sanabia</p>
+							</div>
+						</div>
+					</div>
+					<div id="item6" draggable="true">
+						<div class="cardTitle js--item6">
+							<label >ID: #1421</label>
+							<button id="blockBtn6" class="blockBtn">B</button>
+						</div>
+						<div class="card horizontal">
+							<div class="card-content">
+								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
+								<p><strong>Description:</strong> Create github repository to work on</p>
+								<p><strong>Duration:</strong> 4hrs</p>
+							</div>
+							<div class="card-footer">
+								<p>Erik</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 <footer class="container-fluid text-center footer">
   <p>This website was created by Desarrollo Agil Team.</p>
 </footer>
     <!--BOARD-->
 
-
-
-	<div id="newSomethingModal" class="modal fade" role="dialog">
+	<!--New User Story Modal-->
+	<div id="newUserStoryModal" class="modal fade" role="dialog">
 		<div class="signup-box modal-dialog modal-sm">
 
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">New Story</h4>
-			</div>
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">New User Story</h4>
+				</div>
 
-			<form>
+				<form>
+					<div class="modal-body">
+			  <div class="form-group">
+						<label for="title">Title:</label>
+						<input type="text" class="form-control" id="title">
+					  </div>
+					  <div class="form-group">
+						<label for="as">As:</label>
+						<input type="text" class="form-control" id="as">
+					  </div>
+					  <div class="form-group">
+						<label for="iwant">I want:</label>
+						  <textarea class="form-control" rows="2" id="iwant" style="resize:none"></textarea>
+					  </div>
+					  <div class="form-group">
+						<label for="sothat">So that:</label>
+						  <textarea class="form-control" rows="2" id="sothat" style="resize:none"></textarea>
+					  </div>
+					  <div class="form-group">
+						  <label for="criteria">Acceptance criteria:</label>
+						  <textarea class="form-control" rows="4" id="criteria" style="resize:none"></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-success" data-dismiss="modal" onclick="addStory()">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!--New Task Modal-->
+	<div id="newTaskModal" class="modal fade" role="dialog">
+		<div class="signup-box modal-dialog modal-sm">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">New Kanban Card (Task)</h4>
+				</div>
+
+				<form>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="cardId">ID:</label>
+							<input type="number" class="form-control" id="cardId">
+						</div>
+						 <div class="form-group">
+							<label for="description">Description:</label>
+							<textarea class="form-control" rows="2" id="description" style="resize:none"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="duration">Duration:</label>
+							<input type="number" class="form-control" id="duration">
+						</div>
+						<div class="form-group">
+							<label for="deadline">Deadline:</label>
+							<input type="date" class="form-control" id="deadline">
+						</div>
+						<div class="form-group">
+							<label for="owner">Owner:</label>
+							<input type="text" class="form-control" id="owner">
+						</div>
+						<div class="form-group">
+							<label for="column">Column:</label>
+							<select name="Columns" id="column">
+								<option value="backlog">Backlog</option>
+								<option value="ready">Ready</option>
+								<option value="inProgress">In Progress</option>
+								<option value="finished">Finished</option>
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-success" data-dismiss="modal" onclick="addTask()">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!--Card Current Remaining Work modal-->
+	<div class="modal fade" id="cardModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Card modal</h4>
+				</div>
+				<form>
 				<div class="modal-body">
-          <div class="form-group">
-					<label for="title">Title:</label>
-					<input type="text" class="form-control" id="title">
-				  </div>
-				  <div class="form-group">
-					<label for="as">As:</label>
-					<input type="text" class="form-control" id="as">
-				  </div>
-				  <div class="form-group">
-					<label for="iwant">I want:</label>
-					  <textarea class="form-control" rows="2" id="iwant" style="resize:none"></textarea>
-				  </div>
-				  <div class="form-group">
-					<label for="sothat">So that:</label>
-					  <textarea class="form-control" rows="2" id="sothat" style="resize:none"></textarea>
-				  </div>
-				  <div class="form-group">
-					  <label for="criteria">Acceptance criteria:</label>
-					  <textarea class="form-control" rows="4" id="criteria" style="resize:none"></textarea>
+					<div class="form-group">
+						<label for="crw">Current remaining work:</label>
+						<input type="number" class="form-control" id="crw_card_input">
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-success" onclick="addStory()">Submit</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-success" data-dismiss="modal" onclick="setCRW()">Save</button>
 				</div>
-			</form>
-		</div>
-		</div>
-	</div>
-
+				</form>
+			</div>
+        </div>
+    </div>
+	  
 	    <!-- BURNDOWN Modal -->
       <div class="modal fade" id="BurndownModal" role="dialog">
         <div class="modal-dialog">
@@ -285,28 +367,152 @@
     <!-- Scripts -->
     <script src="js/menu-toggle.js"></script>
     <script src="js/script.js"></script>
+	<script type="text/javascript" src="js/dbScripts.js"></script>
     <script type="text/javascript">
-    $('document').ready(init);
+		$('document').ready(init);
 
-            function init(){
-                $('#item1, #item2, #item3, #item4, #item5, #item6').bind('dragstart', function(event) {
-                    event.originalEvent.dataTransfer.setData("text/plain", event.target.getAttribute('id'));
-                });
-       // bind the dragover event on the board sections
-                $('#ready, #inprogress, #finished').bind('dragover', function(event) {
-                    event.preventDefault();
-                });
-    // bind the drop event on the board sections
-       $('#ready, #inprogress, #finished').bind('drop', function(event) {
-                var notecard = event.originalEvent.dataTransfer.getData("text/plain");
-                event.target.appendChild(document.getElementById(notecard));
-                event.preventDefault();
-    });
-            }
+				function init(){
+					$('#item1, #item2, #item3, #item4, #item5, #item6').bind('dragstart', function(event) {
+						event.originalEvent.dataTransfer.setData("text/plain", event.target.getAttribute('id'));
+					});
+		   // bind the dragover event on the board sections
+					$('#ready, #inprogress, #finished').bind('dragover', function(event) {
+						event.preventDefault();
+					});
+		// bind the drop event on the board sections
+		   $('#ready, #inprogress, #finished').bind('drop', function(event) {
+					var notecard = event.originalEvent.dataTransfer.getData("text/plain");
+					event.target.appendChild(document.getElementById(notecard));
+					event.preventDefault();
+		});
+				}
 
-	$('.modal').on('shown.bs.modal', function () {
-		$(this).find('input:visible:first').focus();
-	})
+		$('.modal').on('shown.bs.modal', function () {
+			$(this).find('input:visible:first').focus();
+		})
+		
+		sessionStorage.currentTasks = 6;
+		sessionStorage.currentTaskID = 1423;
+		
+		function setSelectedID(id) {
+			sessionStorage.selectedTaskId = id;
+			console.log(sessionStorage.selectedTaskId);
+			document.getElementById('crw_card_input').value = getCRW(id);
+		}
+		
+		function addTask() {
+			var id = document.getElementById('cardId').value;
+			var description = document.getElementById('description').value;
+			var deadline = document.getElementById('deadline').value;
+			var duration = document.getElementById('duration').value;
+			var owner = document.getElementById('owner').value;
+			var column = document.getElementById('column').value;
+			
+			addTaskToDB(id, description, duration, deadline, owner, column, 0);
+			
+			// Testing 
+			sessionStorage.currentTasks ++;
+			sessionStorage.currentTaskID ++;
+			createKanbanCardFromTask(id, deadline, description, duration, owner, column);
+			// Fin de testing
+		}
+		
+		function createKanbanCardFromTask(id, date, desc, crw, owner, state) {//recibe toda la informacion de la tarjeta y la crea
+			var n = sessionStorage.currentTasks +1;
+			var htmlClass;
+			var html = 
+			"<div id='item"+n+"' draggable='true'>"+
+			"<div class='cardTitle js--item2'>"+
+			"    <label >ID: #"+id+"</label>"+
+			"		<button id='configBtn"+n+"' class='configBtn' data-toggle='modal' data-target='#cardModal' onclick='setSelectedID("+id+")'>"+
+			"			<span class='glyphicon glyphicon-time'></span>"+
+			"		</button>"+
+			"        <button id='blockBtn"+n+"' class='blockBtn'>B</button>"+
+			"</div>"+
+			"<div class='card horizontal'>"+
+			"    <div class='card-content'>"+
+			"        <p><strong>Deadline:</strong> "+date+"</p>"+
+			"        <p><strong>Description:</strong> "+desc+"</p>"+
+			"        <p><strong>Duration:</strong> "+crw+"</p>"+
+			"    </div>"+
+			"    <div class='card-footer'>"+
+			"			<p>"+owner+"</p>"+
+			"		</div>"+
+			"	</div>"+
+			"</div>";
+			
+			console.log(html);
+			
+			if (state == "ready")
+				htmlClass = ".readyCol";
+			else if (state == "inProgress")
+				htmlClass = ".inProgressCol"
+			else if (state == "finished")
+				htmlClass = ".finishedCol";
+			else
+				htmlClass = ".backlogCol";
+			
+			console.log(htmlClass);
+			
+			$(htmlClass).append(html); //por medio de jQuery agrega el html preparado despues del elemento de la clase html definida
+		}
+		
+		function createKanbanCard(id) {//debe recibir el id de la tarea, recuperar los datos de la misma desde la BD y regresar un string que contenga el html a ser introducido a la pagina
+			var n, date, desc, crw, owner, htmlClass, state; //todos estos valores deben asignarse de valores obtenidos de la BD
+			
+			// AQUI LLAMAR A METODO QUE RECUPERE DATOS DE LA BD, asignarlos a los strings anteriores
+			
+			//Testing
+			n = sessionStorage.currentTasks;
+			n++;
+			sessionStorage.currentTasks = n;
+			date = "2016-10-09";
+			desc = "Tarea de prueba";
+			sessionStorage.currentTaskID ++;
+			id = sessionStorage.currentTaskID;
+			crw = 6;
+			owner = "Propietario de prueba";
+			state = "inProgress";
+			//End of testing
+			
+			var html = 
+			"<div id='item"+n+"' draggable='true'>"+
+			"<div class='cardTitle js--item2'>"+
+			"    <label >ID: #"+id+"</label>"+
+			"		<button id='configBtn"+n+"' class='configBtn' data-toggle='modal' data-target='#cardModal' onclick='setSelectedID("+id+")'>"+
+			"			<span class='glyphicon glyphicon-time'></span>"+
+			"		</button>"+
+			"        <button id='blockBtn"+n+"' class='blockBtn'>B</button>"+
+			"</div>"+
+			"<div class='card horizontal'>"+
+			"    <div class='card-content'>"+
+			"        <p><strong>Deadline:</strong> "+date+"</p>"+
+			"        <p><strong>Description:</strong> "+desc+"</p>"+
+			"        <p><strong>Duration:</strong> "+crw+"</p>"+
+			"    </div>"+
+			"    <div class='card-footer'>"+
+			"			<p>"+owner+"</p>"+
+			"		</div>"+
+			"	</div>"+
+			"</div>";
+			
+			console.log(html);
+			
+			if (state == "ready")
+				htmlClass = ".readyCol";
+			else if (state == "inProgress")
+				htmlClass = ".inProgressCol"
+			else if (state == "finished")
+				htmlClass = ".finishedCol";
+			else
+				htmlClass = ".backlogCol";
+			
+			console.log(htmlClass);
+			
+			$(htmlClass).append(html); //por medio de jQuery agrega el html preparado despues del elemento de la clase html definida
+		}
+		
+		
 	</script>
 
 </body>
