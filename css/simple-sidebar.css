@@ -11,6 +11,10 @@
 /* Toggle Styles */
 
 #wrapper {
+	min-height: 100vh;
+	height: 100%;
+	display: inline-block;
+	position: relative;
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -19,18 +23,20 @@
 }
 
 #wrapper.toggled {
+	height: 100%;
     padding-left: 250px;
 }
 
 #sidebar-wrapper {
-    z-index: 1000;
+    z-index: 0;
     position: absolute;
-	top: 50px;
+	top: 0px;
     left: 250px;
-	bottom: 60px;
+	min-height: 100%;
     width: 0;
     margin-left: -250px;
     overflow-y: auto;
+	overflow-x: hidden;
     background: #E8E3E7;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;

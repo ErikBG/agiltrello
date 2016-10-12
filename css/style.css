@@ -10,21 +10,25 @@ html {
     height: 100%;
 }
 
-body
-{
-  margin-bottom: 60px;
-  background-color: #0079BF;
-  background-size: cover;
+body {
+	background-color: #0079BF;
+	background-size: cover;
+	clear: both;
+	min-height: 100%;
+	bottom: 60px;
+	overflow-y: auto;
+	
 }
 .error{
-  color: red;
-  display: none;
+	color: red;
+	display: none;
 }
 
 /* NAVBAR */
 .navbar {
-  margin-bottom: 0;
-  border-radius: 0;
+	z-index: 1000;
+	margin-bottom: 0;
+	border-radius: 0;
     background-color: #055A8C;
     border: none;
     width: 100%;
@@ -46,52 +50,50 @@ body
 /* COLUMNS AND CARDS */
 .title
 {
-  background-color:#c5d9f9;
-  text-align:center;
-  font-weight:bold;
-  color:black;
-  padding: 5px;
+	background-color:#c5d9f9;
+	text-align:center;
+	font-weight:bold;
+	color:black;
+	padding: 5px;
 }
 
-.row.content {
+/*#wrapper {
+	z-index: -1000;
+}*/
+
+/*.row.content {
 	height: 100%;
 	clear: height;
-}
+}*/
 
 .iColumn {
-  padding: 5px;
-  min-width: 300px;
-  min-height: 500px;
-  height: 100%
-  background-color: #0079BF;
-  clear: height;
-}
-
-#ready, #inprogress, #finished
-{
-background-color: #dce5f4;
-position: absolute;
-min-height:100%;
-border: 1px solid black;
-clear: height;
+	padding: 5px;
+	min-width: 300px;
+	min-height: 500px;
+	background-color: #dce5f4;
+	height: auto !important;
+	height: 100%;
+	border: 1px solid black;
+	overflow-y: auto;
+	clear: height;
 }
 
 *[draggable=true]
 {
-float:left;
-min-width: 70px;
-min-height: 70px;
-border: 2px solid black;
-margin: 10px;
+	float:left;
+	min-width: 70px;
+	min-height: 70px;
+	border: 2px solid black;
+	margin: 10px;
 }
 
 *[draggable=false]
 {
-float:left;
-min-width: 70px;
-min-height: 70px;
-border: 1px solid gray;
-margin: 10px;
+	float:left;
+	min-width: 70px;
+	min-height: 70px;
+	border: 1px solid gray;
+	margin: 10px;
 }
 
 .card:hover {
@@ -106,32 +108,32 @@ margin: 10px;
 
 .cardTitle
 {
-background-color: #3e79d8;
-border:2px solid white;
-color:white;
+	background-color: #3e79d8;
+	border:2px solid white;
+	color:white;
     font-size: 12px;
     height: 30px;
 }
 
 .card-content{
-  background-color: #f7f9fc;
-border:2px solid white;
+	background-color: #f7f9fc;
+	border:2px solid white;
     font-size: 12px;
     text-align: left;
 
 }
 
 .card-footer{
-  background-color: #e1e8f4;
-border:2px solid white;
+	background-color: #e1e8f4;
+	border:2px solid white;
     font-size: 12px;
 }
 .footer {
-    position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 60px;
-      background-color: #026AA7;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #026AA7;
     padding: 20px;
     color: white;
 }
