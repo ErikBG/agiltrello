@@ -405,14 +405,17 @@
 			
 			addTaskToDB(id, description, duration, deadline, owner, column, 0);
 			
-			// Testing 
+			// Placeholder
 			sessionStorage.currentTasks ++;
 			sessionStorage.currentTaskID ++;
-			createKanbanCardFromTask(id, deadline, description, duration, owner, column);
-			// Fin de testing
+			
+			var html = createKanbanCardHtml(id, deadline, description, duration, owner);
+			var colHtml = getColumn(column);
+			appendHtmlAfterHtml(html, colHtml);
+			// Fin de placeholder
 		}
 		
-		function createKanbanCardFromTask(id, date, desc, crw, owner, state) {//recibe toda la informacion de la tarjeta y la crea
+		function createKanbanCardHtml(id, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea
 			var n = sessionStorage.currentTasks +1;
 			var htmlClass;
 			var html = 
@@ -437,7 +440,10 @@
 			"</div>";
 			
 			console.log(html);
-			
+			return html;
+		}
+		
+		function getColumn(state) {
 			if (state == "ready")
 				htmlClass = ".readyCol";
 			else if (state == "inProgress")
@@ -448,66 +454,12 @@
 				htmlClass = ".backlogCol";
 			
 			console.log(htmlClass);
-			
-			$(htmlClass).append(html); //por medio de jQuery agrega el html preparado despues del elemento de la clase html definida
+			return htmlClass;
 		}
 		
-		function createKanbanCard(id) {//debe recibir el id de la tarea, recuperar los datos de la misma desde la BD y regresar un string que contenga el html a ser introducido a la pagina
-			var n, date, desc, crw, owner, htmlClass, state; //todos estos valores deben asignarse de valores obtenidos de la BD
-			
-			// AQUI LLAMAR A METODO QUE RECUPERE DATOS DE LA BD, asignarlos a los strings anteriores
-			
-			//Testing
-			n = sessionStorage.currentTasks;
-			n++;
-			sessionStorage.currentTasks = n;
-			date = "2016-10-09";
-			desc = "Tarea de prueba";
-			sessionStorage.currentTaskID ++;
-			id = sessionStorage.currentTaskID;
-			crw = 6;
-			owner = "Propietario de prueba";
-			state = "inProgress";
-			//End of testing
-			
-			var html = 
-			"<div id='item"+n+"' draggable='true'>"+
-			"<div class='cardTitle js--item2'>"+
-			"    <label >ID: #"+id+"</label>"+
-			"		<button id='configBtn"+n+"' class='configBtn' data-toggle='modal' data-target='#cardModal' onclick='setSelectedID("+id+")'>"+
-			"			<span class='glyphicon glyphicon-time'></span>"+
-			"		</button>"+
-			"        <button id='blockBtn"+n+"' class='blockBtn'>B</button>"+
-			"</div>"+
-			"<div class='card horizontal'>"+
-			"    <div class='card-content'>"+
-			"        <p><strong>Deadline:</strong> "+date+"</p>"+
-			"        <p><strong>Description:</strong> "+desc+"</p>"+
-			"        <p><strong>Duration:</strong> "+crw+"</p>"+
-			"    </div>"+
-			"    <div class='card-footer'>"+
-			"			<p>"+owner+"</p>"+
-			"		</div>"+
-			"	</div>"+
-			"</div>";
-			
-			console.log(html);
-			
-			if (state == "ready")
-				htmlClass = ".readyCol";
-			else if (state == "inProgress")
-				htmlClass = ".inProgressCol"
-			else if (state == "finished")
-				htmlClass = ".finishedCol";
-			else
-				htmlClass = ".backlogCol";
-			
-			console.log(htmlClass);
-			
-			$(htmlClass).append(html); //por medio de jQuery agrega el html preparado despues del elemento de la clase html definida
+		function appendHtmlAfterHtml (html, prevHtml) {
+			$(prevHtml).append(html);
 		}
-		
-		
 	</script>
 
 </body>

@@ -71,7 +71,6 @@ body {
 	min-width: 300px;
 	min-height: 500px;
 	background-color: #dce5f4;
-	height: auto !important;
 	height: 100%;
 	border: 1px solid black;
 	overflow-y: auto;
