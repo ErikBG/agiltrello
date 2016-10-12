@@ -15,17 +15,15 @@ $.get('http://localhost/agiltrello/api/getsprint', function (data) {
 $(document).ready(function () {
     $("#sprint_select").change(function () {
       var id_sprint = $("#sprint_select").val();
-      // $.get('http://localhost/School/api/getsubjects', {idc,ns}, function (data) {
-      //   var html_code = '<option value="id">subject</option>';
-      //   $.each(data, function (i, subject) {
-      //     var current_html = html_code;
-      //     current_html = current_html.replace("id", subject['id']);
-      //     current_html = current_html.replace("subject", subject['name']);
-      //     $('#subject').append(current_html);
-        // });
+      $.get('http://localhost/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
+      
+        $.each(data, function (i, subject) {
+        console.log(data);
+        });
         
-      // });
-    }
+      });
+    
+  });
   });
 
 //get user_story

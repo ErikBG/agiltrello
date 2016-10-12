@@ -32,6 +32,9 @@ $app->get('/getcard(/)', function() {
     $result = getcard();
     echo $result;
 });
+    require 'projects/agil/get_function.php';
+    $result = getdetailsprint();
+    echo $result;
 
 $app->run();
 ?>
