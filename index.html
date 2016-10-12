@@ -362,6 +362,7 @@
     <!-- Scripts -->
     <script src="js/menu-toggle.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/sprint.js"></script>
 	<script type="text/javascript" src="js/dbScripts.js"></script>
     <script type="text/javascript">
 		$('document').ready(init);
@@ -420,12 +421,12 @@
 			var htmlClass;
 			var html = 
 			"<div id='item"+n+"' draggable='true'>"+
-			"<div class='cardTitle js--item2'>"+
+			"<div class='cardTitle js--item"+n+"'>"+
 			"    <label >ID: #"+id+"</label>"+
 			"		<button id='configBtn"+n+"' class='configBtn' data-toggle='modal' data-target='#cardModal' onclick='setSelectedID("+id+")'>"+
 			"			<span class='glyphicon glyphicon-time'></span>"+
 			"		</button>"+
-			"        <button id='blockBtn"+n+"' class='blockBtn'>B</button>"+
+			"        <button id='blockBtn"+n+"' class='blockBtn' OnClick='blockCard("+n+");' >B</button>"+
 			"</div>"+
 			"<div class='card horizontal'>"+
 			"    <div class='card-content'>"+

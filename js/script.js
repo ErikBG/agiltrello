@@ -1,47 +1,3 @@
-//get sprint
-$.get('http://localhost/agiltrello/api/getsprint', function (data) {
-  console.log(data);
-  var html_code = '<option value="id">sprint</option>';
-  $.each(data, function (i, sprint) {
-    var current_html = html_code;
-    current_html = current_html.replace("id", sprint['id']);
-    current_html = current_html.replace("sprint", sprint['name']);
-    $('#sprint_select').append(current_html);
-    var default_val=$('#sprint_select').val();
-   
-  });
-});
-//get sprint with stories
-$(document).ready(function () {
-    $("#sprint_select").change(function () {
-      var id_sprint = $("#sprint_select").val();
-      // $.get('http://localhost/School/api/getsubjects', {idc,ns}, function (data) {
-      //   var html_code = '<option value="id">subject</option>';
-      //   $.each(data, function (i, subject) {
-      //     var current_html = html_code;
-      //     current_html = current_html.replace("id", subject['id']);
-      //     current_html = current_html.replace("subject", subject['name']);
-      //     $('#subject').append(current_html);
-        // });
-        
-      // });
-    }
-  });
-
-//get user_story
-$.get('http://localhost/agiltrello/api/getcard', function (data) {
-  var html_code='<a href="#" class="list-group-item" id="id_card">name</a>';
-
-
-  $.each(data, function (i, card) {
-    var current_html = html_code;
-    current_html = current_html.replace("id_card", card['id']);
-    current_html = current_html.replace("name", card['title']);
-
-    $('#list_cards').append(current_html);
-  });
-});
-
 // Sidebar opening when window is resized fix.
 $(document).ready(function () {
 
@@ -59,7 +15,7 @@ $(document).ready(function () {
 
     });
 
-    //Block card function for current cards MUST BE MODIFIED ONCE ADD CARD FEATURE IS CREATED
+    //Block card function for current cards MUST BE MODIFIED ONCE "ADD CARD" FEATURE IS CREATED
     //Item1
     $('#blockBtn1').click(function() {
         var blockStatus = ($('#item1').attr('draggable'));
@@ -132,5 +88,20 @@ $(document).ready(function () {
             $('#item6').attr('draggable', true);
         }
     });
-
+    
 });
+
+//Block card. 
+function blockCard (n){
+        var blockStatus = ($('#item'+n).attr('draggable'));
+        $('.js--item'+n).toggleClass('blocked');
+        $('#blockBtn'+n).toggleClass('unblocked');
+
+        if(blockStatus=="true"){
+          $('#item'+n).attr('draggable', false);
+        }else{
+            $('#item'+n).attr('draggable', true);
+        }
+    }
+
+
