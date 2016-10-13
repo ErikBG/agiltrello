@@ -364,6 +364,7 @@
     <script src="js/script.js"></script>
     <script src="js/sprint.js"></script>
 	<script type="text/javascript" src="js/dbScripts.js"></script>
+	<script type="text/javascript" src="js/indexScripts.js"></script>
     <script type="text/javascript">
 		$('document').ready(init);
 
@@ -389,78 +390,6 @@
 		
 		sessionStorage.currentTasks = 6;
 		sessionStorage.currentTaskID = 1423;
-		
-		function setSelectedID(id) {
-			sessionStorage.selectedTaskId = id;
-			console.log(sessionStorage.selectedTaskId);
-			document.getElementById('crw_card_input').value = getCRW(id);
-		}
-		
-		function addTask() {
-			var id = document.getElementById('cardId').value;
-			var description = document.getElementById('description').value;
-			var deadline = document.getElementById('deadline').value;
-			var duration = document.getElementById('duration').value;
-			var owner = document.getElementById('owner').value;
-			var column = document.getElementById('column').value;
-			
-			addTaskToDB(id, description, duration, deadline, owner, column, 0);
-			
-			// Placeholder
-			sessionStorage.currentTasks ++;
-			sessionStorage.currentTaskID ++;
-			
-			var html = createKanbanCardHtml(id, deadline, description, duration, owner);
-			var colHtml = getColumn(column);
-			appendHtmlAfterHtml(html, colHtml);
-			// Fin de placeholder
-		}
-		
-		function createKanbanCardHtml(id, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea
-			var n = sessionStorage.currentTasks +1;
-			var htmlClass;
-			var html = 
-			"<div id='item"+n+"' draggable='true'>"+
-			"<div class='cardTitle js--item"+n+"'>"+
-			"    <label >ID: #"+id+"</label>"+
-			"		<button id='configBtn"+n+"' class='configBtn' data-toggle='modal' data-target='#cardModal' onclick='setSelectedID("+id+")'>"+
-			"			<span class='glyphicon glyphicon-time'></span>"+
-			"		</button>"+
-			"        <button id='blockBtn"+n+"' class='blockBtn' OnClick='blockCard("+n+");' >B</button>"+
-			"</div>"+
-			"<div class='card horizontal'>"+
-			"    <div class='card-content'>"+
-			"        <p><strong>Deadline:</strong> "+date+"</p>"+
-			"        <p><strong>Description:</strong> "+desc+"</p>"+
-			"        <p><strong>Duration:</strong> "+crw+"</p>"+
-			"    </div>"+
-			"    <div class='card-footer'>"+
-			"			<p>"+owner+"</p>"+
-			"		</div>"+
-			"	</div>"+
-			"</div>";
-			
-			console.log(html);
-			return html;
-		}
-		
-		function getColumn(state) {
-			if (state == "ready")
-				htmlClass = ".readyCol";
-			else if (state == "inProgress")
-				htmlClass = ".inProgressCol"
-			else if (state == "finished")
-				htmlClass = ".finishedCol";
-			else
-				htmlClass = ".backlogCol";
-			
-			console.log(htmlClass);
-			return htmlClass;
-		}
-		
-		function appendHtmlAfterHtml (html, prevHtml) {
-			$(prevHtml).append(html);
-		}
 	</script>
 
 </body>
