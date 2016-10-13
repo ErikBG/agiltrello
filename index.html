@@ -62,8 +62,7 @@
 					</div>
 				</li>
 				<li>
-					<div class="container-fluid text-center">
-						<div class="title backlogCol">Contents</div>
+					<div class="container-fluid text-center backlogCol">
 					</div>
 				</li>
 			</ul>
@@ -368,21 +367,21 @@
     <script type="text/javascript">
 		$('document').ready(init);
 
-				function init(){
-					$('#item1, #item2, #item3, #item4, #item5, #item6').bind('dragstart', function(event) {
-						event.originalEvent.dataTransfer.setData("text/plain", event.target.getAttribute('id'));
-					});
-		   // bind the dragover event on the board sections
-					$('#ready, #inprogress, #finished').bind('dragover', function(event) {
-						event.preventDefault();
-					});
-		// bind the drop event on the board sections
+		function init(){
+			$('#item1, #item2, #item3, #item4, #item5, #item6').bind('dragstart', function(event) {
+				event.originalEvent.dataTransfer.setData("text/plain", event.target.getAttribute('id'));
+			});
+			// bind the dragover event on the board sections
+			$('#ready, #inprogress, #finished').bind('dragover', function(event) {
+				event.preventDefault();
+			});
+			// bind the drop event on the board sections
 		   $('#ready, #inprogress, #finished').bind('drop', function(event) {
 					var notecard = event.originalEvent.dataTransfer.getData("text/plain");
 					event.target.appendChild(document.getElementById(notecard));
 					event.preventDefault();
 		});
-				}
+		}
 
 		$('.modal').on('shown.bs.modal', function () {
 			$(this).find('input:visible:first').focus();
