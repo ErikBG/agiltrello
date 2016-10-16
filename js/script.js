@@ -24,10 +24,13 @@ $(document).ready(function () {
 
         if(blockStatus=="true"){
           $('#item1').attr('draggable', false);
+          $('#item1').removeClass('card');     
         }else{
             $('#item1').attr('draggable', true);
+            $('#item1').addClass('card');
         }
     });
+    
     //Item2
     $('#blockBtn2').click(function() {
         var blockStatus = ($('#item2').attr('draggable'));
@@ -36,8 +39,10 @@ $(document).ready(function () {
 
         if(blockStatus=="true"){
           $('#item2').attr('draggable', false);
+            $('#item2').removeClass('card');
         }else{
             $('#item2').attr('draggable', true);
+            $('#item2').addClass('card');
         }
     });
     //Item3
@@ -48,8 +53,10 @@ $(document).ready(function () {
 
         if(blockStatus=="true"){
           $('#item3').attr('draggable', false);
+            $('#item3').removeClass('card');
         }else{
             $('#item3').attr('draggable', true);
+            $('#item3').addClass('card');
         }
     });
     //Item4
@@ -60,8 +67,10 @@ $(document).ready(function () {
 
         if(blockStatus=="true"){
           $('#item4').attr('draggable', false);
+            $('#item4').removeClass('card');
         }else{
             $('#item4').attr('draggable', true);
+            $('#item4').addClass('card');
         }
     });
     //Item5
@@ -72,8 +81,10 @@ $(document).ready(function () {
 
         if(blockStatus=="true"){
           $('#item5').attr('draggable', false);
+            $('#item5').removeClass('card');
         }else{
             $('#item5').attr('draggable', true);
+            $('#item5').addClass('card');
         }
     });
     //Item6
@@ -84,8 +95,11 @@ $(document).ready(function () {
 
         if(blockStatus=="true"){
           $('#item6').attr('draggable', false);
+            $('#item6').removeClass('card');
         }else{
             $('#item6').attr('draggable', true);
+            $('#item6').addClass('card');
+            
         }
     });
     
@@ -96,11 +110,12 @@ function blockCard (n){
         var blockStatus = ($('#item'+n).attr('draggable'));
         $('.js--item'+n).toggleClass('blocked');
         $('#blockBtn'+n).toggleClass('unblocked');
-
         if(blockStatus=="true"){
           $('#item'+n).attr('draggable', false);
+          $('#item'+n).removeClass('card');
         }else{
             $('#item'+n).attr('draggable', true);
+            $('#item'+n).addClass('card');
         }
     }
 

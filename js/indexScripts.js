@@ -31,15 +31,14 @@ function createKanbanCardHtml(id, date, desc, crw, owner) {//recibe toda la info
 	
 	var htmlClass;
 	var html = 
-	"<div id='item"+id+"' draggable='true'>"+
-	"<div class='cardTitle js--item"+id+"'>"+
+	"<div id='item"+id+"' class='card js--item"+id+"' draggable='true'>"+
+	"<div class='cardTitle'>"+
 	"    <label>ID: #"+id+"</label>"+
 	"		<button id='configBtn"+id+"' class='configBtn' data-toggle='modal' data-target='#cardModal' onclick='setSelectedID("+id+")'>"+
 	"			<span class='glyphicon glyphicon-time'></span>"+
 	"		</button>"+
 	"        <button id='blockBtn"+id+"' class='blockBtn' OnClick='blockCard("+id+");' >B</button>"+
 	"</div>"+
-	"<div class='card horizontal'>"+
 	"    <div class='card-content'>"+
 	"        <p><strong>Deadline:</strong> "+date+"</p>"+
 	"        <p><strong>Description:</strong> "+desc+"</p>"+
@@ -48,7 +47,6 @@ function createKanbanCardHtml(id, date, desc, crw, owner) {//recibe toda la info
 	"    <div class='card-footer'>"+
 	"			<p>"+owner+"</p>"+
 	"		</div>"+
-	"	</div>"+
 	"</div>";
 	
 	console.log(html);

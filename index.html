@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/queries.css">
   <!-- Simple Sidebar CSS -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -76,12 +77,11 @@
 				<div id="ready" class="readyCol col-sm-4 iColumn">
 					<div class="title">Ready</div>
 
-					<div id="item1" draggable="true">
-						<div class="cardTitle js--item1">
+					<div id="item1" class="card js--item1" draggable="true">
+						<div class="cardTitle">
 						   <label>ID: #1421</label>
 						   <button id="blockBtn1" class="blockBtn">B</button>
 						</div>
-						<div class="card horizontal">
 							<div class="card-content">
 								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
 								<p><strong>Description:</strong> Add ability to login into the server</p>
@@ -90,20 +90,18 @@
 							<div class="card-footer">
 								<p>Ricardo</p>
 							</div>
-						</div>
 					</div>
 
 
-					<div id="item2" draggable="true">
-						<div class="cardTitle js--item2">
+					<div id="item2" class="card js--item2" draggable="true">
+						<div class="cardTitle">
 							<label>ID: #1422</label>
 							<button id="configBtn2" class="configBtn" data-toggle="modal" data-target="#cardModal" onclick='setSelectedID(1422)'>
 								<span class="glyphicon glyphicon-time"></span>
 							</button>
-							<button id="blockBtn2"class="blockBtn">B</button>
+							<button id="blockBtn2" class="blockBtn">B</button>
 							
 						</div>
-						<div class="card horizontal">
 							<div class="card-content">
 								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
 								<p><strong>Description:</strong> Fill footer with useful information</p>
@@ -112,18 +110,18 @@
 							<div class="card-footer">
 								<p>Diego</p>
 							</div>
-						</div>
+						
 					</div>
 				</div>
 			
 				<div id="inprogress" class="inProgressCol col-sm-4 iColumn">
 					<div class="title">InProgress</div>
-					<div id="item3" draggable="true">
-						<div class="cardTitle js--item3">
+					<div id="item3"  class="card js--item3" draggable="true">
+						<div class="cardTitle">
 							<label >ID: #1422</label>
 							<button id="blockBtn3" class="blockBtn">B</button>
 						</div>
-						<div class="card horizontal">
+						
 							<div class="card-content">
 								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
 								<p><strong>Description:</strong> Connect Website to DB</p>
@@ -132,14 +130,14 @@
 							<div class="card-footer">
 								<p>Sanabia</p>
 							</div>
-						</div>
+						
 					</div>
-					<div id="item4" draggable="true">
-						<div class="cardTitle js--item4">
+					<div id="item4" class="card js--item4" draggable="true">
+						<div class="cardTitle">
 							<label >ID: #1422</label>
 							<button id="blockBtn4" class="blockBtn">B</button>
 						</div>
-						<div class="card horizontal">
+						
 							<div class="card-content">
 								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
 								<p><strong>Description:</strong> Create DB and Stored Procedures</p>
@@ -148,18 +146,18 @@
 							<div class="card-footer">
 								<p>Ricardo</p>
 							</div>
-						</div>
+						
 					</div>
 				</div>
 		
 				<div id="finished" class="finishedCol col-sm-4 iColumn">
 					<div class="title">Finished</div>
-					<div id="item5" draggable="true">
-						<div class="cardTitle js--item5">
+					<div id="item5" class="card js--item5" draggable="true">
+						<div class="cardTitle">
 							<label >ID: #1422</label>
 							<button id="blockBtn5" class="blockBtn">B</button>
 						</div>
-						<div class="card horizontal">
+						
 							<div class="card-content">
 								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
 								<p><strong>Description:</strong> Add ability to create new cards</p>
@@ -168,14 +166,14 @@
 							<div class="card-footer">
 								<p>Sanabia</p>
 							</div>
-						</div>
+					
 					</div>
-					<div id="item6" draggable="true">
-						<div class="cardTitle js--item6">
+					<div id="item6" class="card js--item6" draggable="true">
+						<div class="cardTitle">
 							<label >ID: #1421</label>
 							<button id="blockBtn6" class="blockBtn">B</button>
 						</div>
-						<div class="card horizontal">
+						
 							<div class="card-content">
 								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
 								<p><strong>Description:</strong> Create github repository to work on</p>
@@ -184,7 +182,7 @@
 							<div class="card-footer">
 								<p>Erik</p>
 							</div>
-						</div>
+						
 					</div>
 				</div>
 		</div>
