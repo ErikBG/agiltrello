@@ -1,5 +1,45 @@
 <?php
 require 'database.php';
+function newTask() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sql = "
+  INSERT INTO task (
+  title,
+  description,
+  duration,
+  deadline,
+  owner,
+  colum,
+  sprint_id
+  ) VALUES (
+  :task_title,
+  :task_description,
+  :task_duration,
+  :task_deadline,
+  :task_owner,
+  :task_sprint
+);";
+try {
+  $db = getConnection();
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("task_title", $payload->task_title);
+  $stmt->bindParam("task_description", $payload->task_description);
+  $stmt->bindParam("task_duration", $payload->task_duration);
+  $stmt->bindParam("task_deadline", $payload->task_deadline);
+  $stmt->bindParam("task_owner", $payload->task_owner);
+  $stmt->bindParam("task_sprint", $payload->task_sprint);
+  $stmt->execute();
+  $response = array(
+    "success" => "ok");
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getmessage()
+    );
+  }
+  return json_encode($response);
+}
+
 
 function newuser() {
   $request = \Slim\Slim::getInstance()->request();

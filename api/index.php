@@ -11,6 +11,11 @@ $app->post('/newuser(/)', function() {
     $result = newuser();
     echo $result;
 });
+$app->post('/newTask(/)', function() {
+    require 'projects/agil/post_function.php';
+    $result = newTask();
+    echo $result;
+});
 $app->post('/newStory(/)', function() {
     require 'projects/agil/post_function.php';
     $result = newStory();
