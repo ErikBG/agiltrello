@@ -100,7 +100,7 @@
 								<span class="glyphicon glyphicon-time"></span>
 							</button>
 							<button id="blockBtn2" class="blockBtn">B</button>
-							
+
 						</div>
 							<div class="card-content">
 								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
@@ -110,10 +110,10 @@
 							<div class="card-footer">
 								<p>Diego</p>
 							</div>
-						
+
 					</div>
 				</div>
-			
+
 				<div id="inprogress" class="inProgressCol col-sm-4 iColumn">
 					<div class="title">InProgress</div>
 					<div id="item3"  class="card js--item3" draggable="true">
@@ -121,7 +121,7 @@
 							<label >ID: #1422</label>
 							<button id="blockBtn3" class="blockBtn">B</button>
 						</div>
-						
+
 							<div class="card-content">
 								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
 								<p><strong>Description:</strong> Connect Website to DB</p>
@@ -130,14 +130,14 @@
 							<div class="card-footer">
 								<p>Sanabia</p>
 							</div>
-						
+
 					</div>
 					<div id="item4" class="card js--item4" draggable="true">
 						<div class="cardTitle">
 							<label >ID: #1422</label>
 							<button id="blockBtn4" class="blockBtn">B</button>
 						</div>
-						
+
 							<div class="card-content">
 								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
 								<p><strong>Description:</strong> Create DB and Stored Procedures</p>
@@ -146,10 +146,10 @@
 							<div class="card-footer">
 								<p>Ricardo</p>
 							</div>
-						
+
 					</div>
 				</div>
-		
+
 				<div id="finished" class="finishedCol col-sm-4 iColumn">
 					<div class="title">Finished</div>
 					<div id="item5" class="card js--item5" draggable="true">
@@ -157,7 +157,7 @@
 							<label >ID: #1422</label>
 							<button id="blockBtn5" class="blockBtn">B</button>
 						</div>
-						
+
 							<div class="card-content">
 								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
 								<p><strong>Description:</strong> Add ability to create new cards</p>
@@ -166,14 +166,14 @@
 							<div class="card-footer">
 								<p>Sanabia</p>
 							</div>
-					
+
 					</div>
 					<div id="item6" class="card js--item6" draggable="true">
 						<div class="cardTitle">
 							<label >ID: #1421</label>
 							<button id="blockBtn6" class="blockBtn">B</button>
 						</div>
-						
+
 							<div class="card-content">
 								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
 								<p><strong>Description:</strong> Create github repository to work on</p>
@@ -182,7 +182,7 @@
 							<div class="card-footer">
 								<p>Erik</p>
 							</div>
-						
+
 					</div>
 				</div>
 		</div>
@@ -235,7 +235,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!--New Task Modal-->
 	<div id="newTaskModal" class="modal fade" role="dialog">
 		<div class="signup-box modal-dialog modal-sm">
@@ -250,8 +250,8 @@
 				<form>
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="cardId">ID:</label>
-							<input type="number" class="form-control" id="cardId">
+							<label for="cardTitle">Title</label>
+							<input type="text" class="form-control" id="cardTitle">
 						</div>
 						 <div class="form-group">
 							<label for="description">Description:</label>
@@ -271,11 +271,9 @@
 						</div>
 						<div class="form-group">
 							<label for="column">Column:</label>
-							<select name="Columns" id="column">
+							<select name="Columns" class="form-control" id="column">
 								<option value="backlog">Backlog</option>
 								<option value="ready">Ready</option>
-								<option value="inProgress">In Progress</option>
-								<option value="finished">Finished</option>
 							</select>
 						</div>
 					</div>
@@ -287,7 +285,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!--Card Current Remaining Work modal-->
 	<div class="modal fade" id="cardModal" role="dialog">
         <div class="modal-dialog modal-sm">
@@ -312,7 +310,7 @@
 			</div>
         </div>
     </div>
-	  
+
 	    <!-- BURNDOWN Modal -->
       <div class="modal fade" id="BurndownModal" role="dialog">
         <div class="modal-dialog">
@@ -384,7 +382,7 @@
 		$('.modal').on('shown.bs.modal', function () {
 			$(this).find('input:visible:first').focus();
 		})
-		
+
 		sessionStorage.currentTasks = 6;
 		sessionStorage.currentTaskID = 1423;
 	</script>

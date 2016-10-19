@@ -17,11 +17,14 @@ body {
 	min-height: 100%;
 	bottom: 60px;
 	overflow-y: auto;
-	
+
 }
 .error{
 	color: red;
 	display: none;
+}
+#sprint_select{
+  margin-top: 7px;
 }
 
 /* NAVBAR */
@@ -97,7 +100,7 @@ body {
     border-radius: 5px;
 	margin-bottom: 10px;
     background-color: #ffe4e4;
-    
+
 }
 
 
@@ -109,7 +112,7 @@ body {
 .card{
     /* Add shadows to create the "card" effect */
     background-color: #FFFFFF;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);  
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
 }
 
 .cardTitle
