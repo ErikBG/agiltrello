@@ -5,32 +5,33 @@ function setSelectedID(id) {
 }
 
 function addTask() {
-	var id = document.getElementById('cardId').value;
-	var description = document.getElementById('description').value;
-	var deadline = document.getElementById('deadline').value;
-	var duration = document.getElementById('duration').value;
-	var owner = document.getElementById('owner').value;
-	var column = document.getElementById('column').value;
-	
-	addTaskToDB(id, description, duration, deadline, owner, column, 0);
-	
+	var taskTitle = $("#cardTitle").val();
+	var taskDesc = $("#carddescription").val();
+	var taskDuration = $("#cardduration").val();
+	var taskDeadline= $("#carddeadline").val();
+	var taskOwner= $("#cardowner").val();
+	var taskColumn= $("#cardcolumn").val();
+	var taskSprint= $("#sprint_select").val();
+
+	addTaskToDB(taskTitle, taskDesc, taskDuration,taskDeadline, taskOwner, taskColumn, taskSprint);
+
 	// Placeholder
-	sessionStorage.currentTasks ++;
-	sessionStorage.currentTaskID ++;
-	
+	// sessionStorage.currentTasks ++;
+	// sessionStorage.currentTaskID ++;
+
 	//var n = sessionStorage.currentTasks;
-	
-	var html = createKanbanCardHtml(id, deadline, description, duration, owner);
-	var colHtml = getColumn(column);
-	appendHtmlAfterHtml(html, colHtml);
-	makeCardDraggable(id);
+	// 
+	// var html = createKanbanCardHtml(id, taskDeadline, taskDesc,taskDuration,taskOwner);
+	// var colHtml = getColumn(taskColumn);
+	// appendHtmlAfterHtml(html, colHtml);
+	// makeCardDraggable(id);
 	// Fin de placeholder
 }
 
 function createKanbanCardHtml(id, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea
-	
+
 	var htmlClass;
-	var html = 
+	var html =
 	"<div id='item"+id+"' class='card js--item"+id+"' draggable='true'>"+
 	"<div class='cardTitle'>"+
 	"    <label>ID: #"+id+"</label>"+
@@ -48,7 +49,7 @@ function createKanbanCardHtml(id, date, desc, crw, owner) {//recibe toda la info
 	"			<p>"+owner+"</p>"+
 	"		</div>"+
 	"</div>";
-	
+
 	console.log(html);
 	return html;
 }
@@ -62,7 +63,7 @@ function getColumn(state) {
 		htmlClass = ".finishedCol";
 	else
 		htmlClass = ".backlogCol";
-	
+
 	console.log(htmlClass);
 	return htmlClass;
 }

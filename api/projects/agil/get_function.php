@@ -63,11 +63,11 @@ function getdetailsprint() {
   $id_sprint = $_GET['id_sprint'];
   $sql = "
   SELECT
-  c.id,c.title,c.as_i,c.want,c.so_that
+  *
   FROM
-  sprint s
-  INNER JOIN sprint_card sc ON s.Id=sc.id_sprint
-  INNER JOIN user_story c ON c.Id=sc.id_card
+  task t
+  INNER JOIN sprint_task st ON t.Id=st.id_task
+  INNER JOIN sprint s ON s.Id=st.id_sprint
   WHERE s.id=".$id_sprint."";
   try {
     $db = getConnection();

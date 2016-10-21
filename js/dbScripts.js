@@ -1,25 +1,19 @@
-function addTaskToDB () {
+function addTaskToDB (taskTitle, taskDesc, taskDuration,taskDeadline, taskOwner, taskColumn, taskSprint) {
 
-	var taskTitle = $("#cardTitle").val();
-	var tastDesc = $("#carddescription").val();
-	var taskDuration = $("#cardduration").val();
-	var taskDeadline= $("#carddeadline").val();
-	var taskOwner= $("#cardowner").val();
-	var taskColum= $("#cardcolum").val();
-	var taskSprint= $("#sprint_select").val();
+
 	var formData = {
 			 "task_title": taskTitle,
-			 "task_description": tastDesc,
+			 "task_description": taskDesc,
 			 "task_duration": taskDuration,
 			 "task_deadline": taskDeadline,
 			 "task_owner": taskOwner,
-			 "task_colum": taskColum,
+			 "task_column": taskColumn,
 			 "task_sprint": taskSprint
 
 		 };
 	 console.log(formData);
 	$.ajax({
-			 url: "http://localhost/agiltrello/api/newTask",
+			 url: "http://localhost/Github/agiltrello/api/newTask",
 			 type: 'POST',
 			 data: JSON.stringify(formData),
 			 dataType: 'json',
