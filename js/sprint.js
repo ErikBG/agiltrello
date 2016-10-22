@@ -18,7 +18,10 @@ $(document).ready(function () {
       $.get('http://localhost/Github/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
         $.each(data, function (i, current) {
           console.log(data);
-          createKanbanCardHtml(current['Id'], current['deadline'],current['description'],current['column'],current['owner']);
+          var html= createKanbanCardHtml(current['Id'], current['deadline'],current['description'],current['column_state'],current['owner']);
+          var colHtml = getColumn(current['column_state']);
+      	 	 appendHtmlAfterHtml(html, colHtml);
+      	 	 makeCardDraggable(current['Id']);
         });
       });
     });
