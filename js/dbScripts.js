@@ -20,6 +20,11 @@ function addTaskToDB (taskTitle, taskDesc, taskDuration,taskDeadline, taskOwner,
 			 encode: true
 	 }).done(function (data) {
 		 console.log(data);
+		 	var lastTaskAdded = data['task_current_id'];
+			var html = createKanbanCardHtml(lastTaskAdded, taskDeadline, taskDesc,taskDuration,taskOwner);
+	 	var colHtml = getColumn(taskColumn);
+	 	 appendHtmlAfterHtml(html, colHtml);
+	 	 makeCardDraggable(lastTaskAdded);
 	 console.log("Guardado correctamente");
 	 }).fail(function (data) {
 			 console.log(data);

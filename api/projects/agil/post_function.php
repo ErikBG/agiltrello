@@ -10,7 +10,7 @@ function newTask() {
   duration,
   deadline,
   owner,
-  column,
+  column_state,
   sprint_id
   ) VALUES (
   :task_title,
@@ -34,7 +34,7 @@ try {
   $stmt->execute();
   $currentTask = $db->lastInsertId();
   $response = array(
-    "success" => "ok");
+    "task_current_id" => $currentTask);
   } catch (PDOException $e) {
     $response = array(
       "error" => $e->getmessage()

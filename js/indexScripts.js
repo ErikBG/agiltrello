@@ -4,6 +4,8 @@ function setSelectedID(id) {
 	document.getElementById('crw_card_input').value = getCRW(id);
 }
 
+
+
 function addTask() {
 	var taskTitle = $("#cardTitle").val();
 	var taskDesc = $("#carddescription").val();
@@ -20,12 +22,7 @@ function addTask() {
 	// sessionStorage.currentTaskID ++;
 
 	//var n = sessionStorage.currentTasks;
-	// 
-	// var html = createKanbanCardHtml(id, taskDeadline, taskDesc,taskDuration,taskOwner);
-	// var colHtml = getColumn(taskColumn);
-	// appendHtmlAfterHtml(html, colHtml);
-	// makeCardDraggable(id);
-	// Fin de placeholder
+
 }
 
 function createKanbanCardHtml(id, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea
