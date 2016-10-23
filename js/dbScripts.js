@@ -13,7 +13,7 @@ function addTaskToDB (taskTitle, taskDesc, taskDuration,taskDeadline, taskOwner,
 		 };
 	 console.log(formData);
 	$.ajax({
-			 url: "http://localhost/Github/agiltrello/api/newTask",
+			 url: "http://trelloagilprueba.esy.es/agiltrello/api/newTask",
 			 type: 'POST',
 			 data: JSON.stringify(formData),
 			 dataType: 'json',

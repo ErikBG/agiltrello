@@ -22,9 +22,7 @@ function addTask() {
 	// sessionStorage.currentTaskID ++;
 
 	//var n = sessionStorage.currentTasks;
-
-
-
+	
 }
 
 function createKanbanCardHtml(id, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea
