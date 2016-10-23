@@ -15,6 +15,7 @@ $.get('http://trelloagilprueba.esy.es/agiltrello/api/getsprint', function (data)
 $(document).ready(function () {
     $("#sprint_select").change(function () {
       var id_sprint = $("#sprint_select").val();
+	  clearTasks();
       $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
         $.each(data, function (i, current) {
           console.log(data);

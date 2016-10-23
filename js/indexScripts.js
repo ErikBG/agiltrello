@@ -81,6 +81,11 @@ function makeCardDraggable(id){
 		});
 		}
 
+function clearTasks () {
+	console.log("Clearing tasks");
+	$("div").remove(".card");
+}		
+
 function appendHtmlAfterHtml (html, prevHtml) {
 	$(prevHtml).append(html);
 }
