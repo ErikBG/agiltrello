@@ -141,6 +141,31 @@ try {
   return json_encode($response);
 }
 
+function updateCRWAndEffort() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sql = "
+  UPDATE task SET
+  crw = ?,
+  effort = ?
+  WHERE id = ?;";
+try {
+  $db = getConnection();
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam(1, $payload->crw);
+  $stmt->bindParam(2, $payload->effort);
+  $stmt->bindParam(3, $payload->task_id);
+  $stmt->execute();
+  $response = array(
+    "success" => "ok");
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getmessage()
+    );
+  }
+  return json_encode($response);
+}
+
 function newStory() {
   $request = \Slim\Slim::getInstance()->request();
   $payload = json_decode($request->getBody());

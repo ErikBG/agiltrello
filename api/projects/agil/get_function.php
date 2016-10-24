@@ -47,8 +47,6 @@ function getUserToProject() {
   try {
     $db = getConnection();
     $stmt = $db->prepare($sql);
-	/*$stmt->bindParam(1, $payload->user_id);
-	$stmt->bindParam(2, $payload->project_id);*/
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_CLASS);
     if (count($result)) {
@@ -105,6 +103,37 @@ function getdetailsprint() {
   FROM
   task t
   WHERE sprint_id=".$id_sprint."";
+  try {
+    $db = getConnection();
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_CLASS);
+    if (count($result)) {
+      $response = $result;
+    } else {
+      $response = array(
+        "error" => 'No rows found'
+      );
+    }
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getMessage()
+    );
+  }
+  return json_encode($response);
+}
+
+function getCRWAndEffort() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $task_id = $_GET['taskId'];
+  $sql = "
+  SELECT
+  crw,
+  effort
+  FROM
+  task
+  WHERE id = ".$task_id."";
   try {
     $db = getConnection();
     $stmt = $db->prepare($sql);

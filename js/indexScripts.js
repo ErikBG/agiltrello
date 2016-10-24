@@ -1,11 +1,34 @@
 function setSelectedID(id) {
 	sessionStorage.selectedTaskId = id;
 	console.log(sessionStorage.selectedTaskId);
-	document.getElementById('crw_card_input').value = getCRW(id);
+	loadCRWAndEffort(id);
+}
+
+function loadCRWAndEffort(taskId) {
+	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getCRWAndEffort', {taskId}, function (data) {
+		console.log(data);
+		$.each(data, function (i, user_project) {
+			if (i==0) {
+				$("#crw_card_input").val(user_project['crw']);
+				$("#effort_card_input").val(user_project['effort']);
+			}
+		});
+	});
 }
 
 function loadProjectUserConfig() {
-	var data = getUserToProject(sessionStorage.currentUserId, sessionStorage.currentProjectId);
+	var userId = sessionStorage.currentUserId;
+	var projectId = sessionStorage.currentProjectId;
+	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getUserToProject', {userId, projectId}, function (data) {
+	  console.log(data);
+	  $.each(data, function (i, user_project) {
+			if (i==0) {
+				$("#team_id_input").val(user_project['team_id']);
+				$("#daily_capacity_input").val(user_project['daily_capacity']);
+				$("#days_per_sprint_input").val(user_project['days_per_sprint']);
+			}
+	  });
+	});
 }
 
 function addProjectUserConfig() {
@@ -39,6 +62,13 @@ function addTask() {
 
 	//var n = sessionStorage.currentTasks;
 	
+}
+
+function setCRWAndEffort() {
+	var taskId = sessionStorage.selectedTaskId;
+	var crw = $("#crw_card_input").val();
+	var effort = $("#effort_card_input").val();
+	updateCRWAndEffort(taskId, crw, effort);
 }
 
 function createKanbanCardHtml(id, title, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea

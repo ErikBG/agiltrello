@@ -21,6 +21,11 @@ $app->post('/updateUserToProject(/)', function() {
     $result = updateUserToProject();
     echo $result;
 });
+$app->post('/updateCRWAndEffort(/)', function() {
+    require 'projects/agil/post_function.php';
+    $result = updateCRWAndEffort();
+    echo $result;
+});
 $app->post('/newTask(/)', function() {
     require 'projects/agil/post_function.php';
     $result = newTask();
@@ -40,6 +45,11 @@ $app->get('/getuser(/)', function() {
 $app->get('/getUserToProject(/)', function() {
     require 'projects/agil/get_function.php';
     $result = getUserToProject();
+    echo $result;
+});
+$app->get('/getCRWAndEffort(/)', function() {
+    require 'projects/agil/get_function.php';
+    $result = getCRWAndEffort();
     echo $result;
 });
 $app->get('/getsprint(/)', function() {
