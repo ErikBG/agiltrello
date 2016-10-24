@@ -77,6 +77,70 @@ try {
   return json_encode($response);
 }
 
+function newUserToProject() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sql = "
+  INSERT INTO user_project (
+  user_id,
+  project_id,
+  team_id,
+  daily_capacity,
+  days_per_sprint
+  ) VALUES (
+  :user_id,
+  :project_id,
+  :team_id,
+  :daily_capacity,
+  :days_per_sprint
+);";
+try {
+  $db = getConnection();
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("user_id", $payload->user_id);
+  $stmt->bindParam("project_id", $payload->project_id);
+  $stmt->bindParam("team_id", $payload->team_id);
+  $stmt->bindParam("daily_capacity", $payload->daily_capacity);
+  $stmt->bindParam("days_per_sprint", $payload->days_per_sprint);
+  $stmt->execute();
+  $response = array(
+    "success" => "ok");
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getmessage()
+    );
+  }
+  return json_encode($response);
+}
+
+function updateUserToProject() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sql = "
+  UPDATE user_project SET
+  team_id = ?,
+  daily_capacity = ?,
+  days_per_sprint = ?
+  WHERE user_id = ? AND project_id = ?;";
+try {
+  $db = getConnection();
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam(1, $payload->team_id);
+  $stmt->bindParam(2, $payload->daily_capacity);
+  $stmt->bindParam(3, $payload->days_per_sprint);
+  $stmt->bindParam(4, $payload->user_id);
+  $stmt->bindParam(5, $payload->project_id);
+  $stmt->execute();
+  $response = array(
+    "success" => "ok");
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getmessage()
+    );
+  }
+  return json_encode($response);
+}
+
 function newStory() {
   $request = \Slim\Slim::getInstance()->request();
   $payload = json_decode($request->getBody());
@@ -112,6 +176,4 @@ try {
   }
   return json_encode($response);
 }
-
-
 ?>

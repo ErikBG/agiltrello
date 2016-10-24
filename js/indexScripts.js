@@ -4,7 +4,23 @@ function setSelectedID(id) {
 	document.getElementById('crw_card_input').value = getCRW(id);
 }
 
+function loadProjectUserConfig() {
+	var data = getUserToProject(sessionStorage.currentUserId, sessionStorage.currentProjectId);
+}
 
+function addProjectUserConfig() {
+	
+	var userId = sessionStorage.currentUserId;
+	var projectId = sessionStorage.currentProjectId;
+	
+	
+	var teamId = $("#team_id_input").val();
+	var dailyCapacity = $("#daily_capacity_input").val();
+	var daysPerSprint = $("#days_per_sprint_input").val();
+	
+	//console.log("Trying to get: "+getUserToProject(userId, projectId));
+	updateProjectUserConfig(userId, projectId, teamId, dailyCapacity, daysPerSprint);
+}
 
 function addTask() {
 	var taskTitle = $("#cardTitle").val();
@@ -25,13 +41,13 @@ function addTask() {
 	
 }
 
-function createKanbanCardHtml(id, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea
+function createKanbanCardHtml(id, title, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea
 
 	var htmlClass;
 	var html =
 	"<div id='item"+id+"' class='card js--item"+id+"' draggable='true'>"+
 	"<div class='cardTitle'>"+
-	"    <label>ID: #"+id+"</label>"+
+	"    <label>"+title+"</label>"+
 	"		<button id='configBtn"+id+"' class='configBtn' data-toggle='modal' data-target='#cardModal' onclick='setSelectedID("+id+")'>"+
 	"			<span class='glyphicon glyphicon-time'></span>"+
 	"		</button>"+

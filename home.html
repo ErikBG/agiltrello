@@ -184,7 +184,6 @@
      var formData = {
           "password": $("#pwd").val(),
           "email": $('#email').val()
-
         };
       console.log(formData);
      $.ajax({
@@ -196,6 +195,9 @@
       }).done(function (data) {
         console.log(data);
 		window.location.href="index.html";
+		
+		//sessionStorage.currentUserId = AQUI VA EL USER ID DEL USUARIO;
+		//sessionStorage.currentProjectId = AQUI VA EL PROJECT ID DEL PROYECTO EN EL QUE ESTA EL USUARIO;
       }).fail(function (data) {
           console.log(data);
       });

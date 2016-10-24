@@ -28,6 +28,44 @@ function getsprint() {
   }
   return json_encode($response);
 }
+
+function getUserToProject() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $user_id = $_GET['userId'];
+  $project_id = $_GET['projectId'];
+  $sql = "
+  SELECT
+  user_id,
+  project_id,
+  team_id,
+  daily_capacity,
+  days_per_sprint
+  FROM
+  user_project
+  WHERE user_id = ".$user_id." AND project_id = ".$project_id."";
+  try {
+    $db = getConnection();
+    $stmt = $db->prepare($sql);
+	/*$stmt->bindParam(1, $payload->user_id);
+	$stmt->bindParam(2, $payload->project_id);*/
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_CLASS);
+    if (count($result)) {
+      $response = $result;
+    } else {
+      $response = array(
+        "error" => 'No rows found'
+      );
+    }
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getMessage()
+    );
+  }
+  return json_encode($response);
+}
+
 function getcard() {
   $request = \Slim\Slim::getInstance()->request();
   $payload = json_decode($request->getBody());
@@ -66,9 +104,7 @@ function getdetailsprint() {
   *
   FROM
   task t
-  INNER JOIN sprint_task st ON t.Id=st.id_task
-  INNER JOIN sprint s ON s.Id=st.id_sprint
-  WHERE s.id=".$id_sprint."";
+  WHERE sprint_id=".$id_sprint."";
   try {
     $db = getConnection();
     $stmt = $db->prepare($sql);

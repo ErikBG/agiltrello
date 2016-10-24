@@ -29,6 +29,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
+				<li><a href="#" data-toggle="modal" data-target="#ProjectUserConfigModal" onclick="loadProjectUserConfig()"><span class="glyphicon glyphicon-cog"></span> User</a></li>
 				<li><a href="home.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 			  </ul>
 			  <ul class="nav navbar-nav navbar-right actionButton">
@@ -187,12 +188,40 @@
 				</div>
 		</div>
 	</div>
-
+	<!--BOARD END-->
 <footer class="container-fluid text-center footer">
   <p>This website was created by Desarrollo Agil Team.</p>
 </footer>
-    <!--BOARD-->
-
+	
+	<!--Project User Configuration modal-->
+	<div class="modal fade" id="ProjectUserConfigModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Project User Configuration</h4>
+				</div>
+				<form>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="crw">Team id:</label>
+						<input type="number" class="form-control" id="team_id_input">
+						<label for="crw">Daily capacity:</label>
+						<input type="number" class="form-control" id="daily_capacity_input">
+						<label for="crw">Days per sprint:</label>
+						<input type="number" class="form-control" id="days_per_sprint_input">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-success" data-dismiss="modal" onclick="addProjectUserConfig()">Save</button>
+				</div>
+				</form>
+			</div>
+        </div>
+    </div>
+	
 	<!--New User Story Modal-->
 	<div id="newUserStoryModal" class="modal fade" role="dialog">
 		<div class="signup-box modal-dialog modal-sm">
@@ -385,6 +414,9 @@
 
 		sessionStorage.currentTasks = 6;
 		sessionStorage.currentTaskID = 1423;
+		
+		sessionStorage.currentUserId = 5;    // ESTO DEBE BORRARSE YA QUE EL LOGIN REGISTRE APROPIADAMENTE EL USER ID DEL QUE INICIO SESION
+		sessionStorage.currentProjectId = 1; // ESTO TAMBIEN
 	</script>
 
 </body>
