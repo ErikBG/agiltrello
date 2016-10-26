@@ -172,3 +172,13 @@ body {
 .unblocked {
     background-color: #3e79d8;
 }
+
+input[type="checkbox"] {
+  height: 15px;
+  width: 15px;
+  margin-right:5px;
+  margin-left: 10px;
+  position:relative;
+}
+
+em   {font-size: 12px;}
