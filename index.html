@@ -78,157 +78,50 @@
         <div class="progress-bar progress-bar-striped active" role="progressbar"
               aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
-        <div class = "ready"></div>
-				<div id="ready" class="readyCol col-sm-4 iColumn">
+        <!-- <div class = "ready"></div> -->
+				<div id="ready" class="readyCol col-sm-4 iColumn " ondrop="drop(event)" ondragover="allowDrop(event)">
 					<div class="title">Ready</div>
-
-					<div id="item1" class="card js--item1" draggable="true">
-						<div class="cardTitle">
-						   <label>ID: #1421</label>
-						   <button id="blockBtn1" class="blockBtn">B</button>
-						</div>
-            <div class="card-content">
-              <p><strong>Deadline:</strong> <em contenteditable="true">28-Septimbre-2016</em></p>
-              <p ><strong>Description:</strong> <em contenteditable="true">Add ability to login into the server</em></p>
-              <p ><strong>Duration:</strong> <em contenteditable="true">4hrs</em></p>
-            </div>
-            <form>
-              <p>
-                <input id="input1" type="checkbox" name="completed1" value="17"><em>Terminado</em>
-
-              </p>
-            </form>
-							<div class="card-footer">
-								<p>Ricardo</p>
-							</div>
 					</div>
 
-
-					<div id="item2" class="card js--item2" draggable="true">
-						<div class="cardTitle">
-							<label>ID: #1422</label>
-							<button id="configBtn2" class="configBtn" data-toggle="modal" data-target="#cardModal" onclick='setSelectedID(1422)'>
-								<span class="glyphicon glyphicon-time"></span>
-							</button>
-							<button id="blockBtn2" class="blockBtn">B</button>
-
-						</div>
-            <div class="card-content">
-              <p><strong>Deadline:</strong> <em contenteditable="true">28-Septimbre-2016</em></p>
-              <p><strong>Description:</strong> <em contenteditable="true">Fill footer with useful information</em></p>
-              <p><strong>Duration:</strong> <em contenteditable="true">4hrs</em></p>
-            </div>
-            <form>
-              <p>
-                <input id="input2" type="checkbox" name="completed2" value="17"><em>Terminado</em>
-
-              </p>
-            </form>
-							<div class="card-footer">
-								<p>Diego</p>
-							</div>
-
-					</div>
-				</div>
-
-				<div id="inprogress" class="inProgressCol col-sm-4 iColumn">
+				<div id="inprogress" class="inProgressCol col-sm-4 iColumn " ondrop="drop(event)" ondragover="allowDrop(event)">
 					<div class="title">InProgress</div>
-					<div id="item3"  class="card js--item3" draggable="true">
-						<div class="cardTitle">
-							<label >ID: #1422</label>
-							<button id="blockBtn3" class="blockBtn">B</button>
-						</div>
-
-            <div class="card-content">
-              <p><strong>Deadline:</strong> <em contenteditable="true">28-Septimbre-2016</em></p>
-              <p><strong>Description:</strong> <em contenteditable="true">Connect Website to DB</em></p>
-              <p><strong>Duration:</strong> <em contenteditable="true">4hrs</em></p>
-            </div>
-            <form>
-              <p>
-                <input id="input3" type="checkbox" name="completed3" value="17"><em>Terminado</em>
-
-              </p>
-            </form>
-							<div class="card-footer">
-								<p>Sanabia</p>
-							</div>
-
-					</div>
-					<div id="item4" class="card js--item4" draggable="true">
-						<div class="cardTitle">
-							<label >ID: #1422</label>
-							<button id="blockBtn4" class="blockBtn">B</button>
-						</div>
-
-            <div class="card-content">
-              <p><strong>Deadline:</strong> <em contenteditable="true">28-Septimbre-2016</em></p>
-              <p><strong>Description:</strong> <em contenteditable="true">Create DB and Stored Procedures</em></p>
-              <p><strong>Duration:</strong> <em contenteditable="true">4hrs</em></p>
-            </div>
-            <form>
-              <p>
-                <input id="input4" type="checkbox" name="completed4" value="17"><em>Terminado</em>
-
-              </p>
-            </form>
-							<div class="card-footer">
-								<p>Ricardo</p>
-							</div>
-
-					</div>
 				</div>
 
-				<div id="finished" class="finishedCol col-sm-4 iColumn">
+				<div id="finished" class="finishedCol col-sm-4 iColumn" ondrop="drop(event)" ondragover="allowDrop(event)">
 					<div class="title">Finished</div>
-					<div id="item5" class="card js--item5" draggable="true">
-						<div class="cardTitle">
-							<label >ID: #1422</label>
-							<button id="blockBtn5" class="blockBtn">B</button>
-						</div>
-
-            <div class="card-content">
-              <p><strong>Deadline:</strong> <em contenteditable="true">28-Septimbre-2016</em></p>
-              <p><strong>Description:</strong> <em contenteditable="true">Add ability to create new cards</em></p>
-              <p><strong>Duration:</strong> <em contenteditable="true">4hrs</em></p>
-            </div>
-            <form>
-              <p>
-                <input id="input5" type="checkbox" name="completed5" value="17"><em>Terminado</em>
-
-              </p>
-            </form>
-							<div class="card-footer">
-								<p>Sanabia</p>
-							</div>
-
-					</div>
-					<div id="item6" class="card js--item6" draggable="true">
-						<div class="cardTitle">
-							<label >ID: #1421</label>
-							<button id="blockBtn6" class="blockBtn">B</button>
-						</div>
-
-            <div class="card-content">
-              <p><strong>Deadline:</strong> <em contenteditable="true">28-Septimbre-2016</em></p>
-              <p><strong>Description:</strong> <em contenteditable="true">Create github repository to work on</em></p>
-              <p><strong>Duration:</strong> <em contenteditable="true">4hrs</em></p>
-            </div>
-            <form>
-              <p>
-                <input id="input6" type="checkbox" name="completed6" value="17"><em>Terminado</em>
-
-              </p>
-            </form>
-							<div class="card-footer">
-								<p>Erik</p>
-							</div>
-
-					</div>
 				</div>
 		</div>
-	</div>
+
+
 	<!--BOARD END-->
+<!-- Modal Assign Ressource to Task -->
+<div id="AssignModal" class="modal fade" role="dialog">
+  <div class="assignModal modal-dialog modal-sm">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Assign Employee</h4>
+      </div>
+      <form>
+        <div class="modal-body">
+      <div class="form-group">
+          <label for="employees_select">Employees:</label>
+          <select class="form-control" id="employees_select" >  </select>
+          </div>
+         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="AssignEmployee()">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
+
+
+
 <footer class="container-fluid text-center footer">
   <p>This website was created by Desarrollo Agil Team.</p>
 </footer>

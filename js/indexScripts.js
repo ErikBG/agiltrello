@@ -1,3 +1,20 @@
+//Ready to inProgress
+$(document).ready(function () {
+    $("#sprint_select").change(function () {
+       var id_sprint = $("#sprint_select").val();
+	  clearTasks();
+      $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
+        $.each(data, function (i, current) {
+          console.log(data);
+          var html= createKanbanCardHtml(current['Id'], current['title'], current['deadline'],current['description'],current['duration'],current['owner']);
+          var colHtml = getColumn(current['column_state']);
+      	 	 appendHtmlAfterHtml(html, colHtml);
+      	 	 makeCardDraggable(current['Id']);
+        });
+      });
+    });
+  });
+
 function setSelectedID(id) {
 	sessionStorage.selectedTaskId = id;
 	console.log(sessionStorage.selectedTaskId);
@@ -32,15 +49,15 @@ function loadProjectUserConfig() {
 }
 
 function addProjectUserConfig() {
-	
+
 	var userId = sessionStorage.currentUserId;
 	var projectId = sessionStorage.currentProjectId;
-	
-	
+
+
 	var teamId = $("#team_id_input").val();
 	var dailyCapacity = $("#daily_capacity_input").val();
 	var daysPerSprint = $("#days_per_sprint_input").val();
-	
+
 	//console.log("Trying to get: "+getUserToProject(userId, projectId));
 	updateProjectUserConfig(userId, projectId, teamId, dailyCapacity, daysPerSprint);
 }
@@ -61,7 +78,7 @@ function addTask() {
 	// sessionStorage.currentTaskID ++;
 
 	//var n = sessionStorage.currentTasks;
-	
+
 }
 
 function setCRWAndEffort() {
@@ -71,11 +88,40 @@ function setCRWAndEffort() {
 	updateCRWAndEffort(taskId, crw, effort);
 }
 
-function createKanbanCardHtml(id, title, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea
+function AssignEmployee(){
+  var name_employee = $("#employees_select").val();
+  var id_task = sessionStorage.getItem("recentTaskMoved");
+  var id_current_sprint = $("#sprint_select").val();
+  modifyTask(name_employee,id_task,id_current_sprint);
 
+}
+function dragStart(event){
+  var itemInmovement = event.dataTransfer.setData("Text", event.target.id);
+  console.log("Start Drag event");
+  // console.log(itemInmovement);
+
+}
+function dragEnd(event) {
+    sessionStorage.setItem("recentTaskMoved",event.target.id);
+    assignUsers();
+    $('#AssignModal').modal('show');
+    console.log("Finished dragging.");
+
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+function drop(event) {
+    event.preventDefault();
+    var data = event.dataTransfer.getData("Text");
+  console.log(data);
+}
+
+function createKanbanCardHtml(id, title, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea
 	var htmlClass;
 	var html =
-	"<div id='item"+id+"' class='card js--item"+id+"' draggable='true'>"+
+	"<div id='"+id+"' class='card js--item"+id+"' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'>"+
 	"<div class='cardTitle'>"+
 	"    <label>"+title+"</label>"+
 	"		<button id='configBtn"+id+"' class='configBtn' data-toggle='modal' data-target='#cardModal' onclick='setSelectedID("+id+")'>"+
@@ -93,7 +139,7 @@ function createKanbanCardHtml(id, title, date, desc, crw, owner) {//recibe toda 
 	"		</div>"+
 	"</div>";
 
-	console.log(html);
+
 	return html;
 }
 
@@ -130,7 +176,7 @@ function makeCardDraggable(id){
 function clearTasks () {
 	console.log("Clearing tasks");
 	$("div").remove(".card");
-}		
+}
 
 function appendHtmlAfterHtml (html, prevHtml) {
 	$(prevHtml).append(html);

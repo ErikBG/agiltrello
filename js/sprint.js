@@ -1,6 +1,6 @@
 //get sprint
 $.get('http://trelloagilprueba.esy.es/agiltrello/api/getsprint', function (data) {
-  console.log(data);
+
   var html_code = '<option value="id">sprint</option>';
   $.each(data, function (i, sprint) {
     var current_html = html_code;
@@ -27,3 +27,16 @@ $(document).ready(function () {
       });
     });
   });
+
+function getTaskFromSprint(id_sprint){
+  $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
+    $.each(data, function (i, current) {
+      console.log(data);
+      var html= createKanbanCardHtml(current['Id'], current['title'], current['deadline'],current['description'],current['duration'],current['owner']);
+      var colHtml = getColumn(current['column_state']);
+       appendHtmlAfterHtml(html, colHtml);
+       makeCardDraggable(current['Id']);
+    });
+  });
+
+}

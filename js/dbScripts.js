@@ -1,3 +1,27 @@
+function modifyTask(name_employee,id_task,id_sprint){
+	var formData = {
+			 "task_id": id_task,
+			 "name_employee": name_employee,
+			 "column_state": "inProgress"
+		 };
+
+	$.ajax({
+			 url: "http://trelloagilprueba.esy.es/agiltrello/api/modifyTask",
+			 type: 'POST',
+			 data: JSON.stringify(formData),
+			 dataType: 'json',
+			 encode: true
+	 }).done(function (data) {
+  clearTasks();
+	getTaskFromSprint(id_sprint);
+
+	 console.log("Modificado correctamente");
+	 }).fail(function (data) {
+			 console.log(data);
+
+	 });
+}
+
 function addTaskToDB (taskTitle, taskDesc, taskDuration,taskDeadline, taskOwner, taskColumn, taskSprint) {
 	var formData = {
 			 "task_title": taskTitle,
@@ -8,7 +32,7 @@ function addTaskToDB (taskTitle, taskDesc, taskDuration,taskDeadline, taskOwner,
 			 "task_column": taskColumn,
 			 "task_sprint": taskSprint
 		 };
-	 console.log(formData);
+
 	$.ajax({
 			 url: "http://trelloagilprueba.esy.es/agiltrello/api/newTask",
 			 type: 'POST',
@@ -27,6 +51,20 @@ function addTaskToDB (taskTitle, taskDesc, taskDuration,taskDeadline, taskOwner,
 			 console.log(data);
 
 	 });
+}
+function assignUsers(){
+$.get('http://trelloagilprueba.esy.es/agiltrello/api/getUsers', function (data) {
+
+  var html_code = '<option value="name_employee">name</option>';
+  $.each(data, function (i, users) {
+    var current_html = html_code;
+    current_html = current_html.replace("name_employee", users['user_name']);
+    current_html = current_html.replace("name", users['user_name']);
+    $('#employees_select').append(current_html);
+    var default_val=$('#employees_select').val();
+
+  });
+});
 }
 
 function newProjectUserConfig(userId, projectId, teamId, dailyCapacity, daysPerSprint) {

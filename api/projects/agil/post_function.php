@@ -76,6 +76,30 @@ try {
   }
   return json_encode($response);
 }
+function modifyTask() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sql = "
+  UPDATE task
+  SET owner= :new_owner,column_state= :change_column
+  WHERE Id= :id_task;";
+try {
+  $db = getConnection();
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("new_owner", $payload->name_employee);
+  $stmt->bindParam("id_task", $payload->task_id);
+  $stmt->bindParam("change_column", $payload->column_state);
+
+  $stmt->execute();
+  $response = array(
+    "success" => "ok");
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getmessage()
+    );
+  }
+  return json_encode($response);
+}
 
 function newUserToProject() {
   $request = \Slim\Slim::getInstance()->request();
