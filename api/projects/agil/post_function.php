@@ -9,7 +9,6 @@ function newTask() {
   description,
   duration,
   deadline,
-  owner,
   column_state,
   sprint_id
   ) VALUES (
@@ -17,7 +16,6 @@ function newTask() {
   :task_description,
   :task_duration,
   :task_deadline,
-  :task_owner,
   :task_column,
   :task_sprint
 );";
@@ -28,13 +26,12 @@ try {
   $stmt->bindParam("task_description", $payload->task_description);
   $stmt->bindParam("task_duration", $payload->task_duration);
   $stmt->bindParam("task_deadline", $payload->task_deadline);
-  $stmt->bindParam("task_owner", $payload->task_owner);
   $stmt->bindParam("task_column", $payload->task_column);
   $stmt->bindParam("task_sprint", $payload->task_sprint);
   $stmt->execute();
   $currentTask = $db->lastInsertId();
   $response = array(
-    "task_current_id" => $currentTask);
+    "task_current_id" => $currentTask );
   } catch (PDOException $e) {
     $response = array(
       "error" => $e->getmessage()

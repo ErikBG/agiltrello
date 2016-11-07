@@ -22,13 +22,12 @@ function modifyTask(name_employee,id_task,id_sprint){
 	 });
 }
 
-function addTaskToDB (taskTitle, taskDesc, taskDuration,taskDeadline, taskOwner, taskColumn, taskSprint) {
+function addTaskToDB (taskTitle, taskDesc, taskDuration,taskDeadline,taskColumn, taskSprint) {
 	var formData = {
 			 "task_title": taskTitle,
 			 "task_description": taskDesc,
 			 "task_duration": taskDuration,
 			 "task_deadline": taskDeadline,
-			 "task_owner": taskOwner,
 			 "task_column": taskColumn,
 			 "task_sprint": taskSprint
 		 };
@@ -42,10 +41,21 @@ function addTaskToDB (taskTitle, taskDesc, taskDuration,taskDeadline, taskOwner,
 	 }).done(function (data) {
 		 console.log(data);
 		 	var lastTaskAdded = data['task_current_id'];
-			var html = createKanbanCardHtml(lastTaskAdded,taskTitle,taskDeadline,taskDesc,taskDuration,taskOwner);
-	 	var colHtml = getColumn(taskColumn);
-	 	 appendHtmlAfterHtml(html, colHtml);
-	 	 makeCardDraggable(lastTaskAdded);
+			switch(taskColumn){
+				case "ready":
+				var html = createKanbanCardHtml(lastTaskAdded,taskTitle,taskDeadline,taskDesc,taskDuration,taskOwner);
+		 	var colHtml = getColumn(taskColumn);
+		 	 appendHtmlAfterHtml(html, colHtml);
+		 	 makeCardDraggable(lastTaskAdded);
+			 break;
+			 case "backlog":
+			 var html = createKanbanCardHtmlBacklog(lastTaskAdded,taskTitle,taskDeadline,taskDesc,taskDuration);
+ 	 	var colHtml = getColumn(taskColumn);
+ 	 	 appendHtmlAfterHtml(html, colHtml);
+ 	 	 makeCardDraggable(lastTaskAdded);
+		 break;
+			}
+
 	 console.log("Guardado correctamente");
 	 }).fail(function (data) {
 			 console.log(data);

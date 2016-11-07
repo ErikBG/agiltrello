@@ -6,11 +6,18 @@ $(document).ready(function () {
 	  clearTasks();
       $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
         $.each(data, function (i, current) {
-          //console.log(data);
-          var html= createKanbanCardHtml(current['id'], current['title'], current['deadline'],current['description'],current['duration'],current['owner']);
-          var colHtml = getColumn(current['column_state']);
-      	 	 appendHtmlAfterHtml(html, colHtml);
-      	 	 makeCardDraggable(current['id']);
+          if(current['column_state']=="backlog"){
+            var html= createKanbanCardHtmlBacklog(current['Id'], current['title'],current['description'],current['deadline'],current['duration']);
+            var colHtml = getColumn(current['column_state']);
+             appendHtmlAfterHtml(html, colHtml);
+             makeCardDraggable(current['Id']);
+          }else{
+            var html= createKanbanCardHtml(current['Id'], current['title'], current['deadline'],current['description'],current['duration'],current['owner']);
+            var colHtml = getColumn(current['column_state']);
+             appendHtmlAfterHtml(html, colHtml);
+             makeCardDraggable(current['Id']);
+          }
+
         });
       });
     });
@@ -78,7 +85,7 @@ function addProjectUserConfig() {
 
 	//console.log("Trying to get: "+getUserToProject(userId, projectId));
 	updateUserProjectConfig(userId, projectId, dailyCapacity, daysPerSprint);
-	
+
 	console.log("Input team id:"+teamId, "Current team id:"+sessionStorage.currentTeamId);
 	if (teamId != sessionStorage.currentTeamId) {
 		updateUserSprintConfig(userId, projectId, sprintId, teamId);
@@ -90,18 +97,10 @@ function addTask() {
 	var taskDesc = $("#carddescription").val();
 	var taskDuration = $("#cardduration").val();
 	var taskDeadline= $("#carddeadline").val();
-	var taskOwner= $("#cardowner").val();
 	var taskColumn= $("#cardcolumn").val();
 	var taskSprint= $("#sprint_select").val();
 
-	addTaskToDB(taskTitle, taskDesc, taskDuration,taskDeadline, taskOwner, taskColumn, taskSprint);
-
-	// Placeholder
-	// sessionStorage.currentTasks ++;
-	// sessionStorage.currentTaskID ++;
-
-	//var n = sessionStorage.currentTasks;
-
+	addTaskToDB(taskTitle, taskDesc, taskDuration,taskDeadline, taskColumn, taskSprint);
 }
 
 function setCRWAndEffort() {
@@ -119,19 +118,52 @@ function AssignEmployee(){
   modifyTask(name_employee,id_task,id_current_sprint);
 
 }
+
+
+
 function dragStart(event){
-  var itemInmovement = event.dataTransfer.setData("Text", event.target.id);
-  console.log("Start Drag event");
-  // console.log(itemInmovement);
+   event.dataTransfer.setData("Text", event.target.id);
+  console.log("Start Dragging ");
+
 
 }
+
 function dragEnd(event) {
-    sessionStorage.setItem("recentTaskMoved",event.target.id);
-    assignUsers();
-    $('#AssignModal').modal('show');
+    if(sessionStorage.getItem("nameColumn")== "inprogress"){
+        sessionStorage.setItem("recentTaskMoved",event.target.id);
+        assignUsers();
+        $('#AssignModal').modal('show');
+
+    }
+
     console.log("Finished dragging.");
 
 }
+document.addEventListener("dragenter", function(event) {
+    var whichColumn;
+    switch(event.target.id){
+      case "ready":
+      whichColumn ="ready"
+      sessionStorage.setItem("nameColumn",whichColumn);
+      console.log("Drag over ready");
+      break;
+      case "inprogress":
+      whichColumn ="inprogress"
+      sessionStorage.setItem("nameColumn",whichColumn);
+      console.log("Drag over inprogress");
+      break;
+      case "finished":
+      whichColumn ="finished`"
+      sessionStorage.setItem("nameColumn",whichColumn);
+      console.log("Drag over finished");
+      break;
+    }
+});
+
+// By default, data/elements cannot be dropped in other elements. To allow a drop, we must prevent the default handling of the element
+document.addEventListener("dragover", function(event) {
+    event.preventDefault();
+});
 
 function allowDrop(event) {
     event.preventDefault();
@@ -139,8 +171,30 @@ function allowDrop(event) {
 function drop(event) {
     event.preventDefault();
     var data = event.dataTransfer.getData("Text");
-  console.log(data);
+
 }
+// $(document).ready(function () {
+//     $("#sprint_select").change(function () {
+//        var id_sprint = $("#sprint_select").val();
+// 	  clearTasks();
+//       $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
+//         $.each(data, function (i, current) {
+//           if(current['column_state']=="backlog"){
+//             var html= createKanbanCardHtmlBacklog(current['Id'], current['title'],current['description'],current['deadline'],current['duration']);
+//             var colHtml = getColumn(current['column_state']);
+//              appendHtmlAfterHtml(html, colHtml);
+//              makeCardDraggable(current['Id']);
+//           }else{
+//             var html= createKanbanCardHtml(current['Id'], current['title'], current['deadline'],current['description'],current['duration'],current['owner']);
+//             var colHtml = getColumn(current['column_state']);
+//              appendHtmlAfterHtml(html, colHtml);
+//              makeCardDraggable(current['Id']);
+//           }
+//
+//         });
+//       });
+//     });
+//   });
 
 function createKanbanCardHtml(id, title, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea
 	var htmlClass;
@@ -167,6 +221,21 @@ function createKanbanCardHtml(id, title, date, desc, crw, owner) {//recibe toda 
 	return html;
 }
 
+function createKanbanCardHtmlBacklog(id, title,desc,date,duration) {
+	var htmlClass;
+	var html =
+	"<div id='"+id+"' class='card js--item"+id+"' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'>"+
+	"<div class='cardTitle'>"+
+	"    <label>"+title+"</label>"+
+	"</div>"+
+	"    <div class='card-content'>"+
+	"        <p><strong>Deadline:</strong> "+date+"</p>"+
+	"        <p><strong>Description:</strong> "+desc+"</p>"+
+	"        <p><strong>Duration:</strong> "+duration+"</p>"+
+	"    </div>"+
+	"</div>";
+	return html;
+}
 function getColumn(state) {
 	if (state == "ready")
 		htmlClass = ".readyCol";
