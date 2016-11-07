@@ -18,6 +18,8 @@ function BurndownChart (sprint, team) {
 	
 	buildTendencyArray();
 	buildCRWArray();
+	buildChartArrays();
+	//buildChart();
 }
 
 function setStartDate () {
@@ -79,4 +81,77 @@ function buildCRWArray (history) {
 		}
 		console.log(i+": ",this.actualCRW[i]);
 	}
+}
+
+function buildChartArrays () {
+	var newTendency = [{x: 0, y: this.totalDuration}];
+	for (i=1; i<=this.days; i++) {
+		newTendency.push({x: i, y: Math.round(this.tendency[i-1] * 100) / 100});
+	}
+	
+	var newCRW = [{x: 0, y: this.totalDuration}];
+	for (i=1; i<=this.days; i++) {
+		newCRW.push({x: i, y: this.actualCRW[i-1]});
+	}
+	buildChart(newTendency, newCRW);
+}
+
+function buildChart (newTendency, newCRW) {
+	var ctx = document.getElementById("BurndownChart");
+	var scatterChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			datasets: [{
+				label: 'Tendency',
+				lineTension: 0,
+				backgroundColor: "rgba(75,192,192,0.4)",
+				borderColor: "rgba(75,192,192,1)",
+				pointBorderColor: "rgba(75,192,192,1)",
+				pointBorderWidth: 2,
+				pointHoverRadius: 6,
+				pointHoverBackgroundColor: "rgba(75,192,192,1)",
+				pointHoverBorderColor: 'rgba(255, 206, 86, 0.2)',
+				pointHoverBorderWidth: 2,
+				pointRadius: 4,
+				pointHitRadius: 10,
+				data: newTendency
+			}, {
+				label: 'Remaining Work',
+				fill: false,
+				lineTension: 0,
+				borderColor: "rgba(255,99,132,1)",
+				pointBorderColor: "rgba(255,99,132,1)",
+				pointBorderWidth: 2,
+				pointHoverRadius: 6,
+				pointHoverBackgroundColor: "rgba(255,99,132,1)",
+				pointHoverBorderColor: 'rgba(255, 206, 86, 0.2)',
+				pointHoverBorderWidth: 2,
+				pointRadius: 4,
+				pointHitRadius: 10,
+				data: newCRW
+			}]
+		},
+		options: {
+			scales: {
+				xAxes: [{
+					type: 'linear',
+					position: 'bottom'
+				}]
+			}
+		}
+	});
+	/*var chart = new CanvasJS.Chart("burndownContainer", {
+		theme: "theme2",//theme1
+		title:{
+			text: "Burndown Chart - Sprint "+this.sprint+"; Team "+this.team
+		},
+		animationEnabled: true,   // change to true
+		data: [              
+			{
+				type: "line",
+				dataPoints: newTendency
+			}
+		]
+	});
+	chart.render();*/ // ESTO ERA PARA CANVASJS
 }
