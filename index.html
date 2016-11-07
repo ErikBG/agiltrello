@@ -35,7 +35,7 @@
 			  <ul class="nav navbar-nav navbar-right actionButton">
          <li> <select class="form-control" id="sprint_select" >  </select></li>
 				<li><a href="#">New Sprint</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#BurndownModal">Burndown</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#BurndownModal" onclick="new BurndownChart(6,1)">Burndown</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#SpeedModal">Speed</a></li>
 			  </ul>
 
@@ -324,6 +324,7 @@
     <script src="js/sprint.js"></script>
 	<script type="text/javascript" src="js/dbScripts.js"></script>
 	<script type="text/javascript" src="js/indexScripts.js"></script>
+	<script type="text/javascript" src="js/burndownChart.js"></script>
   <!--PROGESS BAR CHECKLIST-->
   <script>
       $('input').on('click',function() {

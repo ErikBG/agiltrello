@@ -154,3 +154,33 @@ function updateCRWAndEffort(taskId, crw, effort) {
 			 console.log(data);
 	 });
 }
+
+function getSprintStartDate(sprint) {
+	return '2016-10-27';
+}
+
+function getSprintDuration(sprint) {
+	return 14;
+}
+
+function getSprintTasksDuration(sprint, team) {
+	return 16;
+}
+
+function getTeamSprintDailyEffort(sprint, team) {
+	return 1.1428571429;
+}
+
+function getSprintTeamEffortHistory (sprint, team) {
+	var x = new Array(3);
+	x[0] = new Array(2);
+	x[0][0] = 14;
+	x[0][1] = new Date('2016-11-02');
+	x[1] = new Array(2);
+	x[1][0] = 10;
+	x[1][1] = new Date('2016-11-05');
+	x[2] = new Array(2);
+	x[2][0] = 8;
+	x[2][1] = new Date('2016-11-06');
+	return x;
+}
