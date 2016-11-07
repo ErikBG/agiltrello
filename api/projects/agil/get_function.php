@@ -164,7 +164,7 @@ function getdetailsprint() {
   $id_sprint = $_GET['id_sprint'];
   $sql = "
   SELECT t.id, t.title, t.description, t.duration, t.deadline, u.user_name as owner, t.column_state, t.sprint_id, t.project_id, t.crw, t.effort FROM `task` as t
-  INNER JOIN user as u ON t.owner = u.id
+  LEFT JOIN user as u ON t.owner = u.id
   WHERE t.sprint_id=".$id_sprint."";
   try {
     $db = getConnection();
