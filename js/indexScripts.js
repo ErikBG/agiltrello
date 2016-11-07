@@ -198,6 +198,8 @@ function drop(event) {
 
 function createKanbanCardHtml(id, title, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea
 	var htmlClass;
+	if (owner==null)
+		owner = "No owner";
 	var html =
 	"<div id='"+id+"' class='card js--item"+id+"' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'>"+
 	"<div class='cardTitle'>"+
