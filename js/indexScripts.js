@@ -6,7 +6,7 @@ $(document).ready(function () {
 	  clearTasks();
       $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
         $.each(data, function (i, current) {
-          console.log(data);
+          //console.log(data);
           var html= createKanbanCardHtml(current['Id'], current['title'], current['deadline'],current['description'],current['duration'],current['owner']);
           var colHtml = getColumn(current['column_state']);
       	 	 appendHtmlAfterHtml(html, colHtml);
@@ -40,9 +40,9 @@ function loadVelocity() {
 	  console.log(data);
 	  $.each(data, function (i, task) {
 			// AQUI VA LA ELABORACION DE TU GRAFICA, SANABIA.
-			var sprint = val(task['sprint_id']);
-			var team = val(task['team_id']);
-			var velocity = val(task['velocity']);
+			var sprint = task['sprint_id'];
+			var team = task['team_id'];
+			var velocity = task['velocity'];
 			console.log(sprint, team, velocity);
 			// UNA ITERACION DE ESTAS LINEAS REPRESENTA SOLO UN CAMPO DE LA TABLA QUE REGRESA (un solo conjunto de sprint/equipo/velocidad)
 	  });
@@ -58,7 +58,7 @@ function loadProjectUserConfig() {
 	  $.each(data, function (i, user_project) {
 			if (i==0) {
 				$("#team_id_input").val(user_project['team_id']);
-				sessionStorage.currentTeamId = val(user_project['team_id']);
+				sessionStorage.currentTeamId = user_project['team_id'];
 				$("#daily_capacity_input").val(user_project['daily_capacity']);
 				$("#days_per_sprint_input").val(user_project['days_per_sprint']);
 			}
@@ -177,7 +177,6 @@ function getColumn(state) {
 	else
 		htmlClass = ".backlogCol";
 
-	console.log(htmlClass);
 	return htmlClass;
 }
 
