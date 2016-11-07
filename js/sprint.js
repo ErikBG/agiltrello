@@ -12,7 +12,7 @@ $.get('http://trelloagilprueba.esy.es/agiltrello/api/getsprint', function (data)
   });
 });
 //get sprint with stories
-$(document).ready(function () {
+/*$(document).ready(function () {
     $("#sprint_select").change(function () {
        var id_sprint = $("#sprint_select").val();
 	  clearTasks();
@@ -27,7 +27,7 @@ $(document).ready(function () {
       });
     });
   });
-
+*/
 function getTaskFromSprint(id_sprint){
   $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
     $.each(data, function (i, current) {

@@ -142,18 +142,41 @@ function updateUserToProject() {
   $payload = json_decode($request->getBody());
   $sql = "
   UPDATE user_project SET
-  team_id = ?,
   daily_capacity = ?,
   days_per_sprint = ?
   WHERE user_id = ? AND project_id = ?;";
 try {
   $db = getConnection();
   $stmt = $db->prepare($sql);
+  $stmt->bindParam(1, $payload->daily_capacity);
+  $stmt->bindParam(2, $payload->days_per_sprint);
+  $stmt->bindParam(3, $payload->user_id);
+  $stmt->bindParam(4, $payload->project_id);
+  $stmt->execute();
+  $response = array(
+    "success" => "ok");
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getmessage()
+    );
+  }
+  return json_encode($response);
+}
+
+function updateUserToSprint() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sql = "
+  UPDATE user_sprint SET
+  team_id = ?
+  WHERE user_id = ? AND project_id = ? AND sprint_id = ?;";
+try {
+  $db = getConnection();
+  $stmt = $db->prepare($sql);
   $stmt->bindParam(1, $payload->team_id);
-  $stmt->bindParam(2, $payload->daily_capacity);
-  $stmt->bindParam(3, $payload->days_per_sprint);
-  $stmt->bindParam(4, $payload->user_id);
-  $stmt->bindParam(5, $payload->project_id);
+  $stmt->bindParam(2, $payload->user_id);
+  $stmt->bindParam(3, $payload->project_id);
+  $stmt->bindParam(4, $payload->sprint_id);
   $stmt->execute();
   $response = array(
     "success" => "ok");

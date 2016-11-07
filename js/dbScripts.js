@@ -12,7 +12,7 @@ function modifyTask(name_employee,id_task,id_sprint){
 			 dataType: 'json',
 			 encode: true
 	 }).done(function (data) {
-  clearTasks();
+	clearTasks();
 	getTaskFromSprint(id_sprint);
 
 	 console.log("Modificado correctamente");
@@ -58,7 +58,7 @@ $.get('http://trelloagilprueba.esy.es/agiltrello/api/getUsers', function (data) 
   var html_code = '<option value="name_employee">name</option>';
   $.each(data, function (i, users) {
     var current_html = html_code;
-    current_html = current_html.replace("name_employee", users['user_name']);
+    current_html = current_html.replace("name_employee", users['Id']);
     current_html = current_html.replace("name", users['user_name']);
     $('#employees_select').append(current_html);
     var default_val=$('#employees_select').val();
@@ -90,11 +90,10 @@ function newProjectUserConfig(userId, projectId, teamId, dailyCapacity, daysPerS
 	 });
 }
 
-function updateProjectUserConfig(userId, projectId, teamId, dailyCapacity, daysPerSprint) {
+function updateUserProjectConfig(userId, projectId, dailyCapacity, daysPerSprint) {
 	var formData = {
 			 "user_id": userId,
 			 "project_id": projectId,
-			 "team_id": teamId,
 			 "daily_capacity": dailyCapacity,
 			 "days_per_sprint": daysPerSprint
 		 };
@@ -107,7 +106,29 @@ function updateProjectUserConfig(userId, projectId, teamId, dailyCapacity, daysP
 			 encode: true
 	 }).done(function (data) {
 		console.log(data);
-		console.log("Guardado correctamente");
+		console.log("User Project saved correctly");
+	 }).fail(function (data) {
+			 console.log(data);
+	 });
+}
+
+function updateUserSprintConfig(userId, projectId, sprintId, teamId) {
+	var formData = {
+			 "user_id": userId,
+			 "project_id": projectId,
+			 "team_id": teamId,
+			 "sprint_id": sprintId
+		 };
+	 console.log(formData);
+	$.ajax({
+			 url: "http://trelloagilprueba.esy.es/agiltrello/api/updateUserToSprint",
+			 type: 'POST',
+			 data: JSON.stringify(formData),
+			 dataType: 'json',
+			 encode: true
+	 }).done(function (data) {
+		console.log(data);
+		console.log("User Sprint Configuration saved correctly");
 	 }).fail(function (data) {
 			 console.log(data);
 	 });

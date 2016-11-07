@@ -359,8 +359,10 @@
 			$(this).find('input:visible:first').focus();
 		})
 
-		sessionStorage.currentUserId = 5;    // ESTO DEBE BORRARSE YA QUE EL LOGIN REGISTRE APROPIADAMENTE EL USER ID DEL QUE INICIO SESION
-		sessionStorage.currentProjectId = 1; // ESTO TAMBIEN
+		sessionStorage.currentUserId = 5;    	// ESTO DEBE BORRARSE YA QUE EL LOGIN REGISTRE APROPIADAMENTE EL USER ID DEL QUE INICIO SESION
+		sessionStorage.currentProjectId = 1; 	// ESTO TAMBIEN
+		sessionStorage.currentSprintId = 1;		// Y ESTO
+		getTaskFromSprint(sessionStorage.currentSprintId);
 	</script>
 
 </body>

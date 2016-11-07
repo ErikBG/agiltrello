@@ -26,6 +26,11 @@ $app->post('/updateUserToProject(/)', function() {
     $result = updateUserToProject();
     echo $result;
 });
+$app->post('/updateUserToSprint(/)', function() {
+    require 'projects/agil/post_function.php';
+    $result = updateUserToSprint();
+    echo $result;
+});
 $app->post('/updateCRWAndEffort(/)', function() {
     require 'projects/agil/post_function.php';
     $result = updateCRWAndEffort();
@@ -52,8 +57,11 @@ $app->get('/getUsers(/)', function() {
     $result = getUsers();
     echo $result;
 });
-
-
+$app->get('/getVelocity(/)', function() {
+    require 'projects/agil/get_function.php';
+    $result = getVelocity();
+    echo $result;
+});
 $app->get('/getUserToProject(/)', function() {
     require 'projects/agil/get_function.php';
     $result = getUserToProject();

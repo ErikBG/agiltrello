@@ -2,6 +2,7 @@
 $(document).ready(function () {
     $("#sprint_select").change(function () {
        var id_sprint = $("#sprint_select").val();
+	   sessionStorage.currentSprintId = id_sprint;
 	  clearTasks();
       $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
         $.each(data, function (i, current) {
@@ -33,14 +34,31 @@ function loadCRWAndEffort(taskId) {
 	});
 }
 
+function loadVelocity() {
+	var projectId = sessionStorage.currentProjectId;
+	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getVelocity', {projectId}, function (data) {
+	  console.log(data);
+	  $.each(data, function (i, task) {
+			// AQUI VA LA ELABORACION DE TU GRAFICA, SANABIA.
+			var sprint = val(task['sprint_id']);
+			var team = val(task['team_id']);
+			var velocity = val(task['velocity']);
+			console.log(sprint, team, velocity);
+			// UNA ITERACION DE ESTAS LINEAS REPRESENTA SOLO UN CAMPO DE LA TABLA QUE REGRESA (un solo conjunto de sprint/equipo/velocidad)
+	  });
+	});
+}
+
 function loadProjectUserConfig() {
 	var userId = sessionStorage.currentUserId;
 	var projectId = sessionStorage.currentProjectId;
-	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getUserToProject', {userId, projectId}, function (data) {
+	var sprintId = sessionStorage.currentSprintId;
+	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getUserToProject', {userId, projectId, sprintId}, function (data) {
 	  console.log(data);
 	  $.each(data, function (i, user_project) {
 			if (i==0) {
 				$("#team_id_input").val(user_project['team_id']);
+				sessionStorage.currentTeamId = val(user_project['team_id']);
 				$("#daily_capacity_input").val(user_project['daily_capacity']);
 				$("#days_per_sprint_input").val(user_project['days_per_sprint']);
 			}
@@ -52,14 +70,19 @@ function addProjectUserConfig() {
 
 	var userId = sessionStorage.currentUserId;
 	var projectId = sessionStorage.currentProjectId;
-
+	sprintId = sessionStorage.currentSprintId;
 
 	var teamId = $("#team_id_input").val();
 	var dailyCapacity = $("#daily_capacity_input").val();
 	var daysPerSprint = $("#days_per_sprint_input").val();
 
 	//console.log("Trying to get: "+getUserToProject(userId, projectId));
-	updateProjectUserConfig(userId, projectId, teamId, dailyCapacity, daysPerSprint);
+	updateUserProjectConfig(userId, projectId, dailyCapacity, daysPerSprint);
+	
+	console.log("Input team id:"+teamId, "Current team id:"+sessionStorage.currentTeamId);
+	if (teamId != sessionStorage.currentTeamId) {
+		updateUserSprintConfig(userId, projectId, sprintId, teamId);
+	}
 }
 
 function addTask() {
@@ -92,6 +115,7 @@ function AssignEmployee(){
   var name_employee = $("#employees_select").val();
   var id_task = sessionStorage.getItem("recentTaskMoved");
   var id_current_sprint = $("#sprint_select").val();
+  console.log("name_employee (id): "+name_employee);
   modifyTask(name_employee,id_task,id_current_sprint);
 
 }
