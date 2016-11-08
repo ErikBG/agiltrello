@@ -68,7 +68,7 @@ $.get('http://trelloagilprueba.esy.es/agiltrello/api/getUsers', function (data) 
   var html_code = '<option value="name_employee">name</option>';
   $.each(data, function (i, users) {
     var current_html = html_code;
-    current_html = current_html.replace("name_employee", users['id']);
+    current_html = current_html.replace("name_employee", users['Id']);
     current_html = current_html.replace("name", users['user_name']);
     $('#employees_select').append(current_html);
     var default_val=$('#employees_select').val();
