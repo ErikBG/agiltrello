@@ -77,6 +77,22 @@ $.get('http://trelloagilprueba.esy.es/agiltrello/api/getUsers', function (data) 
 });
 }
 
+function logIn(username_input,password_input) {
+    
+    $.get('http://trelloagilprueba.esy.es/agiltrello/api/getUsers', function (data){
+        $.each(data, function(i, users){
+            if((username_input == users['user_name'])&& (password_input == users['user_password'])) {
+                alert("Login Successfully");
+            }else{
+                alert("Login Else");
+            }
+            alert("Failed to enter IF");
+        });
+        
+    });
+}
+
+
 function newProjectUserConfig(userId, projectId, teamId, dailyCapacity, daysPerSprint) {
 	var formData = {
 			 "user_id": userId,

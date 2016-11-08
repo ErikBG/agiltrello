@@ -134,7 +134,7 @@ function getUsers() {
   $payload = json_decode($request->getBody());
   $sql = "
   SELECT
-  Id,user_name
+  Id,user_name, user_password
   FROM
   user
   ";
