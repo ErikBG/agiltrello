@@ -186,6 +186,94 @@ function getdetailsprint() {
   return json_encode($response);
 }
 
+function getSprintStartDateAndDuration() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sprint_id = $_GET['sprintId'];
+  $sql = "
+  SELECT start_date, (DATEDIFF(end_date, start_date)+1) as duration FROM sprint WHERE id = ".$sprint_id.";";
+  try {
+    $db = getConnection();
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_CLASS);
+    if (count($result)) {
+      $response = $result;
+    } else {
+      $response = array(
+        "error" => 'No rows found'
+      );
+    }
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getMessage()
+    );
+  }
+  return json_encode($response);
+}
+
+function getSprintTasksDuration() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sprint_id = $_GET['sprintId'];
+  $team_id = $_GET['teamId'];
+  $sql = "
+  SELECT SUM(up.daily_capacity*up.days_per_sprint) as total_duration FROM user_sprint us 
+  JOIN user_project up ON us.user_id = up.user_id 
+  WHERE us.sprint_id = ".$sprint_id." AND us.team_id = ".$team_id.";";
+  try {
+    $db = getConnection();
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_CLASS);
+    if (count($result)) {
+      $response = $result;
+    } else {
+      $response = array(
+        "error" => 'No rows found'
+      );
+    }
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getMessage()
+    );
+  }
+  return json_encode($response);
+}
+
+function getSprintTeamEffortHistory() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sprint_id = $_GET['sprintId'];
+  $team_id = $_GET['teamId'];
+  $sql = "
+  SELECT SUM(a.crw) as crw, a.date FROM (SELECT MIN(eh.crw) as crw, eh.date
+  FROM effort_history as eh
+  JOIN task t ON eh.task_id = t.id
+  JOIN user_sprint us ON t.owner = us.user_id
+  WHERE t.sprint_id = ".$sprint_id." AND us.sprint_id = ".$sprint_id." AND us.team_id = ".$team_id."
+  GROUP BY date, task_id) as a
+  GROUP BY date ORDER BY date;";
+  try {
+    $db = getConnection();
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_CLASS);
+    if (count($result)) {
+      $response = $result;
+    } else {
+      $response = array(
+        "error" => 'No rows found'
+      );
+    }
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getMessage()
+    );
+  }
+  return json_encode($response);
+}
+
 function getCRWAndEffort() {
   $request = \Slim\Slim::getInstance()->request();
   $payload = json_decode($request->getBody());

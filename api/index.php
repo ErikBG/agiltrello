@@ -86,7 +86,21 @@ $app->get('/getdetailsprint(/)', function() {
     require 'projects/agil/get_function.php';
     $result = getdetailsprint();
     echo $result;
-    });
-
+});
+$app->get('/getSprintStartDateAndDuration(/)', function() {
+    require 'projects/agil/get_function.php';
+    $result = getSprintStartDateAndDuration();
+    echo $result;
+});
+$app->get('/getSprintTasksDuration(/)', function() {
+    require 'projects/agil/get_function.php';
+    $result = getSprintTasksDuration();
+    echo $result;
+});
+$app->get('/getSprintTeamEffortHistory(/)', function() {
+    require 'projects/agil/get_function.php';
+    $result = getSprintTeamEffortHistory();
+    echo $result;
+});
 $app->run();
 ?>
