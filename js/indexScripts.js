@@ -6,16 +6,17 @@ $(document).ready(function () {
 	  clearTasks();
       $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
         $.each(data, function (i, current) {
+			//console.log('id from DB: ',current['id'])
           if(current['column_state']=="backlog"){
-            var html= createKanbanCardHtmlBacklog(current['Id'], current['title'],current['description'],current['deadline'],current['duration']);
+            var html= createKanbanCardHtmlBacklog(current['id'], current['title'],current['description'],current['deadline'],current['duration']);
             var colHtml = getColumn(current['column_state']);
              appendHtmlAfterHtml(html, colHtml);
-             makeCardDraggable(current['Id']);
+             makeCardDraggable(current['id']);
           }else{
-            var html= createKanbanCardHtml(current['Id'], current['title'], current['deadline'],current['description'],current['duration'],current['owner']);
+            var html= createKanbanCardHtml(current['id'], current['title'], current['deadline'],current['description'],current['duration'],current['owner']);
             var colHtml = getColumn(current['column_state']);
              appendHtmlAfterHtml(html, colHtml);
-             makeCardDraggable(current['Id']);
+             makeCardDraggable(current['id']);
           }
 
         });
@@ -197,7 +198,6 @@ function drop(event) {
 //   });
 
 function createKanbanCardHtml(id, title, date, desc, crw, owner) {//recibe toda la informacion de la tarjeta y la crea
-	var htmlClass;
 	if (owner==null)
 		owner = "No owner";
 	var html =
@@ -219,12 +219,10 @@ function createKanbanCardHtml(id, title, date, desc, crw, owner) {//recibe toda 
 	"		</div>"+
 	"</div>";
 
-
 	return html;
 }
 
 function createKanbanCardHtmlBacklog(id, title,desc,date,duration) {
-	var htmlClass;
 	var html =
 	"<div id='"+id+"' class='card js--item"+id+"' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'>"+
 	"<div class='cardTitle'>"+
@@ -238,6 +236,7 @@ function createKanbanCardHtmlBacklog(id, title,desc,date,duration) {
 	"</div>";
 	return html;
 }
+
 function getColumn(state) {
 	if (state == "ready")
 		htmlClass = ".readyCol";
