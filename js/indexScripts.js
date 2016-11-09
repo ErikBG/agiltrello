@@ -141,6 +141,7 @@ function dragEnd(event) {
         assignUsers();
         $('#AssignModal').modal('show');
         
+        //Add two days to deadline once card is dragged into InProgress
         var dt = new Date($.now());
         dt.setDate(dt.getDate()+2);
         var dd = dt.getDate();
