@@ -15,18 +15,6 @@ function BurndownChart (sprint, team) {
 	this.sprintTasksDurationDone = false;
 	this.sprintTeamEffortHistoryDone = false;
 	
-	/*this.setStartDate(this.sprint);
-	console.log('startDate on prototype: '+this.startDate);
-	setDaysQuantity(this.sprint);
-	setTotalDuration(this.sprint, this.team);
-	setTeamDailyEffort();
-	getHistory(this.sprint, this.team);
-	
-	buildTendencyArray();
-	buildCRWArray();
-	buildChartArrays();*/
-	//buildChart();
-	
 	this.getDataFromDB();
 }
 
@@ -35,7 +23,7 @@ BurndownChart.prototype.getDataFromDB = function (){
 	console.log('Getting sprint start date from DB');
 	getSprintTasksDuration(this);
 	console.log('Getting sprint current remaining work from DB');
-	getSprintTeamEffortHistory (this);
+	getCRWHistory (this);
 	console.log('Getting sprint history from DB');
 }
 
@@ -75,31 +63,25 @@ BurndownChart.prototype.setTotalDuration = function (totalDuration) {
 
 BurndownChart.prototype.setTeamDailyEffort = function () {
 	this.dailyEffort = this.totalDuration/this.days;
-	console.log('calculated dailyEffort:', this.dailyEffort);
-	//this.dailyEffort = getTeamSprintDailyEffort(this.sprint, this.team);
+	//console.log('calculated dailyEffort:', this.dailyEffort);
 }
 
 BurndownChart.prototype.setHistory = function (x) {
-	/*this.history = new Array (1);
-	this.history[0] = getSprintTeamEffortHistory (sprint, team);
-	console.log(this.history[0][0][0], this.history[0][0][1].getTime());
-	console.log(this.history[0][1][0], this.history[0][1][1].getTime());*/
 	this.history = x;
 	console.log('Result from DB on History:',this.history);
 }
 
 BurndownChart.prototype.buildTendencyArray = function () {
-	console.log("Tendency");
+	//console.log("Tendency");
 	var actualCRW = this.totalDuration;
-	console.log(actualCRW-this.dailyEffort);
+	//console.log(actualCRW-this.dailyEffort);
 	for (i=0; i<this.days; i++) {
 		this.tendency[i] = actualCRW = actualCRW - this.dailyEffort;
-		console.log(i+": ",this.tendency[i]);
+		//console.log(i+": ",this.tendency[i]);
 	}
 }
 
 BurndownChart.prototype.buildCRWArray = function () {
-	console.log("CRW");
 	var currentDate = this.startDate;
 	currentDate.setHours(0,0,0,0);
 	var crw = this.totalDuration;
@@ -108,21 +90,19 @@ BurndownChart.prototype.buildCRWArray = function () {
 	for (var i = 0; i < this.days; i++) {
 		x[i] = currentDate;
 		x[i].setDate(currentDate.getDate()+1);
-		//x[i][1] = this.startDate;
-		//x[i][1].setDate(this.startDate.getDate()+i);
-		console.log ("History: ",this.history[j][1].getTime(),'vs. array',x[i].getTime())
+		//console.log ("History: ",this.history[j][1].getTime(),'vs. array',x[i].getTime())
 		if (x[i].getTime() == this.history[j][1].getTime()) {
 			this.actualCRW[i] = this.history[j][0];
 			crw = this.actualCRW[i];
-			console.log('j:',j,'vs. length:',this.history.length);
+			//console.log('j:',j,'vs. length:',this.history.length);
 			if (j+1 < this.history.length) {
 				j++;
-				console.log('current history:',j,this.history[j][0],this.history[j][1]);
+				//console.log('current history:',j,this.history[j][0],this.history[j][1]);
 			}
 		} else {
 			this.actualCRW[i] = crw;
 		}
-		console.log(i+": ",this.actualCRW[i]);
+		//console.log(i+": ",this.actualCRW[i]);
 	}
 }
 
@@ -140,10 +120,6 @@ BurndownChart.prototype.buildChartArrays = function () {
 }
 
 BurndownChart.prototype.buildChart = function (newTendency, newCRW) {
-	/*if (sessionStorage.currentChart != null || sessionStorage.currentChart != "null") {
-		console.log('Trying to destroy previous burndown chart');
-		this.destroyChart();
-	}*/
 	var ctx = document.getElementById("BurndownChart");
 	this.currentChart = new Chart(ctx, {
 		type: 'line',
@@ -189,20 +165,6 @@ BurndownChart.prototype.buildChart = function (newTendency, newCRW) {
 	});
 	
 	getActualBurndownChart();
-	/*var chart = new CanvasJS.Chart("burndownContainer", {
-		theme: "theme2",//theme1
-		title:{
-			text: "Burndown Chart - Sprint "+this.sprint+"; Team "+this.team
-		},
-		animationEnabled: true,   // change to true
-		data: [              
-			{
-				type: "line",
-				dataPoints: newTendency
-			}
-		]
-	});
-	chart.render();*/ // ESTO ERA PARA CANVASJS
 }
 
 BurndownChart.prototype.destroyChart = function () {

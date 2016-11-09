@@ -295,7 +295,7 @@ var burndownChart;
 
 function loadBurndownChart () {
 	if (actualBurndownChart != null) {
-		console.log('Trying to destroy previous burndown chart');
+		console.log('Destroying previous burndown chart');
 		burndownChart.destroyChart();
 	}
 	burndownChart = new BurndownChart(sessionStorage.currentSprintId, sessionStorage.currentTeamId);
@@ -303,5 +303,5 @@ function loadBurndownChart () {
 
 function getActualBurndownChart () {
 	actualBurndownChart = burndownChart.getChart();
-	console.log('Burndown chart loaded: '+actualBurndownChart);
+	//console.log('Burndown chart loaded: '+actualBurndownChart);
 }
