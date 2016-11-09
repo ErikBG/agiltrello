@@ -1,6 +1,6 @@
 // Sidebar opening when window is resized fix.
 $(document).ready(function () {
-
+    
     var flag = true;
     var sidebar = $('#wrapper');
 
@@ -15,6 +15,68 @@ $(document).ready(function () {
 
     });
 
+  /*  $('.iColumn').droppable({
+	drop: function (event, ui) {
+		$(ui.draggable).css('background-color','red');
+         alert("lol");
+     
+	}
+});*/
+    /*
+    $( ".card" ).draggable({
+  stop: function( event, ui ) {
+      alert("Dropped....");
+  }
+});
+    
+    
+    $( ".iColumn" ).droppable({
+  drop: function() {
+    alert( "dropped" );
+  }
+});
+    
+    $( "#inprogress" ).droppable({
+  drop: function() {
+    alert( "dropped" );
+  }
+});
+    $("#finished").droppable({
+	drop: function (event, ui) {
+        alert( "dropped" );
+   // $(ui.draggable).css("background-color","yellow");
+	}
+});
+      */
+
+  /*  $("#finished").droppable({
+     drop: function(event, ui) {
+               // do something with the dock
+              // $(this).doSomething();
+
+               // do something with the draggable item
+               $(ui.draggable).css('font-size','200%');
+    
+           }
+});*/
+    
+    
+    
+   
+  //  $('.iColumn').click( function() { alert('clicked'); });
+    
+ /*$('.card').on('click', function(){
+     var cardId=$(this).attr('id');
+    alert("Tarjeta ID: "+cardId);
+});*/
+    
+    
+
+    
+    //var elemId = $(this).closest('div').attr('id');
+    //var cardId=$(this).attr('id');
+    
+    
     //Block card function for current cards MUST BE MODIFIED ONCE "ADD CARD" FEATURE IS CREATED
     //Item1
     $('#blockBtn1').click(function() {
@@ -103,6 +165,9 @@ $(document).ready(function () {
         }
     });
     
+        
+
+    
 });
 
 //Block card. 
@@ -119,4 +184,13 @@ function blockCard (n){
         }
     }
 
+function checkColumn () {
+    $('#1').click(function(){
+    var elemId = $(this).closest('div').attr('id');
+    alert("elemId: "+elemId);
+});
+}
 
+function callAlert() {
+    alert("Called Alert");
+}

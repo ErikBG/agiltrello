@@ -134,9 +134,32 @@ function dragEnd(event) {
         sessionStorage.setItem("recentTaskMoved",event.target.id);
         assignUsers();
         $('#AssignModal').modal('show');
-
+        
+        var dt = new Date($.now());
+        dt.setDate(dt.getDate()+2);
+        var dd = dt.getDate();
+        var mm = dt.getMonth()+1;
+        var y = dt.getFullYear();
+        
+        var formattedDt = y+"-"+mm+"-"+dd;
+        var currentCard = document.getElementById(event.target.id);
+        $(currentCard).find('#deadline-label').show();
+        $(currentCard).find('#deadline-label').text("Deadline: "+formattedDt);        
+        
     }
-
+    
+    if(sessionStorage.getItem("nameColumn")== "ready"){
+        sessionStorage.setItem("recentTaskMoved",event.target.id);
+        var currentCard = document.getElementById(event.target.id);
+        $(currentCard).find('#deadline-label').hide();
+        //$(currentCard).find('#deadline-label').css('color','blue');
+        //$('#deadline-label').hide();
+        //alert("Tarjeta ID: "+event.target.id);
+    }
+    
+    
+    
+    
     console.log("Finished dragging.");
 
 }
@@ -188,7 +211,7 @@ function createKanbanCardHtml(id, title, date, desc, crw, owner) {//recibe toda 
 	"        <button id='blockBtn"+id+"' class='blockBtn' OnClick='blockCard("+id+");' >B</button>"+
 	"</div>"+
 	"    <div class='card-content'>"+
-	"        <p><strong>Deadline:</strong> "+date+"</p>"+
+	"        <p id='deadline-label'><strong>Deadline:</strong> "+date+"</p>"+
 	"        <p><strong>Description:</strong> "+desc+"</p>"+
 	"        <p><strong>Duration:</strong> "+crw+"</p>"+
 	"    </div>"+
