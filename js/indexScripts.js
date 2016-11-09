@@ -1,9 +1,10 @@
 //Ready to inProgress
 $(document).ready(function () {
     $("#sprint_select").change(function () {
-       var id_sprint = $("#sprint_select").val();
-	   sessionStorage.currentSprintId = id_sprint;
-	  clearTasks();
+		var id_sprint = $("#sprint_select").val();
+		sessionStorage.currentSprintId = id_sprint;
+		clearTasks();
+		console.log('Selected sprint:', sessionStorage.currentSprintId);
       $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
         $.each(data, function (i, current) {
 			//console.log('id from DB: ',current['id'])
@@ -22,7 +23,12 @@ $(document).ready(function () {
         });
       });
     });
-  });
+	
+	$("#team_select").change(function () {
+		sessionStorage.currentTeamId = $("#team_select").val();
+		loadBurndownChart ();
+    });
+});
 
 function setSelectedID(id) {
 	sessionStorage.selectedTaskId = id;
@@ -274,4 +280,20 @@ function clearTasks () {
 
 function appendHtmlAfterHtml (html, prevHtml) {
 	$(prevHtml).append(html);
+}
+
+var actualBurndownChart;
+var burndownChart;
+
+function loadBurndownChart () {
+	if (actualBurndownChart != null) {
+		console.log('Trying to destroy previous burndown chart');
+		burndownChart.destroyChart();
+	}
+	burndownChart = new BurndownChart(sessionStorage.currentSprintId, sessionStorage.currentTeamId);
+}
+
+function getActualBurndownChart () {
+	actualBurndownChart = burndownChart.getChart();
+	console.log('Burndown chart loaded: '+actualBurndownChart);
 }

@@ -181,25 +181,104 @@ function updateCRWAndEffort(taskId, crw, effort) {
 	 });
 }
 
-function getSprintStartDate(sprint) {
-	return '2016-10-27';
+/*sessionStorage.sprintStartDate='';
+sessionStorage.sprintDuration='';*/
+
+function getSprintStartDateAndDuration (burndownChart) {
+	var sprintId = burndownChart.sprint;
+	console.log('Reaching DB for sprint ', sprintId);
+	var date;
+	var duration;
+	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getSprintStartDateAndDuration', {sprintId}, function (data) {
+		$.each(data, function (i, user_project) {
+			if (i==0) {
+				date = user_project['start_date'];
+				duration = user_project['duration'];
+				burndownChart.setStartDate(date);
+				burndownChart.setDays(duration);
+				burndownChart.done('startDateAndDuration');
+			}
+		});
+	});
 }
 
-function getSprintDuration(sprint) {
-	return 14;
+/*function getSprintStartDate(burndownChart) {
+	//"SELECT start_date FROM sprint WHERE id = 1;"
+	//console.log('Received date on getSprintStartDate', sessionStorage.sprintStartDate);
+	//return sessionStorage.sprintStartDate;
+	//return '2016-10-27';
+	var sprintId = burndownChart.sprint;
+	var date;
+	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getSprintStartDateAndDuration', {sprintId}, function (data) {
+		$.each(data, function (i, user_project) {
+			if (i==0) {
+				date = user_project['start_date'];
+				console.log('date from DB: ', sessionStorage.sprintStartDate);
+				burndownChart.setStartDate(date);
+			}
+		});
+	});
 }
 
-function getSprintTasksDuration(sprint, team) {
-	return 16;
+function getSprintDuration(sprintId) {
+	//"SELECT (DATEDIFF(end_date, start_date)+1) as duration FROM sprint WHERE id = 1;"
+	//return sessionStorage.sprintDuration;
+	//return 14;
+	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getSprintStartDateAndDuration', {sprintId}, function (data) {
+		$.each(data, function (i, user_project) {
+			if (i==0) {
+				sessionStorage.sprintDuration = user_project['duration'];
+				console.log('duration:', sessionStorage.sprintDuration);
+			}
+		});
+	});
+	return sessionStorage.sprintDuration;
+}*/
+
+function getSprintTasksDuration (burndownChart) {
+	var sprintId = burndownChart.sprint;
+	var teamId = burndownChart.team;
+	console.log('Reaching DB for sprint', sprintId,'and team', teamId);
+	var totalDuration;
+	//"SELECT SUM(up.daily_capacity*up.days_per_sprint) as total_duration FROM user_sprint us JOIN user_project up ON us.user_id = up.user_id WHERE us.sprint_id = 1 AND us.team_id = 1;"
+	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getSprintTasksDuration', {sprintId, teamId}, function (data) {
+		$.each(data, function (i, user_project) {
+			if (i==0) {
+				totalDuration = user_project['total_duration'];
+				burndownChart.setTotalDuration(totalDuration);
+				burndownChart.done('tasksDuration');
+			}
+		});
+	});
+	//return 16;
 }
 
-function getTeamSprintDailyEffort(sprint, team) {
-	return 1.1428571429;
-}
-
-function getSprintTeamEffortHistory (sprint, team) {
-	var x = new Array(3);
-	x[0] = new Array(2);
+function getSprintTeamEffortHistory (burndownChart) {
+	var sprintId = burndownChart.sprint;
+	var teamId = burndownChart.team;
+	console.log('Reaching DB for sprint', sprintId,'and team', teamId);
+	/*"SELECT SUM(a.crw) as crw, a.date FROM (SELECT MIN(eh.crw) as crw, eh.date
+	FROM effort_history as eh
+	JOIN task t ON eh.task_id = t.id
+	JOIN user_sprint us ON t.owner = us.user_id
+	WHERE t.sprint_id = 6 AND us.sprint_id = 6 AND us.team_id = 1
+	GROUP BY date, task_id) as a
+	GROUP BY date ORDER BY date;"*/
+	var x = new Array();
+	var y;
+	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getSprintTeamEffortHistory', {sprintId, teamId}, function (data) {
+		console.log(data);
+		$.each(data, function (i, history) {
+			y = new Array(2);
+			y[0] = history['crw'];
+			y[1] = new Date(history['date']);
+			console.log(history['crw'],',',history['date']);
+			x.push(y);
+		});
+		burndownChart.setHistory(x);
+		burndownChart.done('teamEffortHistory');
+	});
+	/*x[0] = new Array(2);
 	x[0][0] = 14;
 	x[0][1] = new Date('2016-11-02');
 	x[1] = new Array(2);
@@ -207,6 +286,6 @@ function getSprintTeamEffortHistory (sprint, team) {
 	x[1][1] = new Date('2016-11-05');
 	x[2] = new Array(2);
 	x[2][0] = 8;
-	x[2][1] = new Date('2016-11-06');
-	return x;
+	x[2][1] = new Date('2016-11-06');*/
+	//return x;
 }

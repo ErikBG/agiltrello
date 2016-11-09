@@ -37,7 +37,7 @@
 			  <ul class="nav navbar-nav navbar-right actionButton">
          <li> <select class="form-control" id="sprint_select" >  </select></li>
 				<li><a href="#">New Sprint</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#BurndownModal" onclick="new BurndownChart(6,1)">Burndown</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#BurndownModal" onclick="loadBurndownChart()">Burndown</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#SpeedModal">Speed</a></li>
 			  </ul>
 
@@ -276,7 +276,7 @@
 			</div>
         </div>
     </div>
-
+	
 	    <!-- BURNDOWN Modal -->
       <div class="modal fade" id="BurndownModal" role="dialog">
         <div class="modal-dialog">
@@ -288,6 +288,10 @@
               <h4 class="modal-title">Burndown Chart</h4>
             </div>
             <div class="modal-body">
+			<select class="form-control" id="team_select" >
+				<option value="1">Team 1</option>
+				<option value="2">Team 2</option>
+			</select>
 			  <canvas id="BurndownChart" width="400" height="400"></canvas>
             </div>
             <div class="modal-footer">
@@ -309,7 +313,7 @@
               <h4 class="modal-title">Speed Chart</h4>
             </div>
             <div class="modal-body">
-              <img id="myImg" src="img/SPEEDSAMPLE.png" width="400" height="200">
+			
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -361,11 +365,13 @@
 		$('.modal').on('shown.bs.modal', function () {
 			$(this).find('input:visible:first').focus();
 		})
-
+		
+		sessionStorage.currentChart = null;
 		sessionStorage.currentUserId = 5;    	// ESTO DEBE BORRARSE YA QUE EL LOGIN REGISTRE APROPIADAMENTE EL USER ID DEL QUE INICIO SESION
 		sessionStorage.currentProjectId = 1; 	// ESTO TAMBIEN
 		sessionStorage.currentSprintId = 1;		// Y ESTO
 		getTaskFromSprint(sessionStorage.currentSprintId);
+		console.log('Selected sprint:', sessionStorage.currentSprintId);
 	</script>
 
 </body>

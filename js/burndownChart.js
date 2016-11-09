@@ -9,46 +9,86 @@ function BurndownChart (sprint, team) {
 	this.totalDuration;
 	this.startDate;
 	this.endDate;
+	this.currentChart;
 	
-	setStartDate();
+	this.startDateAndDurationDone = false;
+	this.sprintTasksDurationDone = false;
+	this.sprintTeamEffortHistoryDone = false;
+	
+	/*this.setStartDate(this.sprint);
+	console.log('startDate on prototype: '+this.startDate);
+	setDaysQuantity(this.sprint);
+	setTotalDuration(this.sprint, this.team);
 	setTeamDailyEffort();
-	setDaysQuantity();
-	setTotalDuration();
-	getHistory();
+	getHistory(this.sprint, this.team);
 	
 	buildTendencyArray();
 	buildCRWArray();
-	buildChartArrays();
+	buildChartArrays();*/
 	//buildChart();
+	
+	this.getDataFromDB();
 }
 
-function setStartDate () {
-	this.startDate = new Date (getSprintStartDate(this.sprint));
-	console.log(this.startDate);
+BurndownChart.prototype.getDataFromDB = function (){
+	getSprintStartDateAndDuration(this);
+	console.log('Getting sprint start date from DB');
+	getSprintTasksDuration(this);
+	console.log('Getting sprint current remaining work from DB');
+	getSprintTeamEffortHistory (this);
+	console.log('Getting sprint history from DB');
 }
 
-function setTeamDailyEffort() {
-	this.dailyEffort = getTeamSprintDailyEffort(this.sprint, this.team);
+BurndownChart.prototype.done = function (string){
+	if (string=='startDateAndDuration') {
+		this.startDateAndDurationDone = true;
+	} else if (string == 'tasksDuration') {
+		this.sprintTasksDurationDone = true;
+	} else if (string == 'teamEffortHistory') {
+		this.sprintTeamEffortHistoryDone = true;
+	}
+	
+	if (this.startDateAndDurationDone & this.sprintTasksDurationDone & this.sprintTeamEffortHistoryDone) {
+		this.setTeamDailyEffort();
+		this.buildTendencyArray();
+		this.buildCRWArray();
+		this.buildChartArrays();
+	}
 }
 
-function setDaysQuantity () {
-	this.days = getSprintDuration(this.sprint);
+BurndownChart.prototype.setStartDate = function (date) {
+	this.startDate = new Date (date);
+	console.log('Result from DB on startDate:', this.startDate);
+}
+
+BurndownChart.prototype.setDays = function (duration) {
+	this.days = duration;
+	console.log('Result from DB on days:', this.days);
 	this.tendency = new Array (this.days);
 	this.actualCRW = new Array (this.days);
 }
 
-function setTotalDuration () {
-	this.totalDuration = getSprintTasksDuration(this.sprint, this.team);
+BurndownChart.prototype.setTotalDuration = function (totalDuration) {
+	this.totalDuration = totalDuration;
+	console.log('Result from DB on totalDuration:', this.totalDuration);
 }
 
-function getHistory () {
-	this.history = new Array (1);
-	this.history[0] = getSprintTeamEffortHistory (this.sprint, this.team);
+BurndownChart.prototype.setTeamDailyEffort = function () {
+	this.dailyEffort = this.totalDuration/this.days;
+	console.log('calculated dailyEffort:', this.dailyEffort);
+	//this.dailyEffort = getTeamSprintDailyEffort(this.sprint, this.team);
+}
+
+BurndownChart.prototype.setHistory = function (x) {
+	/*this.history = new Array (1);
+	this.history[0] = getSprintTeamEffortHistory (sprint, team);
 	console.log(this.history[0][0][0], this.history[0][0][1].getTime());
-	console.log(this.history[0][1][0], this.history[0][1][1].getTime());
+	console.log(this.history[0][1][0], this.history[0][1][1].getTime());*/
+	this.history = x;
+	console.log('Result from DB on History:',this.history);
 }
 
-function buildTendencyArray() {
+BurndownChart.prototype.buildTendencyArray = function () {
 	console.log("Tendency");
 	var actualCRW = this.totalDuration;
 	console.log(actualCRW-this.dailyEffort);
@@ -58,7 +98,7 @@ function buildTendencyArray() {
 	}
 }
 
-function buildCRWArray (history) {
+BurndownChart.prototype.buildCRWArray = function () {
 	console.log("CRW");
 	var currentDate = this.startDate;
 	var crw = this.totalDuration;
@@ -71,8 +111,8 @@ function buildCRWArray (history) {
 		//x[i][1] = this.startDate;
 		//x[i][1].setDate(this.startDate.getDate()+i);
 		//console.log ("Current time: "+x[i][1])
-		if (x[i][1].getTime() == this.history[0][j][1].getTime()) {
-			this.actualCRW[i] = this.history[0][j][0];
+		if (x[i][1].getTime() == this.history[j][1].getTime()) {
+			this.actualCRW[i] = this.history[j][0];
 			crw = this.actualCRW[i];
 			if (j+1 < this.history[0].length)
 				j++;
@@ -83,7 +123,7 @@ function buildCRWArray (history) {
 	}
 }
 
-function buildChartArrays () {
+BurndownChart.prototype.buildChartArrays = function () {
 	var newTendency = [{x: 0, y: this.totalDuration}];
 	for (i=1; i<=this.days; i++) {
 		newTendency.push({x: i, y: Math.round(this.tendency[i-1] * 100) / 100});
@@ -93,12 +133,16 @@ function buildChartArrays () {
 	for (i=1; i<=this.days; i++) {
 		newCRW.push({x: i, y: this.actualCRW[i-1]});
 	}
-	buildChart(newTendency, newCRW);
+	this.buildChart(newTendency, newCRW);
 }
 
-function buildChart (newTendency, newCRW) {
+BurndownChart.prototype.buildChart = function (newTendency, newCRW) {
+	/*if (sessionStorage.currentChart != null || sessionStorage.currentChart != "null") {
+		console.log('Trying to destroy previous burndown chart');
+		this.destroyChart();
+	}*/
 	var ctx = document.getElementById("BurndownChart");
-	var scatterChart = new Chart(ctx, {
+	this.currentChart = new Chart(ctx, {
 		type: 'line',
 		data: {
 			datasets: [{
@@ -140,6 +184,8 @@ function buildChart (newTendency, newCRW) {
 			}
 		}
 	});
+	
+	getActualBurndownChart();
 	/*var chart = new CanvasJS.Chart("burndownContainer", {
 		theme: "theme2",//theme1
 		title:{
@@ -154,4 +200,12 @@ function buildChart (newTendency, newCRW) {
 		]
 	});
 	chart.render();*/ // ESTO ERA PARA CANVASJS
+}
+
+BurndownChart.prototype.destroyChart = function () {
+	this.currentChart.destroy();
+}
+
+BurndownChart.prototype.getChart = function() {
+	return this.currentChart;
 }
