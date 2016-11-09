@@ -36,6 +36,11 @@ $app->post('/updateCRWAndEffort(/)', function() {
     $result = updateCRWAndEffort();
     echo $result;
 });
+$app->post('/postEffortAndCRW(/)', function() {
+    require 'projects/agil/post_function.php';
+    $result = postEffortAndCRW();
+    echo $result;
+});
 $app->post('/newTask(/)', function() {
     require 'projects/agil/post_function.php';
     $result = newTask();

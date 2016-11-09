@@ -179,6 +179,28 @@ function updateCRWAndEffort(taskId, crw, effort) {
 	 }).fail(function (data) {
 			 console.log(data);
 	 });
+	 updateCRWAndEffortHistory(taskId, crw, effort);
+}
+
+function updateCRWAndEffortHistory(taskId, crw, effort) {
+	var formData = {
+			 "task_id": taskId,
+			 "crw": crw,
+			 "effort": effort
+		 };
+	 console.log(formData);
+	$.ajax({
+			 url: "http://trelloagilprueba.esy.es/agiltrello/api/postEffortAndCRW",
+			 type: 'POST',
+			 data: JSON.stringify(formData),
+			 dataType: 'json',
+			 encode: true
+	 }).done(function (data) {
+		console.log(data);
+		console.log("Guardado correctamente");
+	 }).fail(function (data) {
+			 console.log(data);
+	 });
 }
 
 /*sessionStorage.sprintStartDate='';
@@ -272,6 +294,8 @@ function getSprintTeamEffortHistory (burndownChart) {
 			y = new Array(2);
 			y[0] = history['crw'];
 			y[1] = new Date(history['date']);
+			y[1].setDate(y[1].getDate()+1);
+			y[1].setHours(0,0,0,0);
 			console.log(history['crw'],',',history['date']);
 			x.push(y);
 		});

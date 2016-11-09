@@ -101,21 +101,24 @@ BurndownChart.prototype.buildTendencyArray = function () {
 BurndownChart.prototype.buildCRWArray = function () {
 	console.log("CRW");
 	var currentDate = this.startDate;
+	currentDate.setHours(0,0,0,0);
 	var crw = this.totalDuration;
 	var x = new Array(this.days);
 	var j = 0;
 	for (var i = 0; i < this.days; i++) {
-		x[i] = new Array(2);
-		x[i][1] = currentDate;
-		x[i][1].setDate(currentDate.getDate()+1);
+		x[i] = currentDate;
+		x[i].setDate(currentDate.getDate()+1);
 		//x[i][1] = this.startDate;
 		//x[i][1].setDate(this.startDate.getDate()+i);
-		//console.log ("Current time: "+x[i][1])
-		if (x[i][1].getTime() == this.history[j][1].getTime()) {
+		console.log ("History: ",this.history[j][1].getTime(),'vs. array',x[i].getTime())
+		if (x[i].getTime() == this.history[j][1].getTime()) {
 			this.actualCRW[i] = this.history[j][0];
 			crw = this.actualCRW[i];
-			if (j+1 < this.history[0].length)
+			console.log('j:',j,'vs. length:',this.history.length);
+			if (j+1 < this.history.length) {
 				j++;
+				console.log('current history:',j,this.history[j][0],this.history[j][1]);
+			}
 		} else {
 			this.actualCRW[i] = crw;
 		}

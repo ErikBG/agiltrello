@@ -40,7 +40,6 @@ try {
   return json_encode($response);
 }
 
-
 function newuser() {
   $request = \Slim\Slim::getInstance()->request();
   $payload = json_decode($request->getBody());
@@ -73,6 +72,7 @@ try {
   }
   return json_encode($response);
 }
+
 function modifyTask() {
   $request = \Slim\Slim::getInstance()->request();
   $payload = json_decode($request->getBody());
@@ -174,6 +174,27 @@ try {
   $stmt->bindParam(2, $payload->user_id);
   $stmt->bindParam(3, $payload->project_id);
   $stmt->bindParam(4, $payload->sprint_id);
+  $stmt->execute();
+  $response = array(
+    "success" => "ok");
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getmessage()
+    );
+  }
+  return json_encode($response);
+}
+
+function postEffortAndCRW() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sql = "INSERT INTO effort_history (task_id, crw, effort, date) VALUES (?,?,?,curdate());";
+try {
+  $db = getConnection();
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("1", $payload->task_id);
+  $stmt->bindParam("2", $payload->crw);
+  $stmt->bindParam("3", $payload->effort);
   $stmt->execute();
   $response = array(
     "success" => "ok");
