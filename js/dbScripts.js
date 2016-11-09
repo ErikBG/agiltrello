@@ -40,10 +40,11 @@ function addTaskToDB (taskTitle, taskDesc, taskDuration,taskDeadline,taskColumn,
 			 encode: true
 	 }).done(function (data) {
 		 console.log(data);
+		 var owner=null;
 		 	var lastTaskAdded = data['task_current_id'];
 			switch(taskColumn){
 				case "ready":
-				var html = createKanbanCardHtml(lastTaskAdded,taskTitle,taskDeadline,taskDesc,taskDuration,taskOwner);
+				var html = createKanbanCardHtml(lastTaskAdded,taskTitle,taskDeadline,taskDesc,taskDuration,owner);
 		 	var colHtml = getColumn(taskColumn);
 		 	 appendHtmlAfterHtml(html, colHtml);
 		 	 makeCardDraggable(lastTaskAdded);
@@ -78,7 +79,7 @@ $.get('http://trelloagilprueba.esy.es/agiltrello/api/getUsers', function (data) 
 }
 
 function logIn(username_input,password_input) {
-    
+
     $.get('http://trelloagilprueba.esy.es/agiltrello/api/getUsers', function (data){
         $.each(data, function(i, users){
             if((username_input == users['user_name'])&& (password_input == users['user_password'])) {
@@ -88,7 +89,7 @@ function logIn(username_input,password_input) {
             }
             alert("Failed to enter IF");
         });
-        
+
     });
 }
 

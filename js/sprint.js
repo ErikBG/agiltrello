@@ -32,10 +32,17 @@ function getTaskFromSprint(id_sprint){
   $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
     $.each(data, function (i, current) {
       //console.log(data);
-      var html= createKanbanCardHtml(current['id'], current['title'], current['deadline'],current['description'],current['duration'],current['owner']);
-      var colHtml = getColumn(current['column_state']);
-       appendHtmlAfterHtml(html, colHtml);
-       makeCardDraggable(current['id']);
+      if(current['column_state']=="backlog"){
+        var html= createKanbanCardHtmlBacklog(current['id'], current['title'],current['description'],current['deadline'],current['duration']);
+        var colHtml = getColumn(current['column_state']);
+         appendHtmlAfterHtml(html, colHtml);
+         makeCardDraggable(current['id']);
+      }else{
+        var html= createKanbanCardHtml(current['id'], current['title'], current['deadline'],current['description'],current['duration'],current['owner']);
+        var colHtml = getColumn(current['column_state']);
+         appendHtmlAfterHtml(html, colHtml);
+         makeCardDraggable(current['id']);
+      }
     });
   });
 

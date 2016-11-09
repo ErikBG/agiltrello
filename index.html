@@ -38,6 +38,7 @@
 				<li><a href="#">New Sprint</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#BurndownModal" onclick="loadBurndownChart()">Burndown</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#SpeedModal">Speed</a></li>
+
 			  </ul>
 
 			</div>
@@ -191,7 +192,7 @@
 					  </div>
 					  <div class="form-group">
 						  <label for="criteria">Acceptance criteria:</label>
-						  <textarea class="form-control" rows="4" id="criteria" style="resize:none"></textarea>
+						  <textarea class="form-control" rows="4" id="criteria" style="resize:none" placeholder="GIVE text WHEN text THEN text"></textarea>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -323,6 +324,7 @@
 
 
     <!-- Scripts -->
+      <script src="js/gherkin.js"></script>
     <script src="js/menu-toggle.js"></script>
     <script src="js/script.js"></script>
     <script src="js/sprint.js"></script>

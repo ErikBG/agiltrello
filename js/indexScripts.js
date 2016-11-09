@@ -30,6 +30,13 @@ $(document).ready(function () {
     });
 });
 
+  $("#criteria").focusout(function(){
+  var str = $("#criteria").val();
+  console.log(str);
+  test_situation(str);
+
+});
+
 function setSelectedID(id) {
 	sessionStorage.selectedTaskId = id;
 	console.log(sessionStorage.selectedTaskId);
