@@ -303,7 +303,7 @@ function getCRWHistory (burndownChart) {
 			y = new Array(2);
 			y[0] = history['crw'];
 			y[1] = new Date(history['date']);
-			y[1].setDate(y[1].getDate()+1);
+			y[1].setDate(y[1].getDate());
 			y[1].setHours(0,0,0,0);
 			//console.log(history['crw'],',',history['date']);
 			x.push(y);
