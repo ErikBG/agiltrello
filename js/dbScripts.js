@@ -4,7 +4,7 @@ function modifyTask(name_employee,id_task,id_sprint, formattedDt){
 			 "name_employee": name_employee,
 			 "column_state": "inProgress",
             "deadline": formattedDt
-            
+
 		 };
 
 	$.ajax({
@@ -22,6 +22,44 @@ function modifyTask(name_employee,id_task,id_sprint, formattedDt){
 			 console.log(data);
 
 	 });
+}
+
+function setTaskDuration(duration,id_task,id_sprint){
+	var formData = {
+			 "task_id": id_task,
+			 "number_duration": duration,
+			 "column_state": "ready"
+		 };
+
+	$.ajax({
+			 url: "http://trelloagilprueba.esy.es/agiltrello/api/setTaskDuration",
+			 type: 'POST',
+			 data: JSON.stringify(formData),
+			 dataType: 'json',
+			 encode: true
+	 }).done(function (data) {
+	clearTasks();
+	getTaskFromSprint(id_sprint);
+	 console.log("Modificado correctamente");
+	 }).fail(function (data) {
+			 console.log(data);
+
+	 });
+}
+
+function loadVelocity() {
+	var projectId = sessionStorage.currentProjectId;
+	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getVelocity', {projectId}, function (data) {
+	  console.log(data);
+	  $.each(data, function (i, task) {
+			// AQUI VA LA ELABORACION DE TU GRAFICA, SANABIA.
+			var sprint = task['sprint_id'];
+			var team = task['team_id'];
+			var velocity = task['velocity'];
+			console.log(sprint, team, velocity);
+			// UNA ITERACION DE ESTAS LINEAS REPRESENTA SOLO UN CAMPO DE LA TABLA QUE REGRESA (un solo conjunto de sprint/equipo/velocidad)
+	  });
+	});
 }
 
 function addTaskToDB (taskTitle, taskDesc, taskDuration,taskDeadline,taskColumn, taskSprint) {

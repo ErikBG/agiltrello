@@ -23,7 +23,7 @@ $(document).ready(function () {
         });
       });
     });
-	
+
 	$("#team_select").change(function () {
 		sessionStorage.currentTeamId = $("#team_select").val();
 		loadBurndownChart ();
@@ -52,21 +52,6 @@ function loadCRWAndEffort(taskId) {
 				$("#effort_card_input").val(user_project['effort']);
 			}
 		});
-	});
-}
-
-function loadVelocity() {
-	var projectId = sessionStorage.currentProjectId;
-	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getVelocity', {projectId}, function (data) {
-	  console.log(data);
-	  $.each(data, function (i, task) {
-			// AQUI VA LA ELABORACION DE TU GRAFICA, SANABIA.
-			var sprint = task['sprint_id'];
-			var team = task['team_id'];
-			var velocity = task['velocity'];
-			console.log(sprint, team, velocity);
-			// UNA ITERACION DE ESTAS LINEAS REPRESENTA SOLO UN CAMPO DE LA TABLA QUE REGRESA (un solo conjunto de sprint/equipo/velocidad)
-	  });
 	});
 }
 
@@ -129,7 +114,7 @@ function AssignEmployee(){
   var id_task = sessionStorage.getItem("recentTaskMoved");
   var id_current_sprint = $("#sprint_select").val();
   console.log("name_employee (id): "+name_employee);
-    
+
     //Calculate New Deadline
      var dl = new Date($.now());
         dl.setDate(dl.getDate()+2);
@@ -141,7 +126,14 @@ function AssignEmployee(){
 
 }
 
+function assignDuration(){
+  var number_duration = $("#duration_select").val();
+  var id_task = sessionStorage.getItem("recentTaskMoved");
+  var id_current_sprint = $("#sprint_select").val();
+  console.log("number_duration:"+number_duration);
+  modifyTask(number_duration,id_task,id_current_sprint);
 
+}
 
 function dragStart(event){
    event.dataTransfer.setData("Text", event.target.id);
@@ -155,36 +147,47 @@ function dragEnd(event) {
         sessionStorage.setItem("recentTaskMoved",event.target.id);
         assignUsers();
         $('#AssignModal').modal('show');
-        
+
         //Add two days to deadline once card is dragged into InProgress
         var dt = new Date($.now());
         dt.setDate(dt.getDate()+2);
         var dd = dt.getDate();
         var mm = dt.getMonth()+1;
         var y = dt.getFullYear();
-        
+
         var formattedDt = y+"-"+mm+"-"+dd;
         var currentCard = document.getElementById(event.target.id);
         $(currentCard).find('#deadline-label').show();
-        //$(currentCard).find('#deadline-label').text("Deadline: "+formattedDt);        
-        
+        //$(currentCard).find('#deadline-label').text("Deadline: "+formattedDt);
+
     }
-    
+
     if(sessionStorage.getItem("nameColumn")== "ready"){
         sessionStorage.setItem("recentTaskMoved",event.target.id);
         var currentCard = document.getElementById(event.target.id);
         $(currentCard).find('#deadline-label').hide();
+        $('#AssignDurationModal').modal('show');
+        console.log("Finished dragging.");
         //$(currentCard).find('#deadline-label').css('color','blue');
         //$('#deadline-label').hide();
         //alert("Tarjeta ID: "+event.target.id);
     }
-    
-    
-    
-    
+
+
+
+
     console.log("Finished dragging.");
 
 }
+
+function saveTaskDuration(){
+  var newduration=$("#duration_select").val();
+  var sprint_id=$("#sprint_select").val();
+  var id_task = sessionStorage.getItem("recentTaskMoved");
+  console.log(newduration,sprint_id,id_task);
+  setTaskDuration(newduration,id_task,sprint_id);
+}
+
 document.addEventListener("dragenter", function(event) {
     var whichColumn;
     switch(event.target.id){

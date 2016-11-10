@@ -99,6 +99,31 @@ try {
   return json_encode($response);
 }
 
+function setTaskDuration() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sql = "
+  UPDATE task
+  SET duration= :new_duration,column_state= :change_column
+  WHERE id= :id_task;";
+try {
+  $db = getConnection();
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("new_duration", $payload->number_duration);
+  $stmt->bindParam("id_task", $payload->task_id);
+  $stmt->bindParam("change_column", $payload->column_state);
+
+  $stmt->execute();
+  $response = array(
+    "success" => "ok");
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getmessage()
+    );
+  }
+  return json_encode($response);
+}
+
 function newUserToProject() {
   $request = \Slim\Slim::getInstance()->request();
   $payload = json_decode($request->getBody());
@@ -190,7 +215,7 @@ function postCRWHistory() {
   $request = \Slim\Slim::getInstance()->request();
   $payload = json_decode($request->getBody());
   $sql = "
-  SELECT t.sprint_id, us.team_id 
+  SELECT t.sprint_id, us.team_id
   INTO @sprint_id, @team_id
   FROM task t
   JOIN user_sprint us ON t.owner = us.user_id
@@ -228,7 +253,7 @@ function updateCRWAndEffort() {
   crw = :crw,
   effort = :effort
   WHERE id = :task_id;
-  SELECT t.sprint_id, us.team_id 
+  SELECT t.sprint_id, us.team_id
   INTO @sprint_id, @team_id
   FROM task t
   JOIN user_sprint us ON t.owner = us.user_id

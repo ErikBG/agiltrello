@@ -102,6 +102,13 @@ $app->get('/getSprintTasksDuration(/)', function() {
     $result = getSprintTasksDuration();
     echo $result;
 });
+
+$app->post('/setTaskDuration(/)', function() {
+  require 'projects/agil/post_function.php';
+  $result = setTaskDuration();
+  echo $result;
+});
+
 $app->get('/getCRWHistory(/)', function() {
     require 'projects/agil/get_function.php';
     $result = getCRWHistory();
