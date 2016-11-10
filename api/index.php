@@ -5,6 +5,17 @@ require 'Slim/Slim.php';
 $app = new \Slim\Slim();
 $app->contentType('application/json');
 
+$app->get('/getactiveusers(/)', function() {
+    require 'projects/agil/get_function.php';
+    $result = getactiveusers();
+    echo $result;
+});
+$app->get('/getpendingtasks(/)', function() {
+    require 'projects/agil/get_function.php';
+    $result = getpendingtasks();
+    echo $result;
+});
+
 
 $app->post('/newuser(/)', function() {
     require 'projects/agil/post_function.php';

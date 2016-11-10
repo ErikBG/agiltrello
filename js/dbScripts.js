@@ -312,3 +312,65 @@ function getCRWHistory (burndownChart) {
 		burndownChart.done('teamEffortHistory');
 	});
 }
+function addStoryToDB (title,as_i,iwant,so_that,criteria) {
+	var formData = {
+			 "story_title": title,
+			 "story_as": as_i,
+			 "story_want": iwant,
+			 "story_so": so_that,
+			 "story_criteria": criteria
+		 };
+
+	$.ajax({
+			 url: "http://trelloagilprueba.esy.es/agiltrello/api/newUserStory",
+			 type: 'POST',
+			 data: JSON.stringify(formData),
+			 dataType: 'json',
+			 encode: true
+	 }).done(function (data) {
+		 console.log(data);
+		  console.log("Guardado correctamente");
+	 }).fail(function (data) {
+			 console.log(data);
+
+	 });
+}
+function assignTasksForNewSprint(){
+
+    $.get('http://trelloagilprueba.esy.es/agiltrello/api/getactiveusers', function (data) {
+      console.log(data);
+      var html_code = ("<tr class='td_format'>"+"<td>"+"id"+"</td>"+"<td>"+"name"+"</td>"+"<td>"+"lastname"+"</td>"+"<td>"+"hour_sprint"+"</td>"+"</tr>");
+      $.each(data,function(current,user) {
+        if(current=="Error"){
+          alert("Error al recuperar los datos");
+        }
+        else{
+          var current_html = html_code;
+          current_html = current_html.replace("id", user['user_id']);
+          current_html = current_html.replace("name", user['user_name']);
+          current_html = current_html.replace("lastname", user['user_lastname']);
+          current_html = current_html.replace("hour_sprint", user['totalperuser']);
+          $('#table_for_users').append(current_html);
+
+        }
+      });
+    });
+		$.get('http://trelloagilprueba.esy.es/agiltrello/api/getpendingtasks', function (data) {
+			console.log(data);
+			var html_code = ("<tr class='td_format'>"+"<td>"+"id"+"</td>"+"<td>"+"title"+"</td>"+"<td>"+"duration"+"</td>"+"<td>"+"<input type='checkbox' value='id_task'>"+"</td>"+"</tr>");
+			$.each(data,function(current,task) {
+				if(current=="Error"){
+					alert("Error al recuperar los datos");
+				}
+				else{
+					var current_html = html_code;
+					current_html = current_html.replace("id", task['id']);
+					current_html = current_html.replace("title", task['title']);
+					current_html = current_html.replace("duration", task['duration']);
+					current_html = current_html.replace("id_task", task['id']);
+					$('#table_for_tasks').append(current_html);
+
+				}
+			});
+		});
+  }

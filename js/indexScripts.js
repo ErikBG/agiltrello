@@ -36,6 +36,14 @@ $(document).ready(function () {
   test_situation(str);
 
 });
+function addStory(){
+  var title = $("#title").val();
+  var as_i = $("as").val();
+  var iwant = $("iwant").val();
+  var so_that = $("#sothat").val();
+  var criteria = $("#criteria").val();
+  addStoryToDB(title,as_i,iwant,so_that,criteria);
+}
 
 function setSelectedID(id) {
 	sessionStorage.selectedTaskId = id;

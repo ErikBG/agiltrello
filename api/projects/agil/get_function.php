@@ -1,5 +1,65 @@
 <?php
 require 'database.php';
+function getactiveusers() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sql = "
+  SELECT
+  u.Id as user_id,u.user_name as user_name,u.user_lastname as user_lastname,up.daily_capacity*up.days_per_sprint as totalperuser
+  FROM
+  user as u
+  INNER JOIN user_project as up  ON u.Id=up.user_id";
+  try {
+    $db = getConnection();
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_CLASS);
+    if (count($result)) {
+      $response = $result;
+    } else {
+      $response = array(
+        "error" => 'No rows found'
+      );
+    }
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getMessage()
+    );
+  }
+  return json_encode($response);
+}
+function getpendingtasks() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sql = "
+  SELECT
+  id,title,duration
+  FROM
+  task
+  WHERE column_state='backlog'";
+  try {
+    $db = getConnection();
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_CLASS);
+    if (count($result)) {
+      $response = $result;
+    } else {
+      $response = array(
+        "error" => 'No rows found'
+      );
+    }
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getMessage()
+    );
+  }
+  return json_encode($response);
+}
+
+
+
+
 function getsprint() {
   $request = \Slim\Slim::getInstance()->request();
   $payload = json_decode($request->getBody());
@@ -218,8 +278,8 @@ function getSprintTasksDuration() {
   $sprint_id = $_GET['sprintId'];
   $team_id = $_GET['teamId'];
   $sql = "
-  SELECT SUM(up.daily_capacity*up.days_per_sprint) as total_duration FROM user_sprint us 
-  JOIN user_project up ON us.user_id = up.user_id 
+  SELECT SUM(up.daily_capacity*up.days_per_sprint) as total_duration FROM user_sprint us
+  JOIN user_project up ON us.user_id = up.user_id
   WHERE us.sprint_id = ".$sprint_id." AND us.team_id = ".$team_id.";";
   try {
     $db = getConnection();
@@ -248,7 +308,7 @@ function getCRWHistory() {
   $team_id = $_GET['teamId'];
   $sql = "
   SELECT crw, date FROM crw_history
-  WHERE sprint_id = ".$sprint_id." 
+  WHERE sprint_id = ".$sprint_id."
   AND team_id = ".$team_id."
   ORDER BY date ASC;";
   try {

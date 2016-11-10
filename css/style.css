@@ -48,7 +48,14 @@ body {
 .navbar ul li:active {
     background-color: #055A8C;
 }
-
+.title_table{
+		text-align: center;
+		background-color: #463945;
+		color: white;
+	}
+  .td_format{
+        		text-align: center;
+}
 
 /* COLUMNS AND CARDS */
 .title
