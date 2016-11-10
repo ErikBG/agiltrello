@@ -186,16 +186,29 @@ try {
   return json_encode($response);
 }
 
-function postEffortAndCRW() {
+function postCRWHistory() {
   $request = \Slim\Slim::getInstance()->request();
   $payload = json_decode($request->getBody());
-  $sql = "INSERT INTO effort_history (task_id, crw, effort, date) VALUES (?,?,?,curdate());";
+  $sql = "
+  SELECT t.sprint_id, us.team_id 
+  INTO @sprint_id, @team_id
+  FROM task t
+  JOIN user_sprint us ON t.owner = us.user_id
+  AND t.sprint_id = us.sprint_id
+  WHERE t.id = ?;
+  SET @crw = (SELECT SUM(t.crw) as crw FROM task t
+  JOIN user_sprint us ON t.owner = us.user_id
+  WHERE t.sprint_id = @sprint_id AND us.sprint_id = @sprint_id AND us.team_id = @team_id);
+  INSERT INTO crw_history
+  (sprint_id, team_id, date, crw)
+  VALUES
+  (@sprint_id, @team_id, curdate(), @crw)
+  ON DUPLICATE KEY UPDATE
+  crw = @crw;";
 try {
   $db = getConnection();
   $stmt = $db->prepare($sql);
   $stmt->bindParam("1", $payload->task_id);
-  $stmt->bindParam("2", $payload->crw);
-  $stmt->bindParam("3", $payload->effort);
   $stmt->execute();
   $response = array(
     "success" => "ok");
@@ -212,15 +225,30 @@ function updateCRWAndEffort() {
   $payload = json_decode($request->getBody());
   $sql = "
   UPDATE task SET
-  crw = ?,
-  effort = ?
-  WHERE id = ?;";
+  crw = :crw,
+  effort = :effort
+  WHERE id = :task_id;
+  SELECT t.sprint_id, us.team_id 
+  INTO @sprint_id, @team_id
+  FROM task t
+  JOIN user_sprint us ON t.owner = us.user_id
+  AND t.sprint_id = us.sprint_id
+  WHERE t.id = :task_id;
+  SET @crw = (SELECT SUM(t.crw) as crw FROM task t
+  JOIN user_sprint us ON t.owner = us.user_id
+  WHERE t.sprint_id = @sprint_id AND us.sprint_id = @sprint_id AND us.team_id = @team_id);
+  INSERT INTO crw_history
+  (sprint_id, team_id, date, crw)
+  VALUES
+  (@sprint_id, @team_id, curdate(), @crw)
+  ON DUPLICATE KEY UPDATE
+  crw = @crw;";
 try {
   $db = getConnection();
   $stmt = $db->prepare($sql);
-  $stmt->bindParam(1, $payload->crw);
-  $stmt->bindParam(2, $payload->effort);
-  $stmt->bindParam(3, $payload->task_id);
+  $stmt->bindParam('crw', $payload->crw);
+  $stmt->bindParam('effort', $payload->effort);
+  $stmt->bindParam('task_id', $payload->task_id);
   $stmt->execute();
   $response = array(
     "success" => "ok");

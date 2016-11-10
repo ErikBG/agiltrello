@@ -182,32 +182,7 @@ function updateCRWAndEffort(taskId, crw, effort) {
 	 }).fail(function (data) {
 			 console.log(data);
 	 });
-	 updateCRWAndEffortHistory(taskId, crw, effort);
 }
-
-function updateCRWAndEffortHistory(taskId, crw, effort) {
-	var formData = {
-			 "task_id": taskId,
-			 "crw": crw,
-			 "effort": effort
-		 };
-	 console.log(formData);
-	$.ajax({
-			 url: "http://trelloagilprueba.esy.es/agiltrello/api/postEffortAndCRW",
-			 type: 'POST',
-			 data: JSON.stringify(formData),
-			 dataType: 'json',
-			 encode: true
-	 }).done(function (data) {
-		console.log(data);
-		console.log("Guardado correctamente");
-	 }).fail(function (data) {
-			 console.log(data);
-	 });
-}
-
-/*sessionStorage.sprintStartDate='';
-sessionStorage.sprintDuration='';*/
 
 function getSprintStartDateAndDuration (burndownChart) {
 	var sprintId = burndownChart.sprint;
@@ -265,7 +240,6 @@ function getSprintTasksDuration (burndownChart) {
 	var teamId = burndownChart.team;
 	console.log('Reaching DB for sprint', sprintId,'and team', teamId);
 	var totalDuration;
-	//"SELECT SUM(up.daily_capacity*up.days_per_sprint) as total_duration FROM user_sprint us JOIN user_project up ON us.user_id = up.user_id WHERE us.sprint_id = 1 AND us.team_id = 1;"
 	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getSprintTasksDuration', {sprintId, teamId}, function (data) {
 		$.each(data, function (i, user_project) {
 			if (i==0) {
@@ -278,41 +252,25 @@ function getSprintTasksDuration (burndownChart) {
 	//return 16;
 }
 
-function getSprintTeamEffortHistory (burndownChart) {
+function getCRWHistory (burndownChart) {
 	var sprintId = burndownChart.sprint;
 	var teamId = burndownChart.team;
 	console.log('Reaching DB for sprint', sprintId,'and team', teamId);
-	/*"SELECT SUM(a.crw) as crw, a.date FROM (SELECT MIN(eh.crw) as crw, eh.date
-	FROM effort_history as eh
-	JOIN task t ON eh.task_id = t.id
-	JOIN user_sprint us ON t.owner = us.user_id
-	WHERE t.sprint_id = 6 AND us.sprint_id = 6 AND us.team_id = 1
-	GROUP BY date, task_id) as a
-	GROUP BY date ORDER BY date;"*/
 	var x = new Array();
 	var y;
-	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getSprintTeamEffortHistory', {sprintId, teamId}, function (data) {
-		console.log(data);
+	//console.log('Sending to DB:', sprintId, teamId);
+	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getCRWHistory', {sprintId, teamId}, function (data) {
+		//console.log(data);
 		$.each(data, function (i, history) {
 			y = new Array(2);
 			y[0] = history['crw'];
 			y[1] = new Date(history['date']);
 			y[1].setDate(y[1].getDate()+1);
 			y[1].setHours(0,0,0,0);
-			console.log(history['crw'],',',history['date']);
+			//console.log(history['crw'],',',history['date']);
 			x.push(y);
 		});
 		burndownChart.setHistory(x);
 		burndownChart.done('teamEffortHistory');
 	});
-	/*x[0] = new Array(2);
-	x[0][0] = 14;
-	x[0][1] = new Date('2016-11-02');
-	x[1] = new Array(2);
-	x[1][0] = 10;
-	x[1][1] = new Date('2016-11-05');
-	x[2] = new Array(2);
-	x[2][0] = 8;
-	x[2][1] = new Date('2016-11-06');*/
-	//return x;
 }

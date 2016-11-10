@@ -36,9 +36,9 @@ $app->post('/updateCRWAndEffort(/)', function() {
     $result = updateCRWAndEffort();
     echo $result;
 });
-$app->post('/postEffortAndCRW(/)', function() {
+$app->post('/postCRWHistory(/)', function() {
     require 'projects/agil/post_function.php';
-    $result = postEffortAndCRW();
+    $result = postCRWHistory();
     echo $result;
 });
 $app->post('/newTask(/)', function() {
@@ -102,9 +102,9 @@ $app->get('/getSprintTasksDuration(/)', function() {
     $result = getSprintTasksDuration();
     echo $result;
 });
-$app->get('/getSprintTeamEffortHistory(/)', function() {
+$app->get('/getCRWHistory(/)', function() {
     require 'projects/agil/get_function.php';
-    $result = getSprintTeamEffortHistory();
+    $result = getCRWHistory();
     echo $result;
 });
 $app->run();

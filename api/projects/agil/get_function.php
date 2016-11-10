@@ -241,19 +241,16 @@ function getSprintTasksDuration() {
   return json_encode($response);
 }
 
-function getSprintTeamEffortHistory() {
+function getCRWHistory() {
   $request = \Slim\Slim::getInstance()->request();
   $payload = json_decode($request->getBody());
   $sprint_id = $_GET['sprintId'];
   $team_id = $_GET['teamId'];
   $sql = "
-  SELECT SUM(a.crw) as crw, a.date FROM (SELECT MIN(eh.crw) as crw, eh.date
-  FROM effort_history as eh
-  JOIN task t ON eh.task_id = t.id
-  JOIN user_sprint us ON t.owner = us.user_id
-  WHERE t.sprint_id = ".$sprint_id." AND us.sprint_id = ".$sprint_id." AND us.team_id = ".$team_id."
-  GROUP BY date, task_id) as a
-  GROUP BY date ORDER BY date;";
+  SELECT crw, date FROM crw_history
+  WHERE sprint_id = ".$sprint_id." 
+  AND team_id = ".$team_id."
+  ORDER BY date ASC;";
   try {
     $db = getConnection();
     $stmt = $db->prepare($sql);
