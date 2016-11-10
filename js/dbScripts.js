@@ -1,8 +1,10 @@
-function modifyTask(name_employee,id_task,id_sprint){
+function modifyTask(name_employee,id_task,id_sprint, formattedDt){
 	var formData = {
 			 "task_id": id_task,
 			 "name_employee": name_employee,
-			 "column_state": "inProgress"
+			 "column_state": "inProgress",
+            "deadline": formattedDt
+            
 		 };
 
 	$.ajax({

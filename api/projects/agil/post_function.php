@@ -78,7 +78,7 @@ function modifyTask() {
   $payload = json_decode($request->getBody());
   $sql = "
   UPDATE task
-  SET owner= :new_owner,column_state= :change_column
+  SET owner= :new_owner,column_state= :change_column, deadline= :new_deadline
   WHERE Id= :id_task;";
 try {
   $db = getConnection();
@@ -86,6 +86,7 @@ try {
   $stmt->bindParam("new_owner", $payload->name_employee);
   $stmt->bindParam("id_task", $payload->task_id);
   $stmt->bindParam("change_column", $payload->column_state);
+  $stmt->bindParam("new_deadline", $payload->deadline);
 
   $stmt->execute();
   $response = array(

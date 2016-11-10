@@ -129,7 +129,15 @@ function AssignEmployee(){
   var id_task = sessionStorage.getItem("recentTaskMoved");
   var id_current_sprint = $("#sprint_select").val();
   console.log("name_employee (id): "+name_employee);
-  modifyTask(name_employee,id_task,id_current_sprint);
+    
+    //Calculate New Deadline
+     var dl = new Date($.now());
+        dl.setDate(dl.getDate()+2);
+        var dd = dl.getDate();
+        var mm = dl.getMonth()+1;
+        var y = dl.getFullYear();
+        var formattedDt = y+"-"+mm+"-"+dd;
+  modifyTask(name_employee,id_task,id_current_sprint, formattedDt);
 
 }
 
@@ -158,7 +166,7 @@ function dragEnd(event) {
         var formattedDt = y+"-"+mm+"-"+dd;
         var currentCard = document.getElementById(event.target.id);
         $(currentCard).find('#deadline-label').show();
-        $(currentCard).find('#deadline-label').text("Deadline: "+formattedDt);        
+        //$(currentCard).find('#deadline-label').text("Deadline: "+formattedDt);        
         
     }
     
@@ -244,7 +252,7 @@ function createKanbanCardHtmlBacklog(id, title,desc,date,duration) {
 	"    <label>"+title+"</label>"+
 	"</div>"+
 	"    <div class='card-content'>"+
-	"        <p><strong>Deadline:</strong> "+date+"</p>"+
+	"        <p id='deadline-label'><strong>Deadline:</strong> "+date+"</p>"+
 	"        <p><strong>Description:</strong> "+desc+"</p>"+
 	"        <p><strong>Duration:</strong> "+duration+"</p>"+
 	"    </div>"+
