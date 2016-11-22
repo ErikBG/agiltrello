@@ -5,7 +5,7 @@ function getactiveusers() {
   $payload = json_decode($request->getBody());
   $sql = "
   SELECT
-  u.Id as user_id,u.user_name as user_name,u.user_lastname as user_lastname,up.daily_capacity*up.days_per_sprint as totalperuser
+  u.Id as user_id,u.user_name as user_name,u.user_lastname as user_lastname,up.capacity as totalperuser
   FROM
   user as u
   INNER JOIN user_project as up  ON u.Id=up.user_id";
@@ -134,8 +134,14 @@ function getUserToProject() {
 	up.user_id,
 	up.project_id,
 	us.team_id,
-	up.daily_capacity,
-	up.days_per_sprint
+	up.capacity,
+	up.monday,
+	up.tuesday,
+	up.wednesday,
+	up.thursday,
+	up.friday,
+	up.saturday,
+	up.sunday
 	FROM
 	user_project AS up
 	INNER JOIN user_sprint AS us ON up.user_id = us.user_id AND up.project_id AND us.project_id
@@ -278,7 +284,7 @@ function getSprintTasksDuration() {
   $sprint_id = $_GET['sprintId'];
   $team_id = $_GET['teamId'];
   $sql = "
-  SELECT SUM(up.daily_capacity*up.days_per_sprint) as total_duration FROM user_sprint us
+  SELECT SUM(up.capacity) as total_duration FROM user_sprint us
   JOIN user_project up ON us.user_id = up.user_id
   WHERE us.sprint_id = ".$sprint_id." AND us.team_id = ".$team_id.";";
   try {

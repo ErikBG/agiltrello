@@ -132,14 +132,26 @@ function newUserToProject() {
   user_id,
   project_id,
   team_id,
-  daily_capacity,
-  days_per_sprint
+  capacity,
+  monday,
+  tuesday,
+  wednesday,
+  thursday,
+  friday,
+  saturday,
+  sunday
   ) VALUES (
   :user_id,
   :project_id,
   :team_id,
-  :daily_capacity,
-  :days_per_sprint
+  :capacity
+  :monday,
+  :tuesday,
+  :wednesday,
+  :thursday,
+  :friday,
+  :saturday,
+  :sunday
 );";
 try {
   $db = getConnection();
@@ -147,8 +159,14 @@ try {
   $stmt->bindParam("user_id", $payload->user_id);
   $stmt->bindParam("project_id", $payload->project_id);
   $stmt->bindParam("team_id", $payload->team_id);
-  $stmt->bindParam("daily_capacity", $payload->daily_capacity);
-  $stmt->bindParam("days_per_sprint", $payload->days_per_sprint);
+  $stmt->bindParam("capacity", $payload->capacity);
+  $stmt->bindParam("monday", $payload->monday);
+  $stmt->bindParam("tuesday", $payload->tuesday);
+  $stmt->bindParam("wednesday", $payload->wednesday);
+  $stmt->bindParam("thursday", $payload->thursday);
+  $stmt->bindParam("friday", $payload->friday);
+  $stmt->bindParam("saturday", $payload->saturday);
+  $stmt->bindParam("sunday", $payload->sunday);
   $stmt->execute();
   $response = array(
     "success" => "ok");
@@ -165,16 +183,28 @@ function updateUserToProject() {
   $payload = json_decode($request->getBody());
   $sql = "
   UPDATE user_project SET
-  daily_capacity = ?,
-  days_per_sprint = ?
-  WHERE user_id = ? AND project_id = ?;";
+  capacity = :capacity,
+  monday = :monday,
+  tuesday = :tuesday,
+  wednesday = :wednesday,
+  thursday = :thursday,
+  friday = :friday,
+  saturday = :saturday,
+  sunday = :sunday
+  WHERE user_id = :user_id AND project_id = :project_id;";
 try {
   $db = getConnection();
   $stmt = $db->prepare($sql);
-  $stmt->bindParam(1, $payload->daily_capacity);
-  $stmt->bindParam(2, $payload->days_per_sprint);
-  $stmt->bindParam(3, $payload->user_id);
-  $stmt->bindParam(4, $payload->project_id);
+  $stmt->bindParam("capacity", $payload->capacity);
+  $stmt->bindParam("monday", $payload->monday);
+  $stmt->bindParam("tuesday", $payload->tuesday);
+  $stmt->bindParam("wednesday", $payload->wednesday);
+  $stmt->bindParam("thursday", $payload->thursday);
+  $stmt->bindParam("friday", $payload->friday);
+  $stmt->bindParam("saturday", $payload->saturday);
+  $stmt->bindParam("sunday", $payload->sunday);
+  $stmt->bindParam("user_id", $payload->user_id);
+  $stmt->bindParam("project_id", $payload->project_id);
   $stmt->execute();
   $response = array(
     "success" => "ok");

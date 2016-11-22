@@ -73,8 +73,15 @@ function loadProjectUserConfig() {
 			if (i==0) {
 				$("#team_id_input").val(user_project['team_id']);
 				sessionStorage.currentTeamId = user_project['team_id'];
-				$("#daily_capacity_input").val(user_project['daily_capacity']);
-				$("#days_per_sprint_input").val(user_project['days_per_sprint']);
+				$("#capacity_input").val(user_project['capacity']);
+				
+				if (user_project['monday'] == 1) $("#monday_input").prop('checked', true);
+				if (user_project['tuesday'] == 1) $("#tuesday_input").prop('checked', true);
+				if (user_project['wednesday'] == 1) $("#wednesday_input").prop('checked', true);
+				if (user_project['thursday'] == 1) $("#thursday_input").prop('checked', true);
+				if (user_project['friday'] == 1) $("#friday_input").prop('checked', true);
+				if (user_project['saturday'] == 1) $("#saturday_input").prop('checked', true);
+				if (user_project['sunday'] == 1) $("#sunday_input").prop('checked', true);
 			}
 	  });
 	});
@@ -85,13 +92,20 @@ function addProjectUserConfig() {
 	var userId = sessionStorage.currentUserId;
 	var projectId = sessionStorage.currentProjectId;
 	sprintId = sessionStorage.currentSprintId;
-
+	var monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+	
 	var teamId = $("#team_id_input").val();
-	var dailyCapacity = $("#daily_capacity_input").val();
-	var daysPerSprint = $("#days_per_sprint_input").val();
+	var capacity = $("#capacity_input").val();
+	if($('#monday_input').is(':checked')) {monday = 1;} else {monday = 0;}
+	if($('#tuesday_input').is(':checked')) {tuesday = 1;} else {tuesday = 0;}
+	if($('#wednesday_input').is(':checked')) {wednesday = 1;} else {wednesday = 0;}
+	if($('#thursday_input').is(':checked')) {thursday = 1;} else {thursday = 0;}
+	if($('#friday_input').is(':checked')) {friday = 1;} else {friday = 0;}
+	if($('#saturday_input').is(':checked')) {saturday = 1;} else {saturday = 0;}
+	if($('#sunday_input').is(':checked')) {sunday = 1;} else {sunday = 0;}
 
 	//console.log("Trying to get: "+getUserToProject(userId, projectId));
-	updateUserProjectConfig(userId, projectId, dailyCapacity, daysPerSprint);
+	updateUserProjectConfig(userId, projectId, capacity, monday, tuesday, wednesday, thursday, friday, saturday, sunday);
 
 	console.log("Input team id:"+teamId, "Current team id:"+sessionStorage.currentTeamId);
 	if (teamId != sessionStorage.currentTeamId) {

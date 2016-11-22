@@ -134,13 +134,19 @@ function logIn(username_input,password_input) {
 }
 
 
-function newProjectUserConfig(userId, projectId, teamId, dailyCapacity, daysPerSprint) {
+function newProjectUserConfig(userId, projectId, teamId, capacity, monday, tuesday, wednesday, thursday, friday, saturday, sunday) {
 	var formData = {
 			 "user_id": userId,
 			 "project_id": projectId,
 			 "team_id": teamId,
-			 "daily_capacity": dailyCapacity,
-			 "days_per_sprint": daysPerSprint
+			 "capacity": capacity,
+			 "monday": monday,
+			 "tuesday": tuesday,
+			 "wednesday": wednesday,
+			 "thursday": thursday,
+			 "friday": friday,
+			 "saturday": saturday,
+			 "sunday": sunday
 		 };
 	 console.log(formData);
 	$.ajax({
@@ -157,12 +163,18 @@ function newProjectUserConfig(userId, projectId, teamId, dailyCapacity, daysPerS
 	 });
 }
 
-function updateUserProjectConfig(userId, projectId, dailyCapacity, daysPerSprint) {
+function updateUserProjectConfig(userId, projectId, capacity, monday, tuesday, wednesday, thursday, friday, saturday, sunday) {
 	var formData = {
 			 "user_id": userId,
 			 "project_id": projectId,
-			 "daily_capacity": dailyCapacity,
-			 "days_per_sprint": daysPerSprint
+			 "capacity": capacity,
+			 "monday": monday,
+			 "tuesday": tuesday,
+			 "wednesday": wednesday,
+			 "thursday": thursday,
+			 "friday": friday,
+			 "saturday": saturday,
+			 "sunday": sunday
 		 };
 	 console.log(formData);
 	$.ajax({
