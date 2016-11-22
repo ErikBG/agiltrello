@@ -17,11 +17,14 @@ body {
 	min-height: 100%;
 	bottom: 60px;
 	overflow-y: auto;
-	
+
 }
 .error{
 	color: red;
 	display: none;
+}
+#sprint_select{
+  margin-top: 7px;
 }
 
 /* NAVBAR */
@@ -45,15 +48,22 @@ body {
 .navbar ul li:active {
     background-color: #055A8C;
 }
-
+.title_table{
+		text-align: center;
+		background-color: #463945;
+		color: white;
+	}
+  .td_format{
+        		text-align: center;
+}
 
 /* COLUMNS AND CARDS */
 .title
 {
-	background-color:#c5d9f9;
-	text-align:center;
+	background-color:#E2E4E6;
+	text-align:left;
 	font-weight:bold;
-	color:black;
+	color:#4d4d4d;
 	padding: 5px;
 }
 
@@ -63,70 +73,76 @@ body {
 
 /*.row.content {
 	height: 100%;
+	height: 100%;
 	clear: height;
 }*/
 
 .iColumn {
+    width: 30%;
+    margin-left: 2.5%;
+    margin-top: 1%;
 	padding: 5px;
-	min-width: 300px;
-	min-height: 500px;
-	background-color: #dce5f4;
-	height: 100%;
-	border: 1px solid black;
-	overflow-y: auto;
-	clear: height;
+	background-color: #E2E4E6;
+	height: auto;
+    border-radius: 5px;
 }
+
+
 
 *[draggable=true]
 {
 	float:left;
-	min-width: 70px;
+	min-width: 100%;
 	min-height: 70px;
-	border: 2px solid black;
-	margin: 10px;
+	border: 2px solid transparent;
+    border-radius: 5px;
+	margin-bottom: 10px;
 }
 
 *[draggable=false]
 {
 	float:left;
-	min-width: 70px;
+	min-width: 100%;
 	min-height: 70px;
-	border: 1px solid gray;
-	margin: 10px;
+	border: 2px solid #bab7b7;
+    border-radius: 5px;
+	margin-bottom: 10px;
+    background-color: #ffe4e4;
+
 }
+
 
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    background-color: #EDEFF0;
+    /*box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);*/
 }
 
-.card {
+.card{
     /* Add shadows to create the "card" effect */
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
 }
 
 .cardTitle
 {
-	background-color: #3e79d8;
-	border:2px solid white;
-	color:white;
+	border:2px solid transparent;
+	color: #4d4d4d;
     font-size: 12px;
     height: 30px;
 }
 
 .card-content{
-	background-color: #f7f9fc;
-	border:2px solid white;
     font-size: 12px;
     text-align: left;
-
+    padding: 3px
 }
 
 .card-footer{
-	background-color: #e1e8f4;
-	border:2px solid white;
     font-size: 12px;
+    text-align: right;
+    padding-right: 8px;
 }
+
 .footer {
     position: fixed;
     bottom: 0;
@@ -139,6 +155,11 @@ body {
 
 .signup-box {
     width: 50vw;
+}
+.assignModal{
+  width: 20vm;
+  align: 0, 0, 0,0;
+  margin-top: 15%;
 }
 
 .blockBtn {
@@ -158,9 +179,19 @@ body {
 }
 
 .blocked {
-    background-color: #ad2a2a;
+    background-color: #ffe4e4;
 }
 
 .unblocked {
     background-color: #3e79d8;
 }
+
+input[type="checkbox"] {
+  height: 15px;
+  width: 15px;
+  margin-right:5px;
+  margin-left: 10px;
+  position:relative;
+}
+
+em   {font-size: 12px;}

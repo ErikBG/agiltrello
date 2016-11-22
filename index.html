@@ -7,11 +7,13 @@
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/queries.css">
   <!-- Simple Sidebar CSS -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.js"></script>
+  </head>
 <body>
 
 	<nav class="navbar navbar-inverse">
@@ -28,13 +30,15 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
+				<li><a href="#" data-toggle="modal" data-target="#ProjectUserConfigModal" onclick="loadProjectUserConfig()"><span class="glyphicon glyphicon-cog"></span> User</a></li>
 				<li><a href="home.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 			  </ul>
 			  <ul class="nav navbar-nav navbar-right actionButton">
          <li> <select class="form-control" id="sprint_select" >  </select></li>
-				<li><a href="#">New Sprint</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#BurndownModal">Burndown</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#newSprintModal" onclick="assignTasksForNewSprint()">New Sprint</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#BurndownModal" onclick="loadBurndownChart()">Burndown</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#SpeedModal">Speed</a></li>
+
 			  </ul>
 
 			</div>
@@ -50,7 +54,7 @@
 					<p>Backlog</p>
 				</li>
 				<li>
-					<div class="btn-group">
+					<div class="btn-group" >
 					  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 					  <span class="glyphicon glyphicon-plus"></span> New <span class="caret"></span></button>
 					  <ul class="dropdown-menu" role="menu">
@@ -71,129 +75,159 @@
 
     <!--BOARD-->
 
-		<div class="container-fluid text-center row content">
 
-				<div id="ready" class="readyCol col-sm-4 iColumn">
+				<div id="ready" class="readyCol col-sm-4 iColumn ">
 					<div class="title">Ready</div>
-
-					<div id="item1" draggable="true">
-						<div class="cardTitle js--item1">
-						   <label>ID: #1421</label>
-						   <button id="blockBtn1" class="blockBtn">B</button>
-						</div>
-						<div class="card horizontal">
-							<div class="card-content">
-								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
-								<p><strong>Description:</strong> Add ability to login into the server</p>
-								<p><strong>Duration:</strong> 4hrs</p>
-							</div>
-							<div class="card-footer">
-								<p>Ricardo</p>
-							</div>
-						</div>
 					</div>
 
-
-					<div id="item2" draggable="true">
-						<div class="cardTitle js--item2">
-							<label>ID: #1422</label>
-							<button id="configBtn2" class="configBtn" data-toggle="modal" data-target="#cardModal" onclick='setSelectedID(1422)'>
-								<span class="glyphicon glyphicon-time"></span>
-							</button>
-							<button id="blockBtn2"class="blockBtn">B</button>
-							
-						</div>
-						<div class="card horizontal">
-							<div class="card-content">
-								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
-								<p><strong>Description:</strong> Fill footer with useful information</p>
-								<p><strong>Duration:</strong> 4hrs</p>
-							</div>
-							<div class="card-footer">
-								<p>Diego</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			
-				<div id="inprogress" class="inProgressCol col-sm-4 iColumn">
+				<div id="inprogress" class="inProgressCol col-sm-4 iColumn" ondrop="drop(event)" ondragover="allowDrop(event)">
 					<div class="title">InProgress</div>
-					<div id="item3" draggable="true">
-						<div class="cardTitle js--item3">
-							<label >ID: #1422</label>
-							<button id="blockBtn3" class="blockBtn">B</button>
-						</div>
-						<div class="card horizontal">
-							<div class="card-content">
-								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
-								<p><strong>Description:</strong> Connect Website to DB</p>
-								<p><strong>Duration:</strong> 4hrs</p>
-							</div>
-							<div class="card-footer">
-								<p>Sanabia</p>
-							</div>
-						</div>
-					</div>
-					<div id="item4" draggable="true">
-						<div class="cardTitle js--item4">
-							<label >ID: #1422</label>
-							<button id="blockBtn4" class="blockBtn">B</button>
-						</div>
-						<div class="card horizontal">
-							<div class="card-content">
-								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
-								<p><strong>Description:</strong> Create DB and Stored Procedures</p>
-								<p><strong>Duration:</strong> 4hrs</p>
-							</div>
-							<div class="card-footer">
-								<p>Ricardo</p>
-							</div>
-						</div>
-					</div>
 				</div>
-		
-				<div id="finished" class="finishedCol col-sm-4 iColumn">
+
+				<div id="finished" class="finishedCol col-sm-4 iColumn" ondrop="drop(event)" ondragover="allowDrop(event)">
 					<div class="title">Finished</div>
-					<div id="item5" draggable="true">
-						<div class="cardTitle js--item5">
-							<label >ID: #1422</label>
-							<button id="blockBtn5" class="blockBtn">B</button>
-						</div>
-						<div class="card horizontal">
-							<div class="card-content">
-								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
-								<p><strong>Description:</strong> Add ability to create new cards</p>
-								<p><strong>Duration:</strong> 4hrs</p>
-							</div>
-							<div class="card-footer">
-								<p>Sanabia</p>
-							</div>
-						</div>
-					</div>
-					<div id="item6" draggable="true">
-						<div class="cardTitle js--item6">
-							<label >ID: #1421</label>
-							<button id="blockBtn6" class="blockBtn">B</button>
-						</div>
-						<div class="card horizontal">
-							<div class="card-content">
-								<p><strong>Deadline:</strong> 28-Septimbre-2016</p>
-								<p><strong>Description:</strong> Create github repository to work on</p>
-								<p><strong>Duration:</strong> 4hrs</p>
-							</div>
-							<div class="card-footer">
-								<p>Erik</p>
-							</div>
-						</div>
-					</div>
 				</div>
 		</div>
-	</div>
+
+
+	<!--BOARD END-->
+  <!--Assign Task to Employee Modal-->
+     <div id="newSprintModal" class="modal fade" role="dialog">
+       <div class="signup-box modal-dialog modal-sm">
+         <!-- Modal content-->
+         <div class="modal-content">
+           <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal">&times;</button>
+             <h4 class="modal-title">New Sprint</h4>
+           </div>
+
+           <form>
+             <div class="form-group" style="margin: 5px" >
+               <input type="text" class="form-control" id="name_new_sprint" placeholder="Name"/>
+             </div>
+             <div class="form-group" style="margin: 5px">
+               <input type="date" class="form-control" id="finish_date_sprint" placeholder="End Date"/>
+             </div>
+             <table id="table_for_users"  class="table table-hover" >
+               <thread>
+                 <tr>
+                   <th class="title_table">ID</th>
+                   <th class="title_table">Firstname</th>
+                   <th class="title_table">Lastname</th>
+                   <th class="title_table">Total Hours</th>
+                   <th class="title_table"></th>
+                 </tr>
+                 <thread>
+                   <tbody>
+                   </tbody>
+                 </table>
+                 <table id="table_for_tasks"  class="table table-hover" >
+                   <thread>
+                     <tr>
+                       <th class="title_table">ID</th>
+                       <th class="title_table">Title</th>
+                       <th class="title_table">Duration</th>
+                       <th class="title_table">Check</th>
+                       <th class="title_table"></th>
+                     </tr>
+                     <thread>
+                       <tbody>
+                       </tbody>
+                     </table>
+                     <p> <strong>Total Duration: </strong> 0 </p>
+                     <div class="modal-footer">
+                       <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                       <button type="button" class="btn btn-success" data-dismiss="modal" onclick="">Submit</button>
+                     </div>
+                   </form>
+                 </div>
+               </div>
+             </div>
+
+<!-- Modal Assign Ressource to Task -->
+<div id="AssignModal" class="modal fade" role="dialog">
+  <div class="assignModal modal-dialog modal-sm">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Assign Employee</h4>
+      </div>
+      <form>
+        <div class="modal-body">
+      <div class="form-group">
+          <label for="employees_select">Employees:</label>
+          <select class="form-control" id="employees_select" >  </select>
+          </div>
+         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="AssignEmployee()">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal Assign Duration to Task -->
+<div id="AssignDurationModal" class="modal fade" role="dialog">
+  <div class="assignDurationModal modal-dialog modal-sm">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Assign Duration</h4>
+      </div>
+      <form>
+        <div class="modal-body">
+      <div class="form-group">
+          <label for="duration_select">Duration:</label>
+          <input class="form-control" id="duration_select" type="number">  </input>
+          </div>
+         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="saveTaskDuration()">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
 
 <footer class="container-fluid text-center footer">
   <p>This website was created by Desarrollo Agil Team.</p>
 </footer>
-    <!--BOARD-->
+
+	<!--Project User Configuration modal-->
+	<div class="modal fade" id="ProjectUserConfigModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Project User Configuration</h4>
+				</div>
+				<form>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="crw">Team id:</label>
+						<input type="number" class="form-control" id="team_id_input">
+						<label for="crw">Daily capacity:</label>
+						<input type="number" class="form-control" id="daily_capacity_input">
+						<label for="crw">Days per sprint:</label>
+						<input type="number" class="form-control" id="days_per_sprint_input">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-success" data-dismiss="modal" onclick="addProjectUserConfig()">Save</button>
+				</div>
+				</form>
+			</div>
+        </div>
+    </div>
 
 	<!--New User Story Modal-->
 	<div id="newUserStoryModal" class="modal fade" role="dialog">
@@ -224,20 +258,20 @@
 						<label for="sothat">So that:</label>
 						  <textarea class="form-control" rows="2" id="sothat" style="resize:none"></textarea>
 					  </div>
-					  <div class="form-group">
+					  <div class="form-group" id="gherkin_div">
 						  <label for="criteria">Acceptance criteria:</label>
-						  <textarea class="form-control" rows="4" id="criteria" style="resize:none"></textarea>
+						  <textarea class="form-control" rows="4" id="criteria" style="resize:none" placeholder="GIVE text WHEN text THEN text"></textarea>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-success" data-dismiss="modal" onclick="addStory()">Submit</button>
+						<button type="button" class="btn btn-success" data-dismiss="modal" >Submit</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	
+
 	<!--New Task Modal-->
 	<div id="newTaskModal" class="modal fade" role="dialog">
 		<div class="signup-box modal-dialog modal-sm">
@@ -252,32 +286,25 @@
 				<form>
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="cardId">ID:</label>
-							<input type="number" class="form-control" id="cardId">
+							<label for="cardTitle">Title</label>
+							<input type="text" class="form-control" id="cardTitle">
 						</div>
 						 <div class="form-group">
 							<label for="description">Description:</label>
-							<textarea class="form-control" rows="2" id="description" style="resize:none"></textarea>
+							<textarea class="form-control" rows="2" id="carddescription" style="resize:none"></textarea>
 						</div>
 						<div class="form-group">
 							<label for="duration">Duration:</label>
-							<input type="number" class="form-control" id="duration">
+							<input type="number" class="form-control" id="cardduration">
 						</div>
 						<div class="form-group">
 							<label for="deadline">Deadline:</label>
-							<input type="date" class="form-control" id="deadline">
-						</div>
-						<div class="form-group">
-							<label for="owner">Owner:</label>
-							<input type="text" class="form-control" id="owner">
+							<input type="date" class="form-control" id="carddeadline" placeholder="dd/mm/aaaa">
 						</div>
 						<div class="form-group">
 							<label for="column">Column:</label>
-							<select name="Columns" id="column">
+							<select name="Columns" class="form-control" id="cardcolumn">
 								<option value="backlog">Backlog</option>
-								<option value="ready">Ready</option>
-								<option value="inProgress">In Progress</option>
-								<option value="finished">Finished</option>
 							</select>
 						</div>
 					</div>
@@ -289,7 +316,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!--Card Current Remaining Work modal-->
 	<div class="modal fade" id="cardModal" role="dialog">
         <div class="modal-dialog modal-sm">
@@ -304,17 +331,19 @@
 					<div class="form-group">
 						<label for="crw">Current remaining work:</label>
 						<input type="number" class="form-control" id="crw_card_input">
+						<label for="crw">Current effort:</label>
+						<input type="number" class="form-control" id="effort_card_input">
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-success" data-dismiss="modal" onclick="setCRW()">Save</button>
+					<button type="submit" class="btn btn-success" data-dismiss="modal" onclick="setCRWAndEffort()">Save</button>
 				</div>
 				</form>
 			</div>
         </div>
     </div>
-	  
+
 	    <!-- BURNDOWN Modal -->
       <div class="modal fade" id="BurndownModal" role="dialog">
         <div class="modal-dialog">
@@ -326,7 +355,11 @@
               <h4 class="modal-title">Burndown Chart</h4>
             </div>
             <div class="modal-body">
-              <img id="myImg" src="img/BURNDOWNSAMPLE.png" width="400" height="200">
+			<select class="form-control" id="team_select" >
+				<option value="1">Team 1</option>
+				<option value="2">Team 2</option>
+			</select>
+			  <canvas id="BurndownChart" width="400" height="400"></canvas>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -347,7 +380,7 @@
               <h4 class="modal-title">Speed Chart</h4>
             </div>
             <div class="modal-body">
-              <img id="myImg" src="img/SPEEDSAMPLE.png" width="400" height="200">
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -359,11 +392,25 @@
 
 
     <!-- Scripts -->
+      <script src="js/gherkin.js"></script>
     <script src="js/menu-toggle.js"></script>
     <script src="js/script.js"></script>
     <script src="js/sprint.js"></script>
 	<script type="text/javascript" src="js/dbScripts.js"></script>
 	<script type="text/javascript" src="js/indexScripts.js"></script>
+	<script type="text/javascript" src="js/burndownChart.js"></script>
+  <!--PROGESS BAR CHECKLIST-->
+  <script>
+      $('input').on('click',function() {
+      var emptyValue = 0;
+      $('input:checked').each(function() {
+          emptyValue += parseInt($(this).val());
+      });
+      $('.progress-bar').css('width', emptyValue + '%').attr('aria-valuenow', emptyValue);
+      });
+    </script>
+
+<!--DRAGGABLE CARDS FUNCTION-->
     <script type="text/javascript">
 		$('document').ready(init);
 
@@ -386,9 +433,14 @@
 		$('.modal').on('shown.bs.modal', function () {
 			$(this).find('input:visible:first').focus();
 		})
-		
-		sessionStorage.currentTasks = 6;
-		sessionStorage.currentTaskID = 1423;
+
+		sessionStorage.currentChart = null;
+		sessionStorage.currentUserId = 5;    	// ESTO DEBE BORRARSE YA QUE EL LOGIN REGISTRE APROPIADAMENTE EL USER ID DEL QUE INICIO SESION
+		sessionStorage.currentProjectId = 1; 	// ESTO TAMBIEN
+		sessionStorage.currentSprintId = 1;		// Y ESTO
+		sessionStorage.currentTeamId = 1;
+		getTaskFromSprint(sessionStorage.currentSprintId);
+		console.log('Selected sprint:', sessionStorage.currentSprintId);
 	</script>
 
 </body>

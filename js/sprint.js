@@ -1,6 +1,6 @@
 //get sprint
-$.get('http://localhost/agiltrello/api/getsprint', function (data) {
-  console.log(data);
+$.get('http://trelloagilprueba.esy.es/agiltrello/api/getsprint', function (data) {
+
   var html_code = '<option value="id">sprint</option>';
   $.each(data, function (i, sprint) {
     var current_html = html_code;
@@ -8,34 +8,42 @@ $.get('http://localhost/agiltrello/api/getsprint', function (data) {
     current_html = current_html.replace("sprint", sprint['name']);
     $('#sprint_select').append(current_html);
     var default_val=$('#sprint_select').val();
-   
+
   });
 });
 //get sprint with stories
-$(document).ready(function () {
+/*$(document).ready(function () {
     $("#sprint_select").change(function () {
-      var id_sprint = $("#sprint_select").val();
-      $.get('http://localhost/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
-      
-        $.each(data, function (i, subject) {
-        console.log(data);
+       var id_sprint = $("#sprint_select").val();
+	  clearTasks();
+      $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
+        $.each(data, function (i, current) {
+          console.log(data);
+          var html= createKanbanCardHtml(current['Id'], current['title'], current['deadline'],current['description'],current['duration'],current['owner']);
+          var colHtml = getColumn(current['column_state']);
+      	 	 appendHtmlAfterHtml(html, colHtml);
+      	 	 makeCardDraggable(current['Id']);
         });
-        
       });
-    
+    });
   });
+*/
+function getTaskFromSprint(id_sprint){
+  $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
+    $.each(data, function (i, current) {
+      //console.log(data);
+      if(current['column_state']=="backlog"){
+        var html= createKanbanCardHtmlBacklog(current['id'], current['title'],current['description'],current['deadline'],current['duration']);
+        var colHtml = getColumn(current['column_state']);
+         appendHtmlAfterHtml(html, colHtml);
+         makeCardDraggable(current['id']);
+      }else{
+        var html= createKanbanCardHtml(current['id'], current['title'], current['deadline'],current['description'],current['duration'],current['owner']);
+        var colHtml = getColumn(current['column_state']);
+         appendHtmlAfterHtml(html, colHtml);
+         makeCardDraggable(current['id']);
+      }
+    });
   });
 
-//get user_story
-$.get('http://localhost/agiltrello/api/getcard', function (data) {
-  var html_code='<a href="#" class="list-group-item" id="id_card">name</a>';
-
-
-  $.each(data, function (i, card) {
-    var current_html = html_code;
-    current_html = current_html.replace("id_card", card['id']);
-    current_html = current_html.replace("name", card['title']);
-
-    $('#list_cards').append(current_html);
-  });
-});
+}
