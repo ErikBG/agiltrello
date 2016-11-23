@@ -37,7 +37,7 @@
          <li> <select class="form-control" id="sprint_select" >  </select></li>
 				<li><a href="#" data-toggle="modal" data-target="#newSprintModal" onclick="assignTasksForNewSprint()">New Sprint</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#BurndownModal" onclick="loadBurndownChart()">Burndown</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#SpeedModal">Speed</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#SpeedModal" onclick="loadSpeedChart()">Speed</a></li>
 
 			  </ul>
 
@@ -385,10 +385,10 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Speed Chart</h4>
+              <h4 class="modal-title speedChartTitle">Speed Chart</h4>
             </div>
             <div class="modal-body">
-
+                <canvas id="speedChart" width="1000" height="1000"></canvas>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -407,6 +407,7 @@
 	<script type="text/javascript" src="js/dbScripts.js"></script>
 	<script type="text/javascript" src="js/indexScripts.js"></script>
 	<script type="text/javascript" src="js/burndownChart.js"></script>
+	<script type="text/javascript" src="js/speedChart.js"></script>
   <!--PROGESS BAR CHECKLIST-->
   <script>
       $('input').on('click',function() {

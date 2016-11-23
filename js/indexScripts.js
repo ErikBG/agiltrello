@@ -334,6 +334,24 @@ function loadBurndownChart () {
 	burndownChart = new BurndownChart(sessionStorage.currentSprintId, sessionStorage.currentTeamId);
 }
 
+var actualSpeedChart;
+var speedChart;
+
+function loadSpeedChart () {
+	if (actualSpeedChart != null) {
+		console.log('Destroying previous speed chart');
+		speedChart.destroyChart();
+        alert("Previous speed chart destroyed.")
+	}
+    var id_sprint = $("#sprint_select").val();
+	speedChart = new SpeedChart(id_sprint);
+}
+
+function getActualSpeedChart () {
+	actualSpeedChart = speedChart.getChart();
+	//console.log('Burndown chart loaded: '+actualBurndownChart);
+}
+
 function getActualBurndownChart () {
 	actualBurndownChart = burndownChart.getChart();
 	//console.log('Burndown chart loaded: '+actualBurndownChart);
