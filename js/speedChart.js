@@ -46,39 +46,6 @@ SpeedChart.prototype.getDurationFromSprint = function (){
 }
 
 
-/*function getDurationFromSprint(id_sprint){
-  $.get('http://trelloagilprueba.esy.es/agiltrello/api/getdetailsprint', {id_sprint}, function (data) {
-    
-    $.each(data, function (i, current) {
-      //console.log(data);
-        
-      if(current['column_state']=="backlog"){
-        //Do Nothing
-      }else{
-          
-          console.log("Current duration: "+current['duration']);
-          parseInt(current['duration']);
-          var colHtml = getColumn(current['column_state']);
-          if(colHtml=="inprogress" || colHtml=="ready") {
-              console.log("Card in inprogress or ready.");
-              totalDuration = totalDuration + parseInt(current['duration']);;
-              console.log("Total duration: "+totalDuration);
-          }else{
-              totalDuration = totalDuration + parseInt(current['duration']);;
-              totalCompleted = totalCompleted + parseInt(current['duration']);;
-              console.log("Card in finished.");
-              console.log("Total Completed: "+totalCompleted);
-          }
-        
-      }
-    });
-      console.log("TotalDuration: "+totalDuration);
-      console.log("TotalCompleted: "+totalCompleted);
-      createSpeedChart(); 
-  });
-
-}*/
-
 function createSpeedChart (totalDuration,totalCompleted) {
     var ctx = document.getElementById("speedChart");
     var myChart = new Chart(ctx, {
@@ -86,7 +53,7 @@ function createSpeedChart (totalDuration,totalCompleted) {
         data: {
             labels: ["Total","Completado"],
             datasets: [{
-                label: 'Trabajo Completado',
+                label: 'Horas de trabajo',
                 data: [totalDuration, totalCompleted],
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)',
