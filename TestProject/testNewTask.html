@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Test Signup</title>
+
+  <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.0.1.css">
+  <script src="https://code.jquery.com/qunit/qunit-2.0.1.js"></script>
+<script src="js/validation.js"></script>
+
+  <script>
+  QUnit.test("ValidateSignUp", function( assert ) {
+     var name="John",lastname="Wick",email="john.wick@hotmail.com",password="pass12345",confirm="pass12345";
+
+    assert.equal(ValidateSignUp(name,lastname,email,password,confirm), "The data passed the test");
+    assert.equal(ValidateSignUp(3455,lastname,email,password,confirm), "The data didn't pass the test");
+    assert.equal(ValidateSignUp(name,2345,email,password,confirm), "The data didn't pass the test");
+    assert.equal(ValidateSignUp(name,lastname,324235,password,confirm), "The data didn't pass the test");
+    assert.equal(ValidateSignUp(name,lastname,email,"1235",confirm), "The data didn't pass the test");
+    assert.equal(ValidateSignUp(name,lastname,email,password,"Pass12345"), "The data didn't pass the test");
+  });
+
+  // Nose porque no importa el archivo validation.js, ahi tambien esta este metodo 
+  function ValidateSignUp (name,lastname,email,password,confirm){
+    var test_name = false, test_lastname = false,test_email=false,test_password=false,test_confirm=false;
+      var regName = /^([a-z ñáéíóú]{2,18})$/i;
+      var regEmail = ^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$;
+    if(regName.test(name)){
+      test_name=true;
+    }
+    if(regName.test(lastname)){
+      test_lastname=true;
+    }
+    if(regEmail.test(email)){
+      test_email=true;
+    }
+    if(password.length > 7){
+      test_password=true;
+    }
+    if(confirm == password){
+      test_confirm = true;
+    }
+    if(test_name==true && test_lastname==true && test_email==true && test_password==true && test_confirm == true){
+        return  "The data passed the test";
+    }else{
+      return "The data didn't pass the test";
+    }
+
+  }
+
+  </script>
+</head>
+<body>
+
+<div id="qunit"></div>
+
+</body>
+</html>

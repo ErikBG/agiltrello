@@ -4,7 +4,7 @@
   <title>Desarrollo Agil: Log in</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
- 
+
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -36,12 +36,12 @@
 		  			</a>
 		  		</li>
 		  </ul>
-		  
-		  
+
+
 		</div>
 	  </div>
 	</nav>
-    
+
 	<footer class="container-fluid text-center footer">
 	  <p>This website was created by Desarrollo Agil Team.</p>
 	</footer>
@@ -81,7 +81,7 @@
 				<!--ESTO ES PLACEHOLDER, EL LINK NO VA A SERVIR SI NO SE CAMBIA LA DIRECCION-->
 				<button type="submit" class="btn btn-success" data-dismiss="modal" onclick="logIn(document.getElementById('email').value, document.getElementById('pwd').value)">Log in</button>
 				<!-- TERMINA EL PLACEHOLDER-->
-				
+
 			  </div>
 		  </form>
 
@@ -109,21 +109,21 @@
                   <span class="error" id="empty_name">Required Field</span>
 				  </div>
 				  <div class="form-group">
-				
+
 					<label for="lastname_signup">Lastname:</label>
 					<input type="text" class="form-control" id="lastname_signup" placeholder="Lastname">
 					  <span class="error" id="error_lastname">Invalid Lastname</span>
                   <span class="error" id="empty_lastname">Required Field</span>
 				  </div>
 				    <div class="form-group">
-				    
+
 					<label for="email_signup">Email:</label>
 					<input type="email" class="form-control" id="email_signup" placeholder="Email">
 					<span class="error" id="error_email">Invalid email</span>
                     <span class="error" id="empty_email">Required Field</span>
 				  </div>
 				    <div class="form-group">
-				   
+
 					<label for="password_signup">Password:</label>
 					<input type="password" class="form-control" id="password_signup" placeholder="Password">
 					 <span class="error" id="error_password">Invalid password</span>
@@ -135,7 +135,7 @@
 					<span class="error" id="error_password2">Passwords dont match</span>
           			 <span class="error" id="empty_password2">Required Field</span>
 				  </div>
-				 
+
 	  		  </div>
 			  <div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
@@ -147,11 +147,11 @@
 	</div>
 	</div>
 	</div>
-    
+
 	<script>
 
 	  function add_user() {
-	  	
+
       if(name_signup_valid!=false && lastname_signup_valid!=false && email_signup_valid !=false && password_signup_valid!=false && password2_signup_valid!=false){
        var formData = {
             "name": $('#name_signup').val(),
@@ -160,7 +160,7 @@
             "email": $('#email_signup').val()
 
           };
-       
+
        $.ajax({
             url: "http://trelloagilprueba.esy.es/agiltrello/api/newuser",
             type: 'POST',
@@ -196,7 +196,7 @@
       }).done(function (data) {
         console.log(data);
 		window.location.href="index.html";
-		
+
 		//sessionStorage.currentUserId = AQUI VA EL USER ID DEL USUARIO;
 		//sessionStorage.currentProjectId = AQUI VA EL PROJECT ID DEL PROYECTO EN EL QUE ESTA EL USUARIO;
       }).fail(function (data) {
@@ -207,24 +207,24 @@
     console.log("Campos requeridos");
     }
   }
-  
+
   $('.modal').on('shown.bs.modal', function () {
 	$(this).find('input:visible:first').focus();
   })
   //FUNCION LOGIN USANDO BASE DE DATOS
   function logIn(username_input,password_input) {
-    
+
     $.get('http://trelloagilprueba.esy.es/agiltrello/api/getUsers', function (data){
         var flag = false;
         $.each(data, function(i, users){
             if((username_input == users['user_email'])&& (password_input == users['user_password'])) {
                 //alert("Login Successfully");
-                flag=true; 
+                flag=true;
             }else{
                 /*alert("UsernameInput: "+username_input+" DBUsername: "+users['user_email']);*/
-                
+
             }
-            
+
         });
         if(flag){
                 console.log(data);
@@ -234,10 +234,9 @@
             }
     });
 }
-  
-  
+
+
   </script>
-    
+
 </body>
 </html>
-
