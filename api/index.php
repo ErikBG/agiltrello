@@ -32,6 +32,11 @@ $app->post('/modifyTask(/)', function() {
     $result = modifyTask();
     echo $result;
 });
+$app->post('/saveStatusTask(/)', function() {
+    require 'projects/agil/post_function.php';
+    $result = saveStatusTask();
+    echo $result;
+});
 $app->post('/updateUserToProject(/)', function() {
     require 'projects/agil/post_function.php';
     $result = updateUserToProject();

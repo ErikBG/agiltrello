@@ -99,6 +99,30 @@ try {
   return json_encode($response);
 }
 
+function saveStatusTask() {
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sql = "
+  UPDATE task
+  SET column_state= :change_column
+  WHERE Id= :id_task;
+  ";
+try {
+  $db = getConnection();
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("id_task", $payload->task_id);
+  $stmt->bindParam("change_column", $payload->column_state);
+  $stmt->execute();
+  $response = array(
+    "success" => "ok");
+  } catch (PDOException $e) {
+    $response = array(
+      "error" => $e->getmessage()
+    );
+  }
+  return json_encode($response);
+}
+
 function setTaskDuration() {
   $request = \Slim\Slim::getInstance()->request();
   $payload = json_decode($request->getBody());

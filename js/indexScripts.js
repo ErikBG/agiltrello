@@ -74,7 +74,7 @@ function loadProjectUserConfig() {
 				$("#team_id_input").val(user_project['team_id']);
 				sessionStorage.currentTeamId = user_project['team_id'];
 				$("#capacity_input").val(user_project['capacity']);
-				
+
 				if (user_project['monday'] == 1) $("#monday_input").prop('checked', true);
 				if (user_project['tuesday'] == 1) $("#tuesday_input").prop('checked', true);
 				if (user_project['wednesday'] == 1) $("#wednesday_input").prop('checked', true);
@@ -93,7 +93,7 @@ function addProjectUserConfig() {
 	var projectId = sessionStorage.currentProjectId;
 	sprintId = sessionStorage.currentSprintId;
 	var monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-	
+
 	var teamId = $("#team_id_input").val();
 	var capacity = $("#capacity_input").val();
 	if($('#monday_input').is(':checked')) {monday = 1;} else {monday = 0;}
@@ -195,11 +195,15 @@ function dragEnd(event) {
         //alert("Tarjeta ID: "+event.target.id);
     }
 
+    if(sessionStorage.getItem("nameColumn")== "finished"){
 
+        sessionStorage.setItem("recentTaskMoved",event.target.id);
+        var currentCard = document.getElementById(event.target.id);
+          var id_current_sprint = $("#sprint_select").val();
+        saveStatusTask(sessionStorage.getItem("recentTaskMoved"),id_current_sprint);
+        
 
-
-    console.log("Finished dragging.");
-
+    }
 }
 
 function saveTaskDuration(){
@@ -224,7 +228,7 @@ document.addEventListener("dragenter", function(event) {
       console.log("Drag over inprogress");
       break;
       case "finished":
-      whichColumn ="finished`"
+      whichColumn ="finished"
       sessionStorage.setItem("nameColumn",whichColumn);
       console.log("Drag over finished");
       break;
@@ -273,10 +277,10 @@ function createKanbanCardHtml(id, title, date, desc, crw, owner) {//recibe toda 
 function createKanbanCardHtmlBacklog(id, title,desc,date,duration) {
 	var html =
 	"<div id='"+id+"' class='card js--item"+id+"' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'>"+
-	"<div class='cardTitle'>"+
+	"<div class='cardBacklogTitle'>"+
 	"    <label>"+title+"</label>"+
 	"</div>"+
-	"    <div class='card-content'>"+
+	"    <div class='cardBacklog-content'>"+
 	"        <p id='deadline-label'><strong>Deadline:</strong> "+date+"</p>"+
 	"        <p><strong>Description:</strong> "+desc+"</p>"+
 	"        <p><strong>Duration:</strong> "+duration+"</p>"+
