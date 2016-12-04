@@ -15,7 +15,11 @@ $app->get('/getpendingtasks(/)', function() {
     $result = getpendingtasks();
     echo $result;
 });
-
+$app->post('/saveNewSprint(/)', function() {
+    require 'projects/agil/post_function.php';
+    $result = saveNewSprint();
+    echo $result;
+});
 
 $app->post('/newuser(/)', function() {
     require 'projects/agil/post_function.php';

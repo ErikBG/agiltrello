@@ -235,7 +235,29 @@ function updateUserSprintConfig(userId, projectId, sprintId, teamId) {
 		console.log(data);
 	});
 }
-
+function saveNewSprint(name,end_date,checkboxTask,start_date){
+	var formData = {
+		"name": name,
+		"date": end_date,
+		"currentdate": start_date,
+		"array": checkboxTask.join(),
+		"project_id": 1
+	};
+	console.log(formData);
+	$.ajax({
+		url: "http://trelloagilprueba.esy.es/agiltrello/api/saveNewSprint",
+		type: 'POST',
+		data: JSON.stringify(formData),
+		dataType: 'json',
+		encode: true
+	}).done(function (data) {
+		console.log(data);
+		location.reload();
+		console.log("Guardado correctamente");
+	}).fail(function (data) {
+		console.log(data);
+	});
+}
 function updateCRWAndEffort(taskId, crw, effort) {
 	var formData = {
 		"task_id": taskId,
@@ -392,7 +414,7 @@ function assignTasksForNewSprint(){
 	});
 	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getpendingtasks', function (data) {
 		console.log(data);
-		var html_code = ("<tr class='td_format'>"+"<td>"+"id"+"</td>"+"<td>"+"title"+"</td>"+"<td>"+"duration"+"</td>"+"<td>"+"<input type='checkbox' value='id_task'>"+"</td>"+"</tr>");
+		var html_code = ("<tr class='td_format'>"+"<td>"+"id"+"</td>"+"<td>"+"title"+"</td>"+"<td>"+"duration"+"</td>"+"<td>"+"<input type='checkbox' name='checkboxArray' value='id_task'>"+"</td>"+"</tr>");
 		$.each(data,function(current,task) {
 			if(current=="Error"){
 				alert("Error al recuperar los datos");

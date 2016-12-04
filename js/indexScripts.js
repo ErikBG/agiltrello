@@ -51,6 +51,28 @@ function setSelectedID(id) {
 	loadCRWAndEffort(id);
 }
 
+function createNewSprint(){
+// console.log("createNewSprint");
+var checkboxTask = [];
+  $("input:checkbox[name='checkboxArray']:checked").each(function(){
+      checkboxTask.push($(this).val());
+  });
+  var name=$("#name_new_sprint").val();
+  var end_date = $("#finish_date_sprint").val();
+  var date = new Date();
+
+  var month = date.getMonth();
+  var day = date.getDate();
+
+  var start_date = date.getFullYear() + '-' +
+      (month<10 ? '0' : '') + month + '-' +
+      (day<10 ? '0' : '') + day;
+
+  saveNewSprint(name,end_date,checkboxTask,start_date);
+
+// console.log(name,end_date,checkboxTask,start_date);
+}
+
 function loadCRWAndEffort(taskId) {
 	$.get('http://trelloagilprueba.esy.es/agiltrello/api/getCRWAndEffort', {taskId}, function (data) {
 		console.log(data);
@@ -201,7 +223,7 @@ function dragEnd(event) {
         var currentCard = document.getElementById(event.target.id);
           var id_current_sprint = $("#sprint_select").val();
         saveStatusTask(sessionStorage.getItem("recentTaskMoved"),id_current_sprint);
-        
+
 
     }
 }

@@ -374,4 +374,51 @@ try {
   }
   return json_encode($response);
 }
+
+function saveNewSprint(){
+  $request = \Slim\Slim::getInstance()->request();
+  $payload = json_decode($request->getBody());
+  $sql = "
+  INSERT INTO sprint (
+  name,
+  start_date,
+  end_date,
+  project_id
+  )VALUES (
+  :name_sprint,
+  :start_date,
+  :end_date,
+  :project_id
+);";
+$query_update_task_sprint = "
+UPDATE task SET
+sprint_id = :lastSprint
+WHERE id = :currentTask
+";
+try {
+  $db = getConnection();
+  $db->beginTransaction();
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam("name_sprint", $payload->name);
+  $stmt->bindParam("start_date", $payload->currentdate);
+  $stmt->bindParam("end_date", $payload->date);
+  $stmt->bindParam("project_id", $payload->project_id);
+  $stmt->execute();
+  $lastSprintId = $db->lastInsertId();
+  $id_tasks = explode(",",  $payload->array);
+  foreach ($id_tasks as $current ) {
+    $stmt = $db->prepare($query_update_task_sprint);
+    $stmt->bindParam("lastSprint", $lastSprintId);
+    $stmt->bindParam("currentTask",$current);
+    $stmt->execute();
+  }
+    $db->commit();
+  $response = array("status" => TRUE,"array" => $payload->array);
+
+} catch (Exception $e) {
+  $db->rollBack();
+  $response=array("Failed: " => $e->getMessage());
+}
+  return json_encode($response);
+}
 ?>
