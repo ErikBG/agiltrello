@@ -382,6 +382,3 @@ function getActualBurndownChart () {
 	actualBurndownChart = burndownChart.getChart();
 	//console.log('Burndown chart loaded: '+actualBurndownChart);
 }
-
-
-}

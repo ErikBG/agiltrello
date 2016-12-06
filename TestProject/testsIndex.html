@@ -14,8 +14,8 @@
 	<script src="../js/indexScripts.js"></script>
 	<script>
 		QUnit.test("HTML String Generation", function( assert ) {
-			var id = 1000, date = "2016-10-12", desc = "Test this", crw = 6, owner = "Roger";
-			var theString = createKanbanCardHtml(id, date, desc, crw, owner);
+			var id = 1000, title = "task", date = "2016-10-12", desc = "Test this", crw = 6, owner = "Roger";
+			var theString = createKanbanCardHtml(id, title, date, desc, crw, owner);
 			var html = $.parseHTML(theString), nodeNames = [];
 			
 			$.each( html, function( i, el ) {
@@ -23,24 +23,22 @@
 			});
 			
 			var expected = 
-				"<div id='item1000' draggable='true'>"+
-				"<div class='cardTitle js--item1000'>"+
-				"    <label>ID: #1000</label>"+
+				"<div id='1000' class='card js--item1000' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'>"+
+				"<div class='cardTitle'>"+
+				"    <label>task</label>"+
 				"		<button id='configBtn1000' class='configBtn' data-toggle='modal' data-target='#cardModal' onclick='setSelectedID(1000)'>"+
 				"			<span class='glyphicon glyphicon-time'></span>"+
 				"		</button>"+
 				"        <button id='blockBtn1000' class='blockBtn' OnClick='blockCard(1000);' >B</button>"+
 				"</div>"+
-				"<div class='card horizontal'>"+
 				"    <div class='card-content'>"+
-				"        <p><strong>Deadline:</strong> 2016-10-12</p>"+
+				"        <p id='deadline-label'><strong>Deadline:</strong> 2016-10-12</p>"+
 				"        <p><strong>Description:</strong> Test this</p>"+
 				"        <p><strong>Duration:</strong> 6</p>"+
 				"    </div>"+
 				"    <div class='card-footer'>"+
 				"			<p>Roger</p>"+
 				"		</div>"+
-				"	</div>"+
 				"</div>";
 			
 			assert.equal(theString, expected, "Expected html string returned");
