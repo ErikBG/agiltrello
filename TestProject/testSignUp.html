@@ -20,11 +20,11 @@
     assert.equal(ValidateSignUp(name,lastname,email,password,"Pass12345"), "The data didn't pass the test");
   });
 
-  // Nose porque no importa el archivo validation.js, ahi tambien esta este metodo 
+  // Nose porque no importa el archivo validation.js, ahi tambien esta este metodo
   function ValidateSignUp (name,lastname,email,password,confirm){
     var test_name = false, test_lastname = false,test_email=false,test_password=false,test_confirm=false;
       var regName = /^([a-z ñáéíóú]{2,18})$/i;
-      var regEmail = ^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$;
+      var regEmail = /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/;
     if(regName.test(name)){
       test_name=true;
     }
