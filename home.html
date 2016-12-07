@@ -79,7 +79,7 @@
 			  <div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
 				<!--ESTO ES PLACEHOLDER, EL LINK NO VA A SERVIR SI NO SE CAMBIA LA DIRECCION-->
-				<button type="submit" class="btn btn-success" data-dismiss="modal" onclick="log_in()">Log in</button>
+				<button type="submit" class="btn btn-success" data-dismiss="modal" onclick="logIn(document.getElementById('email').value, document.getElementById('pwd').value)">Log in</button>
 				<!-- TERMINA EL PLACEHOLDER-->
 				
 			  </div>
@@ -91,7 +91,7 @@
 	</div>
 
 	<div id="signupModal" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-sm">
+		<div class="signup-box modal-dialog modal-sm">
 
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -147,6 +147,7 @@
 	</div>
 	</div>
 	</div>
+    
 	<script>
 
 	  function add_user() {
@@ -161,14 +162,14 @@
           };
        
        $.ajax({
-            // url: "agiltrello/api/newuser",
+            url: "http://trelloagilprueba.esy.es/agiltrello/api/newuser",
             type: 'POST',
             data: JSON.stringify(formData),
             dataType: 'json',
             encode: true
         }).done(function (data) {
         	console.log(data);
-        window.location.href="index.html";
+			window.location.href="index.html";
         }).fail(function (data) {
             console.log(data);
         });
@@ -184,18 +185,20 @@
      var formData = {
           "password": $("#pwd").val(),
           "email": $('#email').val()
-
         };
       console.log(formData);
      $.ajax({
-          // url: "agiltrello/api/getuser",
+          url: "http://trelloagilprueba.esy.es/agiltrello/api/getuser",
           type: 'POST',
           data: JSON.stringify(formData),
           dataType: 'json',
           encode: true
       }).done(function (data) {
         console.log(data);
-      window.location.href="index.html";
+		window.location.href="index.html";
+		
+		//sessionStorage.currentUserId = AQUI VA EL USER ID DEL USUARIO;
+		//sessionStorage.currentProjectId = AQUI VA EL PROJECT ID DEL PROYECTO EN EL QUE ESTA EL USUARIO;
       }).fail(function (data) {
           console.log(data);
       });
@@ -204,10 +207,37 @@
     console.log("Campos requeridos");
     }
   }
-
-
+  
+  $('.modal').on('shown.bs.modal', function () {
+	$(this).find('input:visible:first').focus();
+  })
+  //FUNCION LOGIN USANDO BASE DE DATOS
+  function logIn(username_input,password_input) {
+    
+    $.get('http://trelloagilprueba.esy.es/agiltrello/api/getUsers', function (data){
+        var flag = false;
+        $.each(data, function(i, users){
+            if((username_input == users['user_email'])&& (password_input == users['user_password'])) {
+                //alert("Login Successfully");
+                flag=true; 
+            }else{
+                /*alert("UsernameInput: "+username_input+" DBUsername: "+users['user_email']);*/
+                
+            }
+            
+        });
+        if(flag){
+                console.log(data);
+		        window.location.href="index.html";
+            }else{
+                alert("Username/Password Incorrect");
+            }
+    });
+}
+  
+  
   </script>
-
+    
 </body>
 </html>
 

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>QUnit Tests Index</title>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.0.1.css">
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+	<script src="https://code.jquery.com/qunit/qunit-2.0.1.js"></script>
+	<script src="../js/indexScripts.js"></script>
+	<script>
+		QUnit.test("HTML String Generation", function( assert ) {
+			var id = 1000, date = "2016-10-12", desc = "Test this", crw = 6, owner = "Roger";
+			var theString = createKanbanCardHtml(id, date, desc, crw, owner);
+			var html = $.parseHTML(theString), nodeNames = [];
+			
+			$.each( html, function( i, el ) {
+				nodeNames[i] = el.nodeName;
+			});
+			
+			var expected = 
+				"<div id='item1000' draggable='true'>"+
+				"<div class='cardTitle js--item1000'>"+
+				"    <label>ID: #1000</label>"+
+				"		<button id='configBtn1000' class='configBtn' data-toggle='modal' data-target='#cardModal' onclick='setSelectedID(1000)'>"+
+				"			<span class='glyphicon glyphicon-time'></span>"+
+				"		</button>"+
+				"        <button id='blockBtn1000' class='blockBtn' OnClick='blockCard(1000);' >B</button>"+
+				"</div>"+
+				"<div class='card horizontal'>"+
+				"    <div class='card-content'>"+
+				"        <p><strong>Deadline:</strong> 2016-10-12</p>"+
+				"        <p><strong>Description:</strong> Test this</p>"+
+				"        <p><strong>Duration:</strong> 6</p>"+
+				"    </div>"+
+				"    <div class='card-footer'>"+
+				"			<p>Roger</p>"+
+				"		</div>"+
+				"	</div>"+
+				"</div>";
+			
+			assert.equal(theString, expected, "Expected html string returned");
+			assert.equal(nodeNames[0], "DIV", "First tag recognized as div tag");
+		});
+	</script>
+</body>
+</html>
