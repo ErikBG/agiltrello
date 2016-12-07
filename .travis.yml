@@ -1,0 +1,17 @@
+language: node_js
+
+node_js:
+  - 0.6
+  
+branches:
+ only:
+  - master
+ script:
+ -js/tests.js
+-deployment/deploy HTML.ps1
+-deployment/deploy Javascript.ps1
+-deployment/deploy PHP.ps1
+-deployment/deploy Testing.ps1
+
+
+  
