@@ -1,0 +1,25 @@
+# Connect
+option echo off 
+option batch on 
+option confirm off 
+open ftp://u368147453.deploy:qwerty123456@31.170.164.80
+
+# Change local directory
+lcd "C:\Users\Diego\Documents\GitHub\agiltrello\js"
+
+# Change remote directory
+cd /agiltrello/js
+
+# Force binary mode transfer
+option transfer binary
+
+# Upload the file to current working directory
+put blanket.js
+put tests.js
+put testsIndex.html
+
+# Disconnect
+close
+
+# Exit WinSCP
+exit
