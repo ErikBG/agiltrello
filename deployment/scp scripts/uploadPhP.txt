@@ -1,0 +1,29 @@
+# Connect
+option echo off 
+option batch on 
+option confirm off 
+open ftp://u368147453.deploy:qwerty123456@31.170.164.80
+
+# Force binary mode transfer
+option transfer binary
+
+lcd "C:\Users\Diego\Documents\GitHub\agiltrello\deployment\backup"
+
+cd /agiltrello/api
+get index.php
+
+lcd "C:\Users\Diego\Documents\GitHub\agiltrello\api"
+put index.php
+
+lcd "C:\Users\Diego\Documents\GitHub\agiltrello\deployment\backup"
+cd /agiltrello/api/projects/agil
+get *.php
+
+lcd "C:\Users\Diego\Documents\GitHub\agiltrello\api\projects\agil"
+put *.php
+
+# Disconnect
+close
+
+# Exit WinSCP
+exit

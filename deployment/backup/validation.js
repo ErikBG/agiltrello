@@ -6,35 +6,7 @@ var  password2_signup_valid=false;
 var email_login_valid = false;
 var password_login = false;
 
-
-
 ////////////////////////Sign up
-function ValidateSignUp (name,lastname,email,password,confirm){
-  var test_name = false, test_lastname = false,test_email=false,test_password=false,test_confirm=false;
-    var regName = /^([a-z ñáéíóú]{2,18})$/i;
-    var regEmail = ^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$;
-  if(regName.test(name)){
-    test_name=true;
-  }
-  if(regName.test(lastname)){
-    test_lastname=true;
-  }
-  if(regEmail.test(email)){
-    test_email=true;
-  }
-  if(password.length > 7){
-    test_password=true;
-  }
-  if(confirm == password){
-    test_confirm = true;
-  }
-  if(test_name==true && test_lastname==true && test_email==true && test_password==true && test_confirm == true){
-      return  "The data passed the test";
-  }else{
-    return "The data didn't pass the test";
-  }
-
-}
 $(document).ready(function () {
       $("#name_signup").focusout(function () {
       var name = $("#name_signup").val();
@@ -84,7 +56,7 @@ $(document).ready(function () {
           var i=false;
           var a=0;
          if(reg.test(email)) {
-
+         
             $("#error_email").hide();
            $("#empty_email").hide();
            email_signup_valid=true;
@@ -179,3 +151,5 @@ $(document).ready(function () {
           }
       });
     });
+
+
