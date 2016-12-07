@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Desarrollo Agil</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/queries.css">
+  <!-- Simple Sidebar CSS -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.js"></script>
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#menu-toggle" class="navbar-brand" id="menu-toggle">
+          <span class="glyphicon glyphicon-menu-hamburger"></span> Erik Blanco
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" data-toggle="modal" data-target="#ProjectUserConfigModal" onclick="loadProjectUserConfig()"><span class="glyphicon glyphicon-cog"></span> User</a></li>
+          <li><a href="home.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right actionButton">
+          <li> <select class="form-control" id="sprint_select" >  </select></li>
+          <li><a href="#" data-toggle="modal" data-target="#newSprintModal" onclick="assignTasksForNewSprint()">New Sprint</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#BurndownModal" onclick="loadBurndownChart()">Burndown</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#SpeedModal" onclick="loadSpeedChart()">Speed</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+  <div id="wrapper" class="toggled">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <p>Backlog</p>
+        </li>
+        <li>
+          <div class="btn-group" >
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              <span class="glyphicon glyphicon-plus"></span> New <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#" data-toggle="modal" data-target="#newUserStoryModal">User Story</a></li>
+                <li><a href="#">Requirement</a></li>
+                <li><a href="#">Bug</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#newTaskModal">Task</a><li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="container-fluid text-center backlogCol">
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!--BOARD-->
+
+
+        <div id="ready" class="readyCol col-sm-4 iColumn ">
+          <div class="title">Ready</div>
+        </div>
+
+        <div id="inprogress" class="inProgressCol col-sm-4 iColumn" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <div class="title">InProgress</div>
+        </div>
+
+        <div id="finished" class="finishedCol col-sm-4 iColumn" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <div class="title">Finished</div>
+        </div>
+      </div>
+
+
+      <!--BOARD END-->
+      <!--Assign Task to Employee Modal-->
+      <div id="newSprintModal" class="modal fade" role="dialog">
+        <div class="signup-box modal-dialog modal-sm">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">New Sprint</h4>
+            </div>
+
+            <form>
+              <div class="form-group" style="margin: 5px" >
+                <input type="text" class="form-control" id="name_new_sprint" placeholder="Name"/>
+              </div>
+              <div class="form-group" style="margin: 5px">
+                <input type="date" class="form-control" id="finish_date_sprint" placeholder="End Date"/>
+              </div>
+              <table id="table_for_users"  class="table table-hover" >
+                <thread>
+                  <tr>
+                    <th class="title_table">ID</th>
+                    <th class="title_table">Firstname</th>
+                    <th class="title_table">Lastname</th>
+                    <th class="title_table">Total Hours</th>
+                    <th class="title_table"></th>
+                  </tr>
+                  <thread>
+                    <tbody>
+                    </tbody>
+                  </table>
+                  <table id="table_for_tasks"  class="table table-hover" >
+                    <thread>
+                      <tr>
+                        <th class="title_table">ID</th>
+                        <th class="title_table">Title</th>
+                        <th class="title_table">Duration</th>
+                        <th class="title_table">Check</th>
+                        <th class="title_table"></th>
+                      </tr>
+                      <thread>
+                        <tbody>
+                        </tbody>
+                      </table>
+                      <p> <strong>Total Duration: </strong> 0 </p>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="createNewSprint()">Submit</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal Assign Ressource to Task -->
+              <div id="AssignModal" class="modal fade" role="dialog">
+                <div class="assignModal modal-dialog modal-sm">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Assign Employee</h4>
+                    </div>
+                    <form>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label for="employees_select">Employees:</label>
+                          <select class="form-control" id="employees_select" >  </select>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="AssignEmployee()">Submit</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- End Modal -->
+
+              <!-- Modal Assign Duration to Task -->
+              <div id="AssignDurationModal" class="modal fade" role="dialog">
+                <div class="assignDurationModal modal-dialog modal-sm">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Assign Duration</h4>
+                    </div>
+                    <form>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label for="duration_select">Duration:</label>
+                          <input class="form-control" id="duration_select" type="number">  </input>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="saveTaskDuration()">Submit</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- End Modal -->
+
+              <footer class="container-fluid text-center footer">
+                <p>This website was created by Desarrollo Agil Team.</p>
+              </footer>
+
+              <!--Project User Configuration modal-->
+              <div class="modal fade" id="ProjectUserConfigModal" role="dialog">
+                <div class="modal-dialog modal-sm">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Project User Configuration</h4>
+                    </div>
+                    <form>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label for="crw">Team id:</label>
+                          <input type="number" class="form-control" id="team_id_input">
+                          <label for="crw">Total capacity:</label>
+                          <input type="number" class="form-control" id="capacity_input">
+                          <label for="work_days">Work days:</label>
+                          <div class="checkbox" id="work_days">
+                            <div class="checkbox"><label><input type="checkbox" value="" id= "monday_input">Monday</label></div>
+                            <div class="checkbox"><label><input type="checkbox" value="" id= "tuesday_input">Tuesday</label></div>
+                            <div class="checkbox"><label><input type="checkbox" value="" id= "wednesday_input">Wednesday</label></div>
+                            <div class="checkbox"><label><input type="checkbox" value="" id= "thursday_input">Thursday</label></div>
+                            <div class="checkbox"><label><input type="checkbox" value="" id= "friday_input">Friday</label></div>
+                            <div class="checkbox"><label><input type="checkbox" value="" id= "saturday_input">Saturday</label></div>
+                            <div class="checkbox"><label><input type="checkbox" value="" id= "sunday_input">Sunday</label></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" data-dismiss="modal" onclick="addProjectUserConfig()">Save</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <!--New User Story Modal-->
+              <div id="newUserStoryModal" class="modal fade" role="dialog">
+                <div class="signup-box modal-dialog modal-sm">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">New User Story</h4>
+                    </div>
+
+                    <form>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label for="title">Title:</label>
+                          <input type="text" class="form-control" id="title">
+                        </div>
+                        <div class="form-group">
+                          <label for="as">As:</label>
+                          <input type="text" class="form-control" id="as">
+                        </div>
+                        <div class="form-group">
+                          <label for="iwant">I want:</label>
+                          <textarea class="form-control" rows="2" id="iwant" style="resize:none"></textarea>
+                        </div>
+                        <div class="form-group">
+                          <label for="sothat">So that:</label>
+                          <textarea class="form-control" rows="2" id="sothat" style="resize:none"></textarea>
+                        </div>
+                        <div class="form-group" id="gherkin_div">
+                          <label for="criteria">Acceptance criteria:</label>
+                          <textarea class="form-control" rows="4" id="criteria" style="resize:none" placeholder="GIVE text WHEN text THEN text"></textarea>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" >Submit</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <!--New Task Modal-->
+              <div id="newTaskModal" class="modal fade" role="dialog">
+                <div class="signup-box modal-dialog modal-sm">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">New Kanban Card (Task)</h4>
+                    </div>
+
+                    <form>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label for="cardTitle">Title</label>
+                          <input type="text" class="form-control required" id="cardTitle">
+                        </div>
+                        <div class="form-group">
+                          <label for="description">Description:</label>
+                          <textarea class="form-control required" rows="2" id="carddescription" style="resize:none"></textarea>
+                        </div>
+                        <div class="form-group">
+                          <label for="duration">Duration:</label>
+                          <input type="number" class="form-control required" id="cardduration">
+                        </div>
+                        <div class="form-group">
+                          <label for="deadline">Deadline:</label>
+                          <input type="date" class="form-control required" id="carddeadline" placeholder="dd/mm/aaaa">
+                        </div>
+                        <div class="form-group">
+                          <label for="column">Column:</label>
+                          <select name="Columns" class="form-control" id="cardcolumn">
+                            <option value="backlog">Backlog</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="addTask()">Submit</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <!--Card Current Remaining Work modal-->
+              <div class="modal fade" id="cardModal" role="dialog">
+                <div class="modal-dialog modal-sm">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Card modal</h4>
+                    </div>
+                    <form>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label for="crw">Current remaining work:</label>
+                          <input type="number" class="form-control" id="crw_card_input">
+                          <label for="crw">Current effort:</label>
+                          <input type="number" class="form-control" id="effort_card_input">
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" data-dismiss="modal" onclick="setCRWAndEffort()">Save</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <!-- BURNDOWN Modal -->
+              <div class="modal fade" id="BurndownModal" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Burndown Chart</h4>
+                    </div>
+                    <div class="modal-body">
+                      <select class="form-control" id="team_select" >
+                        <option value="1">Team 1</option>
+                        <option value="2">Team 2</option>
+                      </select>
+                      <canvas id="BurndownChart" width="400" height="400"></canvas>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Speed Modal -->
+              <div class="modal fade" id="SpeedModal" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title speedChartTitle">Speed Chart</h4>
+                    </div>
+                    <div class="modal-body">
+                      <canvas id="speedChart" width="1000" height="1000"></canvas>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+              <!-- Scripts -->
+              <script src="js/gherkin.js"></script>
+              <script src="js/menu-toggle.js"></script>
+              <script src="js/script.js"></script>
+              <script src="js/sprint.js"></script>
+              <script type="text/javascript" src="js/dbScripts.js"></script>
+              <script type="text/javascript" src="js/indexScripts.js"></script>
+              <script type="text/javascript" src="js/burndownChart.js"></script>
+              <script type="text/javascript" src="js/speedChart.js"></script>
+              <!--PROGESS BAR CHECKLIST-->
+              <script>
+              $('input').on('click',function() {
+                var emptyValue = 0;
+                $('input:checked').each(function() {
+                  emptyValue += parseInt($(this).val());
+                });
+                $('.progress-bar').css('width', emptyValue + '%').attr('aria-valuenow', emptyValue);
+              });
+              </script>
+
+              <!--DRAGGABLE CARDS FUNCTION-->
+              <script type="text/javascript">
+              $('document').ready(init);
+
+              function init(){
+                $('#item1, #item2, #item3, #item4, #item5, #item6').bind('dragstart', function(event) {
+                  event.originalEvent.dataTransfer.setData("text/plain", event.target.getAttribute('id'));
+                });
+                // bind the dragover event on the board sections
+                $('#ready, #inprogress, #finished').bind('dragover', function(event) {
+                  event.preventDefault();
+                });
+                // bind the drop event on the board sections
+                $('#ready, #inprogress, #finished').bind('drop', function(event) {
+                  var notecard = event.originalEvent.dataTransfer.getData("text/plain");
+                  event.target.appendChild(document.getElementById(notecard));
+                  event.preventDefault();
+                });
+              }
+
+              $('.modal').on('shown.bs.modal', function () {
+                $(this).find('input:visible:first').focus();
+              })
+
+              sessionStorage.currentChart = null;
+              sessionStorage.currentUserId = 5;    	// ESTO DEBE BORRARSE YA QUE EL LOGIN REGISTRE APROPIADAMENTE EL USER ID DEL QUE INICIO SESION
+              sessionStorage.currentProjectId = 1; 	// ESTO TAMBIEN
+              sessionStorage.currentSprintId = 1;		// Y ESTO
+              sessionStorage.currentTeamId = 1;
+              getTaskFromSprint(sessionStorage.currentSprintId);
+              console.log('Selected sprint:', sessionStorage.currentSprintId);
+              </script>
+
+            </body>
+            </html>

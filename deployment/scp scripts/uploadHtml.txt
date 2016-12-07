@@ -1,0 +1,29 @@
+# Connect
+option echo off 
+option batch on 
+option confirm off 
+open ftp://u368147453.deploy:qwerty123456@31.170.164.80
+
+# Change local directory
+lcd "C:\Users\Diego\Documents\GitHub\agiltrello\deployment\backup"
+
+# Change remote directory
+cd /agiltrello
+
+# Force binary mode transfer
+option transfer binary
+
+# Download file to the local directory
+get *.html
+
+# Change local directory
+lcd "C:\Users\Diego\Documents\GitHub\agiltrello"
+
+# Upload the file to current working directory
+put *.html
+
+# Disconnect
+close
+
+# Exit WinSCP
+exit
