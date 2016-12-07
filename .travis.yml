@@ -1,0 +1,11 @@
+language: node_js
+
+node_js:
+  - 6
+
+before_script:
+  - npm cache clean
+  - npm install -g npm
+  - npm install -g grunt-cli
+
+script: grunt test --verbose --force
